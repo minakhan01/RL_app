@@ -1,8 +1,8 @@
 import { combineReducers, Reducer } from "redux";
-// import AdminReducer from "./admin.reducer";
+import TestReducer from "./test.reducer";
 
 const allReducers = {
-  // admin: AdminReducer,
+  test: TestReducer,
 };
 
 const rootReducer = combineReducers({ ...allReducers });
