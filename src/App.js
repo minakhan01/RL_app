@@ -6,6 +6,8 @@ import { store } from "./redux";
 import Main from "./navigation";
 
 import "antd/dist/antd.css";
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 function App() {
   // useEffect(() => {
