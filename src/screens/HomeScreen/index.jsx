@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { testAction } from "../../redux/actions/test.action";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import "./styles.css";
 
@@ -11,12 +14,24 @@ import "./styles.css";
 //client.getAppTotalWithoutAudio().then(console.log)
 //client.getAppTotalWithAudio().then(console.log)
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
   const history = useHistory();
-  return <div>Hello world</div>;
+  useEffect(() => {
+    // props._testAction();
+  }, []);
+  return <div>Hello world {props.test.value}</div>;
 };
 
+const mapStateToProps = (state) => {
+  return { test: state.test };
+};
 
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      _testAction: testAction,
+    },
+    dispatch
+  );
 
-
-export default HomeScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
