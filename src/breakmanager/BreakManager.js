@@ -17,7 +17,7 @@ let BreakManager=(history)=>{
         if(state.break.breakState==="no-break" && !state.break.windowChanged)
         {
           curWindow.setOpacity(1)
-          curWindow.maximize()
+          curWindow.minimize()
           history.push('/')
           store.dispatch(BreakActions.setWindowChanged())
         }

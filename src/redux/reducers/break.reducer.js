@@ -12,7 +12,7 @@ const BreakReducer = (state = initialState, action) => {
     case BreakTypes.END_BREAK:
       return { ...state, breakState: 'break-feedback' };
 
-     case BreakTypes.END_BREAK:
+     case BreakTypes.CLOSE_BREAK_SCREEN:
       return { ...state, breakState: 'no-break', windowChanged:false };
 
      case BreakTypes.SET_WINDOW_CHANGED:
