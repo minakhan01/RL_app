@@ -1,0 +1,39 @@
+body {
+	background-color: black;
+	color: white;
+	user-select: none;
+}
+
+
+
+
+.break-div {
+	background-color: black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start	;
+	height: 100vh;
+	width: 100vw;
+}
+
+.break-text {
+  color:white;
+  font-size:7vh;
+  font-weight: bold;
+  margin: 0vh 0 0 0
+
+}
+
+.countdown-timer {
+  border-radius: 30%;
+  background-color: black;
+  margin: 7vh 0 0 0;
+}
+
+.close-break {
+  margin: 5vh 0 0 85vw;
+  font-size:7vh;
+  background-color: black;
+  border-width: 0;
+}
