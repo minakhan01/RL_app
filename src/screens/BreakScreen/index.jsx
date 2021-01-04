@@ -20,7 +20,7 @@ const BreakScreen = () => {
   const breakState=useSelector(state => state.break.breakState)
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(breakState)
+  setTimeout(()=>dispatch(BreakActions.endBreak()),90000)
   if(breakState==="break")
     return <div className="break-div">
       <button className="close-break" onClick={()=>{
@@ -33,7 +33,7 @@ const BreakScreen = () => {
         Be kind!
       </div>
       <div className="countdown-timer">
-        {Timer(190)}  
+        {Timer(90)}  
       </div>
     </div>;
   
