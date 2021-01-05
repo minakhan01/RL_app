@@ -7,7 +7,7 @@ const HomeScreen = lazy(() => import("../screens/HomeScreen"));
 
 const Main = () => {
   let history=useHistory()
-  //useEffect(()=>BreakManager(history),[])
+  useEffect(()=>BreakManager(history),[])
 
   return (<Suspense fallback={<Loading />}>
     <Switch>

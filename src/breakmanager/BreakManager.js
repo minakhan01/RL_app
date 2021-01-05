@@ -1,13 +1,20 @@
 import { BreakActions } from "../redux/actions";
 import { store } from "../redux";
-
+import { AWClientService } from "../services"
 const { ipcRenderer } = window.require('electron')
 var electron = window.require('electron');
 var curWindow = electron.remote.getCurrentWindow();
 
+let client = new AWClientService()
 
-let breakcheck = ()=>{
-  store.dispatch(BreakActions.startBreak())
+let breakcheck = () => {
+    client.getCurrentlyActiveWindow().then(ob => {
+        
+        if ((ob.duration > 20) && ob.data.title.includes("Facebook") && !(store.getState().break.breakState === "break")) {        
+            store.dispatch(BreakActions.startBreak())            
+        }          
+    })
+  
 }
   
 let BreakManager=(history)=>{  
@@ -27,12 +34,17 @@ let BreakManager=(history)=>{
           curWindow.maximize()
           history.push('/break')
           store.dispatch(BreakActions.setWindowChanged())
+            setTimeout(() => {
+            if (store.getState().break.breakState==="break")
+              store.dispatch(BreakActions.endBreak())
+          }, 90000)
+
         }
       return state.break.breakState
     }
   )
   store.subscribe(()=>handleChange(store.getState()))
-  setTimeout(()=>{breakcheck()}, 10000)
+  setInterval(()=>{breakcheck()}, 10000)
 }
 
 export default BreakManager

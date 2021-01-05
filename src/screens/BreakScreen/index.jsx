@@ -20,7 +20,7 @@ const BreakScreen = () => {
   const breakState=useSelector(state => state.break.breakState)
   const history = useHistory();
   const dispatch = useDispatch();
-  setTimeout(()=>dispatch(BreakActions.endBreak()),90000)
+    
   if(breakState==="break")
     return <div className="break-div">
       <button className="close-break" onClick={()=>{
@@ -62,8 +62,8 @@ const BreakScreen = () => {
 };
 
 let getImageButton=(name)=>{
-return <div class="responsive">
-  <div class="gallery">
+return <div className="responsive">
+  <div className="gallery">
     <a target="_blank" href="img_mountains.jpg">
       <img src={name} alt="Mountains" width="85" height="85"></img>
     </a>
