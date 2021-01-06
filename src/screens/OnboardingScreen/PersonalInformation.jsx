@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Input, Button, Modal } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+
+import "./styles.css";
+
+const PersonalInformationScreen = (props) => {
+  const [breakArray, setBreakArray] = useState(["https://www.youtube.com"]);
+  const [message, setMessage] = useState("Drink Water");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    console.log("loo", breakArray);
+  }, [breakArray]);
+  //   console.log("loo", breakArray);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  return (
+    <div className="step-container">
+      <Modal
+        title="Basic Modal"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+      <h1>Personal Information</h1>
+      <Input
+        size="large"
+        style={{ width: "30%", borderRadius: 5, verticalAlign: "center" }}
+        placeholder="First Name"
+      />
+      <div style={{ marginTop: "3%" }}>
+        <p style={{ fontSize: "18px", marginBottom: "0" }}>
+          Would you like any message to show up during the break? (e.g. drink
+          water, be kind, etc.)
+        </p>
+        <p style={{ fontSize: "15px", color: "#696969", width: "60%" }}>
+          You can set up to 10 messages, the messages will appear interchangebly
+          on different breaks
+        </p>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Input
+            size="large"
+            style={{
+              width: "30%",
+              borderRadius: 5,
+              verticalAlign: "center",
+            }}
+            placeholder="URL"
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <div style={{ marginTop: "3%" }}>
+        <p style={{ fontSize: "18px", marginBottom: "0" }}>
+          Add a calendar to help us keep track of any meetings/breaks we should
+          work around
+        </p>
+        <Button
+          type="primary"
+          style={{ borderRadius: "20px", marginTop: "1%" }}
+          size="large"
+          onClick={() => {
+            setIsModalVisible(true);
+          }}
+        >
+          <PlusOutlined style={{ color: "white" }} />
+          ADD CALENDAR
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PersonalInformationScreen);
