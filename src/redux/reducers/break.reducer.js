@@ -1,7 +1,8 @@
 import { BreakTypes } from "../types";
 
 const initialState = {
-  breakState: 'no-break',
+    breakState: 'no-break',
+    windowChanged: true,
 };
 
 const BreakReducer = (state = initialState, action) => {

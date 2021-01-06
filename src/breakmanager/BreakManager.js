@@ -1,4 +1,4 @@
-import { BreakActions } from "../redux/actions";
+import { BreakActions, PastActions } from "../redux/actions";
 import { store } from "../redux";
 import { AWClientService } from "../services"
 const { ipcRenderer } = window.require('electron')
@@ -9,16 +9,21 @@ let client = new AWClientService()
 
 let breakcheck = () => {
     client.getCurrentlyActiveWindow().then(ob => {
-        
+        console.log(ob)
         if ((ob.duration > 20) && ob.data.title.includes("Facebook") && !(store.getState().break.breakState === "break")) {        
             store.dispatch(BreakActions.startBreak())            
-        }          
-    })
-  
+        }
+    }).catch(console.log)
+    if (store.getState().past.intervalBreakData.minsAppRunningAfterLastIntervalBreak >= 3) {
+        console.log('well i did enter')
+        store.dispatch(PastActions.addIntervalBreak())
+        if (!(store.getState().break.breakState === "break"))
+          store.dispatch(BreakActions.startBreak())           
+    }
 }
   
 let BreakManager=(history)=>{  
-  console.log('i am being called1')
+    console.log('i am being called1')
   let handleChange = (state => 
     {
         if(state.break.breakState==="no-break" && !state.break.windowChanged)
@@ -44,7 +49,25 @@ let BreakManager=(history)=>{
     }
   )
   store.subscribe(()=>handleChange(store.getState()))
-  setInterval(()=>{breakcheck()}, 10000)
+    setInterval(() => { breakcheck() }, 10000)
+    setInterval(() => { store.dispatch(PastActions.addMinute()) }, 60000)
+    setInterval(() => {
+        client.getActiveWindows().then((dat) => {
+            let back={
+              type: "active-windows",
+              data: dat,
+            }
+            store.dispatch(PastActions.backupAWData(back))
+        })
+        client.getAppTotalWithAudio().then((dat) => {
+            let back = {
+                type: "screen-time",
+                data: dat,
+            }
+            store.dispatch(PastActions.backupAWData(back))
+        })
+    }, 60000)
+
 }
 
 export default BreakManager

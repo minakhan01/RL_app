@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Loading from "../components/Loading";
-import BreakManager from "../breakmanager/BreakManager"
+import BreakManager from "../breakmanager"
 const BreakScreen = lazy(() => import("../screens/BreakScreen"));
 const HomeScreen = lazy(() => import("../screens/HomeScreen"));
 
