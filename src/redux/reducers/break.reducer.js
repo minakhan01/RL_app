@@ -6,6 +6,7 @@ const initialState = {
     breakType: '',
     breakDescription: '',
     breakStartTime: '',
+    breakDuration: 0
 };
 
 const BreakReducer = (state = initialState, action) => {

@@ -14,12 +14,14 @@ export default function eventHandler(history){
     else if (store.getState().break.breakState === "break" && !store.getState().break.windowChanged) {
         curWindow.setOpacity(0.8)
         curWindow.maximize()
+
         history.push('/break')
         store.dispatch(BreakActions.setWindowChanged())
+        let s1 = store.getState().break.breakStartTime
         setTimeout(() => {
-            if (store.getState().break.breakState === "break")
+            if (store.getState().break.breakState === "break" && s1 === store.getState().break.breakStartTime)
                 store.dispatch(BreakActions.endBreak())
-        }, 90000)
+        }, store.getState().break.breakDuration*1000)
 
     }
 }

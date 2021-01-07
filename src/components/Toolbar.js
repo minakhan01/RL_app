@@ -1,0 +1,44 @@
+import "./styles.css";
+import { BreakActions, PastActions } from "../redux/actions";
+import exitFullscreen from '../assets/exit-fullscreen.png';
+import fullscreen from '../assets/fullscreen.png';
+import { store } from "../redux";
+import { useState } from "react";
+
+
+
+
+
+export default function Toolbar(props) {
+    const [minsRem, setMinsRem] = useState(Math.ceil((new Date() - new Date(props.startTime)) / 60000))
+    setTimeout(() => { setMinsRem(minsRem - 1) }, 60000)
+    let str
+    if (minsRem > 1)
+        str = minsRem + ' Minutes remaining'
+    else
+        str = minsRem + ' Minute remaining'
+    if(props.type==='minimize')
+        return <div className='toolbar'>
+            <div className='minutes-remaining'>{str}</div>
+                 <button className="minimize-break2" onClick={() => { props.minimize(true) }}>
+                   <img src={exitFullscreen} alt="Mountains" width="70" height="70"></img>
+                 </button>
+                 <button className="close-break2" onClick={() => { store.dispatch(BreakActions.endBreak()) }}>
+                   &#10006;
+                 </button>
+
+               </div>
+
+    else
+        return <div className='toolbar'>
+            <div className='minutes-remaining'>{str}</div>
+            <button className="minimize-break2" onClick={() => { props.minimize(false) }}>
+                <img src={fullscreen} alt="Mountains" width="70" height="70"></img>
+            </button>
+            <button className="close-break2" onClick={() => { store.dispatch(BreakActions.endBreak()) }}>
+                &#10006;
+                 </button>
+
+        </div>
+
+}

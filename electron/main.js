@@ -12,6 +12,7 @@ function createWindow() {
     height: 600,
     show: false,
     frame: false,
+    alwaysOnTop: true,
    webPreferences: {
      enableRemoteModule: true,
      nodeIntegration: false,
