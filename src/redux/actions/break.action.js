@@ -5,9 +5,9 @@ export const endBreak = () => ({
   payload: { },
 });
 
-export const startBreak = () => ({
+export const startBreak = (ob) => ({
   type: BreakTypes.START_BREAK,
-  payload: { },
+  payload: {...ob},
 });
 
 export const closeBreakScreen = () => ({

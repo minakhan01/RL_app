@@ -27,10 +27,15 @@ const renderTime = (time) => {
 };
 
 
-export default function Timer(totaltime) {
+export default function Timer(totaltime, startTime) {
+
+    let timeElapsed = Math.ceil((new Date(startTime) - new Date()) / 1000)
+    console.log('break duration is ' + totaltime)
+    console.log('time elapsed is ' + timeElapsed)
 
   return (
   <CountdownCircleTimer
+    initialRemainingTime={totaltime-timeElapsed}
     rotation='counterclockwise'
     size='350'
     isPlaying

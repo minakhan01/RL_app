@@ -3,12 +3,15 @@ import { BreakTypes } from "../types";
 const initialState = {
     breakState: 'no-break',
     windowChanged: true,
+    breakType: '',
+    breakDescription: '',
+    breakStartTime: '',
 };
 
 const BreakReducer = (state = initialState, action) => {
   switch (action.type) {
     case BreakTypes.START_BREAK:
-      return { ...state, breakState: 'break', windowChanged:false };
+      return { ...state, breakState: 'break', windowChanged: false, ...action.payload};
 
     case BreakTypes.END_BREAK:
       return { ...state, breakState: 'break-feedback' };

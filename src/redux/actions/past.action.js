@@ -15,3 +15,8 @@ export const backupAWData = (dat) => ({
     type: PastTypes.BACKUP_AW_DATA,
     payload: dat,
 });
+
+export const saveBreakData = (dat) => ({
+    type: PastTypes.SAVE_BREAK_DATA,
+    payload: dat,
+});

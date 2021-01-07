@@ -1,7 +1,7 @@
 import { PastTypes } from "../types";
 
 const initialState = {
-    pastBreakData: {},
+    pastBreakData: [],
     activityWatchData: {},
     intervalBreakData: { date: '', minsAppRunningAfterLastIntervalBreak: 0, breakCount: 0 },
     awData: { },
@@ -23,6 +23,11 @@ const PastReducer = (state = initialState, action) => {
             if(action.payload.type === "screen-time")
                 return { ...state, awData: { ...state.awData, screenTime: action.payload } };
             return state;
+
+        case PastTypes.SAVE_BREAK_DATA:
+            return { ...state, pastBreakData: [...state.pastBreakData, action.payload] };
+
+
         default:
             return state;
     }
