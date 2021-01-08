@@ -1,1 +1,1 @@
-// export { AdminTypes } from "./admin.types";
+export * as OnboardingTypes from "./onboarding.types";
