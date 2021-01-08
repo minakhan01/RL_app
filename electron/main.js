@@ -3,7 +3,7 @@ app.commandLine.appendSwitch('disable-web-security');
 const { ipcMain } = require('electron')
 const isDev = require("electron-is-dev");
 const path = require("path");
-
+let tray = null
 let mainWindow;
 function createWindow() {
 
@@ -49,11 +49,17 @@ function createWindow() {
     return false;
   });
 
+
+    mainWindow.on('restore', function (event) {
+        mainWindow.show();
+        mainWindow.setSkipTaskbar(false);
+    });
+
 }
 
 
 
-let tray = null
+
 app.whenReady().then(() => {
   tray = new Tray(`${path.join(__dirname, "./icon.png")}`)
   var contextMenu = Menu.buildFromTemplate([

@@ -39,3 +39,43 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.break-text-min {
+    padding-right: 3vw;
+    width: 80vw;
+    margin-right:0vw;
+    font-size: 2.5vw;
+    font-weight: bold;
+    text-align: center;
+}
+
+.minutes-remaining {
+    
+}
+
+.toolbar2 {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.minutes-remaining2 {
+    margin-right: 0vw;
+ 
+}
+
+.close-break3 {
+    font-size: 40px;
+    background-color: black;
+    border-width: 0px;
+    outline: none;
+}
+
+.minimize-break3 {
+    opacity: 0.8;
+    background-color: black;
+    border-width: 0px;
+    outline: none;
+
+}

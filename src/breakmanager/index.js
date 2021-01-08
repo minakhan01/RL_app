@@ -5,7 +5,7 @@ import { store } from "../redux";
 
 let BreakManager = (history) => {
     store.subscribe(() => eventHandler(history))
-    setInterval(() => { checkBreak() }, 10000)
+    setInterval(() => { checkBreak(history) }, 10000)
     setInterval(() => { databaseUpdater() }, 60000)
 }
 

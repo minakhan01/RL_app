@@ -11,6 +11,16 @@ export default function eventHandler(history){
         store.dispatch(BreakActions.setWindowChanged())
     }
 
+    else if (store.getState().break.breakState === "break-popup" && !store.getState().break.windowChanged) {
+        console.log('changing screen')
+        curWindow.restore()
+        //curWindow.maximize()
+        //curWindow.unmaximize()
+        curWindow.setSize(400, 300)
+        history.push('/popup')
+        store.dispatch(BreakActions.setWindowChanged())
+    }
+
     else if (store.getState().break.breakState === "break" && !store.getState().break.windowChanged) {
         curWindow.setOpacity(0.8)
         curWindow.maximize()
@@ -25,3 +35,5 @@ export default function eventHandler(history){
 
     }
 }
+
+

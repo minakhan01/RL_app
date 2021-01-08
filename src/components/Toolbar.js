@@ -13,7 +13,7 @@ export default function Toolbar(props) {
     const [minsRem, setMinsRem] = useState(Math.ceil((new Date() - new Date(props.startTime)) / 60000))
     setTimeout(() => { setMinsRem(minsRem - 1) }, 60000)
     let str
-    if (minsRem > 1)
+    if (minsRem != 1)
         str = minsRem + ' Minutes remaining'
     else
         str = minsRem + ' Minute remaining'
@@ -30,14 +30,21 @@ export default function Toolbar(props) {
                </div>
 
     else
-        return <div className='toolbar'>
-            <div className='minutes-remaining'>{str}</div>
-            <button className="minimize-break2" onClick={() => { props.minimize(false) }}>
+        return <div className='toolbar2'>
+            <div className='minutes-remaining2'>{str}</div>
+            <div className="break-text-min">
+                {props.message}
+            </div>
+            <div>
+            <button className="minimize-break3" onClick={() => { props.minimize(false) }}>
                 <img src={fullscreen} alt="Mountains" width="70" height="70"></img>
             </button>
-            <button className="close-break2" onClick={() => { store.dispatch(BreakActions.endBreak()) }}>
-                &#10006;
-                 </button>
+            </div>
+            <div>
+            <button className="close-break3" onClick={() => { store.dispatch(BreakActions.endBreak()) }}>
+                    &#10006;
+            </button>
+            </div>
 
         </div>
 

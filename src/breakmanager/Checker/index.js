@@ -4,9 +4,9 @@ import checkScheduledBreak from './scheduled.break'
 import checkPreWindow from './prewindow.break'
 
 
-export default function checkBreak() {
+export default function checkBreak(history) {
     checkPreWindow()
     checkActivityRuleBreak()
-    checkIntervalBreak()
+    checkIntervalBreak(history)
     checkScheduledBreak()
 }

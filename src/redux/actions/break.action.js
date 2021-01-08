@@ -19,3 +19,15 @@ export const setWindowChanged = () => ({
   type: BreakTypes.SET_WINDOW_CHANGED,
   payload: { },
 });
+
+
+export const startPopup = (str) => ({
+    type: BreakTypes.START_POPUP,
+    payload: {start: str},
+});
+
+export const cancelBreak = () => ({
+    type: BreakTypes.CANCEL_BREAK,
+    payload: {},
+});
+

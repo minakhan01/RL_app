@@ -61,16 +61,13 @@ const BreakScreen = () => {
 
 
         return <div className="break-div">
-            <ToolBar type='maximize' minimize={setMinimized} totaltime={breakDuration} startTime={breakStartTime} />
-            <div className="break-text">
-                Be kind!
-            </div>
+            <ToolBar type='maximize' minimize={setMinimized} totaltime={breakDuration} startTime={breakStartTime} message={'Be kind!'}/>
         </div>;
     }
 
     else {
-        curWindow.setSize(800,600)
         curWindow.maximize()
+        curWindow.setSize(800, 600)
 
         return <div className="break-div">
             <button className="close-break" onClick={() => {
@@ -108,6 +105,12 @@ const BreakScreen = () => {
                 {getImageButton(s3, s3y, 3, rate, setRate)}
                 {getImageButton(s2, s2y, 4, rate, setRate)}
                 {getImageButton(s1, s1y, 5, rate, setRate)}
+            </div>
+
+            <div style={{display: 'flex'}}>
+                <div style={{ width: '7vw', textAlign: 'left', paddingLeft: '0vw' }}>Not Helpful</div>
+                <div style={{ width: '28vw' }} />
+                <div style={{ width: '4vw', textAlign: 'right', paddingRight: '1vw' }}>Helpful</div>
             </div>
 
 

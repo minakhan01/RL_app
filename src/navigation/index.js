@@ -4,6 +4,7 @@ import Loading from "../components/Loading";
 import BreakManager from "../breakmanager"
 const BreakScreen = lazy(() => import("../screens/BreakScreen"));
 const HomeScreen = lazy(() => import("../screens/HomeScreen"));
+const PopupScreen = lazy(() => import("../screens/PopupScreen"));
 
 const Main = () => {
   let history=useHistory()
@@ -14,6 +15,7 @@ const Main = () => {
       
       <Route exact path="/" component={HomeScreen} />
       <Route path="/break" component={BreakScreen} />
+      <Route path="/popup" component={PopupScreen} />
 
     </Switch>
   </Suspense>)
