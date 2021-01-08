@@ -4,17 +4,13 @@ import { bindActionCreators } from "redux";
 import { Input, Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
+import { OnboardingActions } from "../../redux/actions";
+
 import "./styles.css";
 
 const PersonalInformationScreen = (props) => {
-  const [breakArray, setBreakArray] = useState(["https://www.youtube.com"]);
   const [message, setMessage] = useState("Drink Water");
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  useEffect(() => {
-    console.log("loo", breakArray);
-  }, [breakArray]);
-  //   console.log("loo", breakArray);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -45,6 +41,10 @@ const PersonalInformationScreen = (props) => {
         size="large"
         style={{ width: "30%", borderRadius: 5, verticalAlign: "center" }}
         placeholder="First Name"
+        value={props.onboarding.name}
+        onChange={(e) => {
+          props.setName(e.target.value);
+        }}
       />
       <div style={{ marginTop: "3%" }}>
         <p style={{ fontSize: "18px", marginBottom: "0" }}>
@@ -63,10 +63,10 @@ const PersonalInformationScreen = (props) => {
               borderRadius: 5,
               verticalAlign: "center",
             }}
-            placeholder="URL"
-            value={message}
+            placeholder="Break Message"
+            value={props.onboarding.breakMessage}
             onChange={(e) => {
-              setMessage(e.target.value);
+              props.setBreakMessage(e.target.value);
             }}
           />
         </div>
@@ -93,10 +93,17 @@ const PersonalInformationScreen = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { onboarding: state.onboarding };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setName: OnboardingActions.setName,
+      setBreakMessage: OnboardingActions.setBreakMessage,
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,

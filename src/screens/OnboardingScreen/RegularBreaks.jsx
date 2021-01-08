@@ -3,17 +3,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Input } from "antd";
 
+import { OnboardingActions } from "../../redux/actions";
+
 import "./styles.css";
 
 const RegularBreakScreen = (props) => {
-  const [breakArray, setBreakArray] = useState(["https://www.youtube.com"]);
-  const [breakLength, setBreakLength] = useState(1);
-  const [breakInterval, setBreakInterval] = useState(60);
-  useEffect(() => {
-    console.log("loo", breakArray);
-  }, [breakArray]);
-  //   console.log("loo", breakArray);
-
   return (
     <div className="step-container">
       <h1>Regular Breaks</h1>
@@ -32,11 +26,12 @@ const RegularBreakScreen = (props) => {
           <Input
             size="large"
             style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
-            placeholder="First Name"
+            placeholder="Length"
             type="number"
-            value={breakLength}
+            value={props.onboarding.regularBreakLength}
             onChange={(e) => {
-              if (e.target.value > 0) setBreakLength(e.target.value);
+              if (e.target.value > 0)
+                props.setRegularBreakLength(e.target.value);
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -59,12 +54,12 @@ const RegularBreakScreen = (props) => {
           <Input
             size="large"
             style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
-            placeholder="First Name"
+            placeholder="Interval"
             type="number"
-            value={breakInterval}
+            value={props.onboarding.regularBreakInterval}
             onChange={(e) => {
               if (e.target.value > 0 && e.target.value < 61)
-                setBreakInterval(e.target.value);
+                props.setRegularBreakInterval(e.target.value);
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -77,9 +72,16 @@ const RegularBreakScreen = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { onboarding: state.onboarding };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setRegularBreakInterval: OnboardingActions.setRegularBreakInterval,
+      setRegularBreakLength: OnboardingActions.setRegularBreakLength,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegularBreakScreen);
