@@ -13,7 +13,7 @@ import "./styles.css";
 const { Step } = Steps;
 
 const OnboardingScreen = (props) => {
-  const [current, setCurrent] = useState(3);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {}, []);
 
