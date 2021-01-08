@@ -6,6 +6,8 @@ var curWindow = electron.remote.getCurrentWindow();
 export default function eventHandler(history){
     if (store.getState().break.breakState === "no-break" && !store.getState().break.windowChanged) {
         curWindow.setOpacity(1)
+        curWindow.unmaximize()
+        curWindow.setSize(800, 600)
         curWindow.minimize()
         history.push('/')
         store.dispatch(BreakActions.setWindowChanged())
@@ -14,10 +16,11 @@ export default function eventHandler(history){
     else if (store.getState().break.breakState === "break-popup" && !store.getState().break.windowChanged) {
         console.log('changing screen')
         curWindow.restore()
-        //curWindow.maximize()
-        //curWindow.unmaximize()
-        curWindow.setSize(400, 300)
         history.push('/popup')
+        //curWindow.maximize()
+        curWindow.unmaximize()
+        curWindow.setSize(400, 300)
+        
         store.dispatch(BreakActions.setWindowChanged())
     }
 

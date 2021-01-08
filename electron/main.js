@@ -51,6 +51,7 @@ function createWindow() {
 
 
     mainWindow.on('restore', function (event) {
+        event.preventDefault();
         mainWindow.show();
         mainWindow.setSkipTaskbar(false);
     });

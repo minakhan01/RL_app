@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import "./styles.css";
@@ -27,6 +27,16 @@ var curWindow = electron.remote.getCurrentWindow();
 
 
 const BreakScreen = () => {
+
+    let mounted=true
+
+    useEffect(() => {
+        return () => {
+            mounted=false
+        }
+    })
+
+
   const breakState=useSelector(state => state.break.breakState)
   const dispatch = useDispatch();
 
@@ -65,7 +75,7 @@ const BreakScreen = () => {
         </div>;
     }
 
-    else {
+    else{
         curWindow.maximize()
         curWindow.setSize(800, 600)
 
@@ -92,7 +102,11 @@ const BreakScreen = () => {
 
             <div className='feedback-text-box'>
                 <div className='floating-label' >Notes</div>
-                <textarea onChange={(event) => setFeedbackText(event.target.value)} data-role="none" rows="3" cols="80" placeholder="Type in here any notes or reflections about the break that you would like to save" className='feedback-text' />
+                <textarea onChange={(event) => {
+                    if(mounted)
+                    setFeedbackText(event.target.value)
+                }
+                } data-role="none" rows="3" cols="80" placeholder="Type in here any notes or reflections about the break that you would like to save" className='feedback-text' />
             </div>
 
             <div className="feedback-request-text">
@@ -100,11 +114,11 @@ const BreakScreen = () => {
       </div>
 
             <div className="break-feedback">
-                {getImageButton(s5, s5y, 1, rate, setRate)}
-                {getImageButton(s4, s4y, 2, rate, setRate)}
-                {getImageButton(s3, s3y, 3, rate, setRate)}
-                {getImageButton(s2, s2y, 4, rate, setRate)}
-                {getImageButton(s1, s1y, 5, rate, setRate)}
+                {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
+                {getImageButton(s4, s4y, 2, rate, setRate, mounted)}
+                {getImageButton(s3, s3y, 3, rate, setRate, mounted)}
+                {getImageButton(s2, s2y, 4, rate, setRate, mounted)}
+                {getImageButton(s1, s1y, 5, rate, setRate, mounted)}
             </div>
 
             <div style={{display: 'flex'}}>
@@ -120,12 +134,16 @@ const BreakScreen = () => {
   return null
 };
 
-let getImageButton=(name, name2, points, rate, setRate)=>{
+let getImageButton=(name, name2, points, rate, setRate,mounted)=>{
 
 if(points==rate)
     return <div className="responsive">
         <div className="gallery">
-            <button className='feedback-button' onClick={() => setRate(points)}>
+            <button className='feedback-button' onClick={() => {
+                if (mounted)
+                    setRate(points)
+            }
+            }>
           <img src={name2} alt="Mountains" width="85" height="85"></img>
         </button>
       </div>
@@ -133,7 +151,11 @@ if(points==rate)
 else
     return <div className="responsive">
         <div className="gallery">
-            <button className='feedback-button' onClick={() => setRate(points)}>
+            <button className='feedback-button' onClick={() => {
+                    if (mounted)
+                        setRate(points)
+                }
+            }>
           <img src={name} alt="Mountains" width="85" height="85"></img>
         </button>
       </div>

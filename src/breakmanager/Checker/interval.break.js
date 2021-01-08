@@ -4,7 +4,7 @@ var electron = window.require('electron');
 var curWindow = electron.remote.getCurrentWindow();
 export default function checkIntervalBreak(history)
 {
-    if (store.getState().past.intervalBreakData.minsAppRunningAfterLastIntervalBreak >= 0) {
+    if (store.getState().past.intervalBreakData.minsAppRunningAfterLastIntervalBreak >= 1) {
         store.dispatch(PastActions.addIntervalBreak())
         if (!(store.getState().break.breakState === "break") && !(store.getState().break.breakState === "break-feedback") && !(store.getState().break.breakState === "break-popup")) {
             let timeNow = new Date().toISOString()
