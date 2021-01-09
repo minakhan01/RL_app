@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-  
-=======
->>>>>>> 8be3e8ad544b28231d4ab354ff5712658390b989
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { testAction } from "../../redux/actions/test.action";
@@ -38,8 +34,4 @@ const mapDispatchToProps = (dispatch) =>
     dispatch
   );
 
-<<<<<<< HEAD
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
->>>>>>> 8be3e8ad544b28231d4ab354ff5712658390b989
