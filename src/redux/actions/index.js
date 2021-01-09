@@ -1,4 +1,6 @@
 import * as OnboardingActions from "./onboarding.action";
 
-// Export all actions here!
-export { OnboardingActions };
+import * as BreakActions from "./break.action";
+import * as PastActions from "./past.action";
+
+export { OnboardingActions, BreakActions, PastActions };
