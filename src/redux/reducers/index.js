@@ -1,8 +1,10 @@
 import { combineReducers, Reducer } from "redux";
-// import AdminReducer from "./admin.reducer";
+import TestReducer from "./test.reducer";
+import OnboardingReducer from "./onboarding.reducer";
 
 const allReducers = {
-  // admin: AdminReducer,
+  test: TestReducer,
+  onboarding: OnboardingReducer,
 };
 
 const rootReducer = combineReducers({ ...allReducers });

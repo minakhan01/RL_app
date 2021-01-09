@@ -8,7 +8,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "rl-app",
   storage: storage,
-  whitelist: [], // which reducer want to store
+  whitelist: ["test", "onboarding"], // which reducer want to store
 };
 const finalReducers = persistReducer(persistConfig, reducers);
 
