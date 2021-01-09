@@ -124,7 +124,11 @@ const CalendarScreen = () => {
         }}
         dragFromOutsideItem={draggedEvent}
         onDragStart={console.log}
-        resizableAccessor={() => true}
+        resizableAccessor={() => false}
+        onSelectEvent={() => {
+          //add code for editing an existing event here
+          setModalVisible(true);
+        }}
       />
     </div>
   );
