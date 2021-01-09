@@ -1,5 +1,4 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-
 import "./styles.css";
 
 
@@ -28,12 +27,9 @@ const renderTime = (time) => {
 
 
 export default function Timer(props) {
-    let totaltime = props.totaltime
-    let startTime = props.startTime
-
-    let timeElapsed = Math.ceil((new Date() - new Date(startTime)) / 1000)
-    console.log('break duration is ' + totaltime)
-    console.log('time elapsed is ' + timeElapsed)
+  let totaltime = props.totaltime
+  let startTime = props.startTime
+  let timeElapsed = Math.ceil((new Date() - new Date(startTime)) / 1000)
 
   return (
   <CountdownCircleTimer
@@ -49,7 +45,6 @@ export default function Timer(props) {
     ]}
   >
     {({ remainingTime }) => renderTime(remainingTime)}
-  </CountdownCircleTimer>
-)
+  </CountdownCircleTimer>)
 }
 

@@ -8,6 +8,7 @@ const PopupScreen = lazy(() => import("../screens/PopupScreen"));
 
 const Main = () => {
   let history=useHistory()
+  //script to manage break triggers is called here
   useEffect(()=>BreakManager(history),[])
 
   return (<Suspense fallback={<Loading />}>

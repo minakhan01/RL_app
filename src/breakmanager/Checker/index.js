@@ -1,12 +1,10 @@
 import checkActivityRuleBreak from './activityrule.break'
 import checkIntervalBreak from './interval.break'
 import checkScheduledBreak from './scheduled.break'
-import checkPreWindow from './prewindow.break'
 
-
+//Checks if any of the breaks need to be triggered
 export default function checkBreak(history) {
-    checkPreWindow()
-    checkActivityRuleBreak()
-    checkIntervalBreak(history)
-    checkScheduledBreak()
+  checkActivityRuleBreak()
+  checkIntervalBreak(history)
+  checkScheduledBreak()
 }

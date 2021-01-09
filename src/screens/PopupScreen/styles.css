@@ -1,15 +1,14 @@
 
 .break-div {
-	background-color: black;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start	;
-	height: 100vh;
-	width: 100vw;
-	background-color: black;
-	color: white;
-
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start	;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  color: white;
 }
 
 .break-text {
@@ -17,7 +16,6 @@
   font-size:7vh;
   font-weight: bold;
   margin: 0vh 0 0 0
-
 }
 
 .countdown-timer {
@@ -64,53 +62,52 @@
 }
 
 .feedback-text-2 {
-	outline: none;
-	color: white;
-	background-color: black;
-	border-radius: 8px;
-	width: 500px;
-	height: 150px;
-
-	border-style: solid;
-	padding: 1% 1% 9% 1%;
-	grid-auto-rows: 80px;
-	overflow-wrap: break-word
+  outline: none;
+  color: white;
+  background-color: black;
+  border-radius: 8px;
+  width: 500px;
+  height: 150px;
+  border-style: solid;
+  padding: 1% 1% 9% 1%;
+  grid-auto-rows: 80px;
+  overflow-wrap: break-word
 }
 
 .feedback-text {
-	border-width: 2px;
-	outline: none;
-	color: white;
-	background-color: black;
-	border-radius: 8px;
-	border-style: solid;
-	padding: 1% 1% 1% 1%;
-	resize: none;
-	overflow: auto;
-	width: 60%;
-	height: 100%
+  border-width: 2px;
+  outline: none;
+  color: white;
+  background-color: black;
+  border-radius: 8px;
+  border-style: solid;
+  padding: 1% 1% 1% 1%;
+  resize: none;
+  overflow: auto;
+  width: 60%;
+  height: 100%
 }
 
 
 
 .feedback-text-box {
-	display: flex;
-	width: 50%;
-	height: 15%;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+  display: flex;
+  width: 50%;
+  height: 15%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .floating-label {
-	background-color: black;
-	z-index:1;
-	padding-right: 2%;
-	padding-left: 0.7%;
-	margin : 0 47% -1.25% 0;
-	font-size: small;
+  background-color: black;
+  z-index:1;
+  padding-right: 2%;
+  padding-left: 0.7%;
+  margin : 0 47% -1.25% 0;
+  font-size: small;
 }
 
 .save-button-text {
-	font-size: 15px
+  font-size: 15px
 }

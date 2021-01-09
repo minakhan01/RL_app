@@ -17,65 +17,65 @@
 }
 
 .close-break2 {
-    font-size: 40px;
-    background-color: black;
-    border-width: 0px;
-    outline: none;
+  font-size: 40px;
+  background-color: black;
+  border-width: 0px;
+  outline: none;
 }
 
 .minimize-break2 {
-    opacity: 0.8;
-    background-color: black;
-    border-width: 0px;
-    outline: none;
-    margin-left: 80vw;
-    margin-right: 1vw;
+  opacity: 0.8;
+  background-color: black;
+  border-width: 0px;
+  outline: none;
+  margin-left: 80vw;
+  margin-right: 1vw;
 }
 
 
 
 .toolbar {
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .break-text-min {
-    padding-right: 3vw;
-    width: 80vw;
-    margin-right:0vw;
-    font-size: 2.5vw;
-    font-weight: bold;
-    text-align: center;
+  padding-right: 3vw;
+  width: 80vw;
+  margin-right:0vw;
+  font-size: 2.5vw;
+  font-weight: bold;
+  text-align: center;
 }
 
 .minutes-remaining {
-    
+  
 }
 
 .toolbar2 {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .minutes-remaining2 {
-    margin-right: 0vw;
+  margin-right: 0vw;
  
 }
 
 .close-break3 {
-    font-size: 40px;
-    background-color: black;
-    border-width: 0px;
-    outline: none;
+  font-size: 40px;
+  background-color: black;
+  border-width: 0px;
+  outline: none;
 }
 
 .minimize-break3 {
-    opacity: 0.8;
-    background-color: black;
-    border-width: 0px;
-    outline: none;
+  opacity: 0.8;
+  background-color: black;
+  border-width: 0px;
+  outline: none;
 
 }
