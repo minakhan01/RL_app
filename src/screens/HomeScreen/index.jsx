@@ -6,14 +6,6 @@ import { bindActionCreators } from "redux";
 
 import "./styles.css";
 
-//import { AWClientService } from "../../services";
-//let client=new AWClientService()
-//client.getCurrentlyActiveWindow().then(console.log)
-//client.getActiveWindows().then(console.log)
-//client.getAFK().then(console.log)
-//client.getAppTotalWithoutAudio().then(console.log)
-//client.getAppTotalWithAudio().then(console.log)
-
 const HomeScreen = (props) => {
   const history = useHistory();
   useEffect(() => {

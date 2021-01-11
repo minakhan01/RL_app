@@ -5,8 +5,6 @@ import {AWClient} from 'aw-client';
 class AWClientService {
   
   constructor() {
-      // This is the function.
-		    
     this.client=new AWClient('test-client')
     this.todayDate=new Date()
     this.tmrwDate=new Date()
@@ -55,6 +53,21 @@ class AWClientService {
     }
   }
 
+
+  //get all active windows since the beginning
+  async getActiveWindowsSinceBeginning() {
+    try {
+      this.updateDate()
+      if(typeof this.bucketMap === "undefined")
+        await this.createBucketMap()
+      const query = ["RETURN=query_bucket('"+(this.bucketMap['aw-watcher-window'])+"')"]
+      const activeWindows=await this.client.query( ['1970/2100'], query)
+      return activeWindows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
   //get today's afk in order 
   async getAFK() {
     try {
@@ -70,8 +83,30 @@ class AWClientService {
     }
   }
 
+
+  async getAppTotals() {
+    try {
+      this.updateDate()
+      if(typeof this.bucketMap === "undefined")
+        await this.createBucketMap()
+      
+      var query = [
+        "window_events = query_bucket('"+(this.bucketMap['aw-watcher-window'])+"');",
+	    "events = merge_events_by_keys(window_events, ['app']);",
+	    "events = sort_by_duration(events);",
+        "RETURN = events;"
+      ]    
+      const appTotalWithoutAudio=await this.client.query( [this.todayDate+'/'+this.tmrwDate], query)
+      return appTotalWithoutAudio[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+
   //find total time per app in the day excluding video streaming AFK
-  async getAppTotalWithoutAudio() {
+  async getAppTotalsIntersectAFKWithoutAudio() {
     try {
       this.updateDate()
       if(typeof this.bucketMap === "undefined")
@@ -94,7 +129,7 @@ class AWClientService {
   }
 
   //find total time per app in the day including video streaming AFK
-  async getAppTotalWithAudio() {
+  async getAppTotalIntersectAFKWithAudio() {
     try {
       this.updateDate()
       if(typeof this.bucketMap === "undefined")

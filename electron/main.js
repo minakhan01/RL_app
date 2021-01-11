@@ -1,21 +1,22 @@
 const { app, BrowserWindow, Tray, Menu } = require("electron");
-app.commandLine.appendSwitch("disable-web-security");
-const { ipcMain } = require("electron");
+app.commandLine.appendSwitch('disable-web-security');
 const isDev = require("electron-is-dev");
 const path = require("path");
-
+let tray = null
 let mainWindow;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
     show: false,
-
-    webPreferences: {
-      enableRemoteModule: true,
-      nodeIntegration: false,
-      preload: __dirname + "/preload.js",
-    },
+    frame: false,
+    alwaysOnTop: true,
+   webPreferences: {
+     enableRemoteModule: true,
+     nodeIntegration: false,
+     preload: __dirname + '/preload.js'
+   }
   });
 
   const startURL = isDev
@@ -48,6 +49,12 @@ function createWindow() {
     }
     return false;
   });
+  mainWindow.on('restore', function (event) {
+      event.preventDefault();
+      mainWindow.show();
+      mainWindow.setSkipTaskbar(false);
+  });
+
 }
 
 let tray = null;
@@ -80,5 +87,25 @@ app
     tray.setContextMenu(contextMenu);
   })
   .catch(console.log);
+
+
+
+app.whenReady().then(() => {
+  tray = new Tray(`${path.join(__dirname, "./icon.png")}`)
+  var contextMenu = Menu.buildFromTemplate([
+    { label: 'Dashboard', click:  function(){
+        mainWindow.show();
+    } },
+    { label: 'Quit', click:  function(){
+        app.isQuiting = true;
+        app.quit();
+    } }
+]); 
+  tray.setToolTip('PAL')
+  tray.setContextMenu(contextMenu)
+}).catch(console.log)
+
+
+
 
 app.on("ready", createWindow);
