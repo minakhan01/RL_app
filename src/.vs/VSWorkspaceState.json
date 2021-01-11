@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "\\navigation",
+    "\\redux",
+    "\\redux\\actions",
+    "\\redux\\reducers",
+    "\\redux\\types"
+  ],
+  "PreviewInSolutionExplorer": false
+}

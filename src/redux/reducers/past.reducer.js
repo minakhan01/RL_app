@@ -1,0 +1,36 @@
+import { PastTypes } from "../types";
+
+const initialState = {
+  pastBreakData: [],
+  activityWatchData: {},
+  intervalBreakData: { date: '', minsAppRunningAfterLastIntervalBreak: 0, breakCount: 0 },
+  awData: { },
+};
+
+const PastReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PastTypes.ADD_MINUTE:
+      if (state.intervalBreakData.date !== (new Date().getDate() + '' + (new Date().getMonth() + 1) + '' + new Date().getFullYear()))
+        return { ...state, intervalBreakData: { ...state.intervalBreakData, minsAppRunningAfterLastIntervalBreak: 1, date: (new Date().getDate() + '' + (new Date().getMonth() + 1) + '' + new Date().getFullYear()) } };
+      return { ...state, intervalBreakData: { ...state.intervalBreakData, minsAppRunningAfterLastIntervalBreak: (state.intervalBreakData.minsAppRunningAfterLastIntervalBreak+1) } };
+
+    case PastTypes.ADD_INTERVAL_BREAK:
+      return { ...state, intervalBreakData: { ...state.intervalBreakData, breakCount: (state.intervalBreakData.breakCount + 1), minsAppRunningAfterLastIntervalBreak: 0 } };
+
+    case PastTypes.BACKUP_AW_DATA:
+      if (action.payload.type === "active-windows")
+        return { ...state, awData: { ...state.awData, activeWindows:action.payload } };
+      if(action.payload.type === "screen-time")
+        return { ...state, awData: { ...state.awData, screenTime: action.payload } };
+      return state;
+
+    case PastTypes.SAVE_BREAK_DATA:
+      return { ...state, pastBreakData: [...state.pastBreakData, action.payload] };
+
+
+    default:
+      return state;
+  }
+};
+
+export default PastReducer;
