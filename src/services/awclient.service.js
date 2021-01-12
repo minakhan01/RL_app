@@ -4,40 +4,40 @@ import {AWClient} from 'aw-client';
 
 class AWClientService {
   
-  constructor() {
-    this.client=new AWClient('test-client')
-    this.todayDate=new Date()
-    this.tmrwDate=new Date()
-    this.tmrwDate.setDate(this.todayDate.getDate() + 1);    
-    this.todayDate=this.todayDate.toISOString().substring(0,10)
-    this.tmrwDate=((this.tmrwDate).toISOString()).substring(0,10)
-    this.client.getBuckets().then((buckets)=>{
-      this.bucketMap={}
-      for (var bucketid in buckets) {
-		this.bucketMap[buckets[bucketid].client]=bucketid
-      }		
-	});
+    constructor() {
+        this.client = new AWClient('test-client')
+        this.todayDate = new Date()
+        this.tmrwDate = new Date()
+        this.todayDate.setHours(0, 0, 0, 0);
+        this.tmrwDate.setHours(23, 59, 59, 999);
+        this.todayDate = this.todayDate.toISOString()
+        this.tmrwDate = ((this.tmrwDate).toISOString())
+        this.client.getBuckets().then((buckets) => {
+            this.bucketMap = {}
+            for (var bucketid in buckets) {
+                this.bucketMap[buckets[bucketid].client] = bucketid
+            }
+        });
 
-  }
+    }
 
-  createBucketMap()
-  {
-    return this.client.getBuckets().then((buckets)=>{
-      this.bucketMap={}
-      for (var bucketid in buckets) {
-		this.bucketMap[buckets[bucketid].client]=bucketid
-      }		
-	});
-  }
-  
-  updateDate()
-  {
-    this.todayDate=new Date()
-    this.tmrwDate=new Date()
-    this.tmrwDate.setDate(this.todayDate.getDate() + 1);    
-    this.todayDate=this.todayDate.toISOString().substring(0,10)
-    this.tmrwDate=((this.tmrwDate).toISOString()).substring(0,10)
-  }
+    createBucketMap() {
+        return this.client.getBuckets().then((buckets) => {
+            this.bucketMap = {}
+            for (var bucketid in buckets) {
+                this.bucketMap[buckets[bucketid].client] = bucketid
+            }
+        });
+    }
+
+    updateDate() {
+        this.todayDate = new Date()
+        this.tmrwDate = new Date()
+        this.todayDate.setHours(0, 0, 0, 0);
+        this.tmrwDate.setHours(23, 59, 59, 999);
+        this.todayDate = this.todayDate.toISOString()
+        this.tmrwDate = ((this.tmrwDate).toISOString())
+    }
   
   //get today's active windows in order 
   async getActiveWindows() {
