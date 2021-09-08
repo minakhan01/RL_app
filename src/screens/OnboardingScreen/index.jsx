@@ -2,20 +2,34 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Steps, Button } from "antd";
+import { useHistory } from "react-router-dom";
 
 import PersonalInformationScreen from "./PersonalInformation";
 import ScheduledBreakScreen from "./ScheduledBreaks";
 import RegularBreakScreen from "./RegularBreaks";
 import AdHocBreakScreen from "./AdHocBreaks";
 import FinishingUpScreen from "./FinishingUp";
+import { OnboardingActions } from "../../redux/actions";
 import "./styles.css";
+import { setOnboardingComplete } from "../../redux/actions/onboarding.action";
+const customTitlebar = window.require("custom-electron-titlebar");
+
+new customTitlebar.Titlebar({
+  backgroundColor: customTitlebar.Color.fromHex("#FFFFFF"),
+});
+
 
 const { Step } = Steps;
 
 const OnboardingScreen = (props) => {
   const [current, setCurrent] = useState(0);
+  const history = useHistory();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (props.onboarding.complete) {
+      history.push("/calendar");
+    }
+  }, []);
 
   return (
     <div className="main">
@@ -63,7 +77,10 @@ const OnboardingScreen = (props) => {
         {current === 4 && (
           <Button
             type="primary"
-            //   onClick={() => message.success("Processing complete!")}
+            onClick={() => {
+              props.setOnboardingComplete();
+              history.push("/calendar");
+            }}
           >
             Done
           </Button>
@@ -74,9 +91,15 @@ const OnboardingScreen = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { onboarding: state.onboarding };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setOnboardingComplete: OnboardingActions.setOnboardingComplete,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnboardingScreen);

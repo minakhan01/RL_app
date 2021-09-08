@@ -7,9 +7,10 @@ const initialState = {
   regularBreakLength: 1,
   regularBreakInterval: 60,
   overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
-  allOverRides: [{ name: "", url: "", interval: 60, length: 1 }],
+  allOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
   loading: false,
   err: null,
+  complete: false,
 };
 
 const OnboardingReducer = (state = initialState, action) => {
@@ -30,6 +31,8 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, allOverRides: action.payload };
     case OnboardingTypes.SET_OVERRIDE_SITES:
       return { ...state, overRideSites: action.payload };
+    case OnboardingTypes.SET_ONBOARDING_COMPLETE:
+      return { ...state, complete: true };
     default:
       return state;
   }

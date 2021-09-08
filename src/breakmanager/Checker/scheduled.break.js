@@ -7,20 +7,27 @@ import { store } from "../../redux";
 export default function checkScheduledBreak() {
   //Scheduled break if condition goes here
   if (false) {
-    if (!(store.getState().break.breakState === "break") && !(store.getState().break.breakState === "break-feedback") && !(store.getState().break.breakState === "break-popup")) {
-      let timeNow = new Date().toISOString()
-      store.dispatch(BreakActions.startPopup(timeNow))
+    if (
+      !(store.getState().break.breakState === "break") &&
+      !(store.getState().break.breakState === "break-feedback") &&
+      !(store.getState().break.breakState === "break-popup")
+    ) {
+      let timeNow = new Date().toISOString();
+      store.dispatch(BreakActions.startPopup(timeNow));
       setTimeout(() => {
         let breakData = {
-          breakType: 'scheduled',
-          breakDescription: 'NA',
+          breakType: "scheduled",
+          breakDescription: "NA",
           breakStartTime: new Date().toISOString(),
           breakDuration: 80,
+        };
+        if (
+          store.getState().break.breakState === "break-popup" &&
+          store.getState().break.popupStartTime === timeNow
+        ) {
+          store.dispatch(BreakActions.startBreak(breakData));
         }
-        if ((store.getState().break.breakState === "break-popup") && (store.getState().break.popupStartTime === timeNow)) {
-          store.dispatch(BreakActions.startBreak(breakData))
-        }
-      }, 10000)
+      }, 10000);
     }
   }
 }

@@ -50,9 +50,15 @@ const AdHocBreakScreen = (props) => {
       {props.onboarding.overRideSites.map((item, index) => {
         return <Menu.Item key={item.key}>{item.name}</Menu.Item>;
       })}
-      <Menu.Item key={(sites.length + 1).toString()}>+ADD ANOTHER</Menu.Item>
+      <Menu.Item key={(props.onboarding.overRideSites.length + 1).toString()}>
+        +ADD ANOTHER
+      </Menu.Item>
     </Menu>
   );
+
+  const Capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
   return (
     <div className="step-container" style={{ marginBottom: "10px" }}>
@@ -127,7 +133,8 @@ const AdHocBreakScreen = (props) => {
                   props.onboarding.overRideSites.length + 1
                 ).toString();
                 let tempArray = props.onboarding.overRideSites;
-                tempArray.push({ url: siteUrl, name: siteName, key });
+                let finalSiteName = Capitalize(siteName);
+                tempArray.push({ url: siteUrl, name: finalSiteName, key });
                 props.setOverrideSites(tempArray);
                 setIsModalVisible(false);
               }}
@@ -273,12 +280,12 @@ const AdHocBreakScreen = (props) => {
                       }}
                       placeholder="First Name"
                       type="number"
-                      value={item.length}
+                      value={item.breakLength}
                       onChange={(e) => {
                         if (e.target.value > 0) {
                           let tempArray = props.onboarding.allOverRides;
                           let tempObj = tempArray[index];
-                          tempObj.length = e.target.value;
+                          tempObj.breakLength = e.target.value;
                           tempArray[index] = tempObj;
                           props.setAllOverrides(tempArray);
                         }
@@ -319,7 +326,7 @@ const AdHocBreakScreen = (props) => {
             }}
             onClick={() => {
               let tempArray = props.onboarding.allOverRides;
-              tempArray.push({ name: "", url: "", interval: 60, length: 1 });
+              tempArray.push({ name: "", url: "", interval: 60, breakLength: 1 });
               props.setAllOverrides(tempArray);
             }}
           >

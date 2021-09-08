@@ -39,3 +39,8 @@ export const setAllOverrides = (value) => ({
   type: OnboardingTypes.SET_ALL_OVERRIDES,
   payload: value,
 });
+
+export const setOnboardingComplete = () => ({
+  type: OnboardingTypes.SET_ONBOARDING_COMPLETE,
+  payload: {},
+});

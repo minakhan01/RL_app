@@ -3,10 +3,13 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Input, Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import ApiCalendar from "react-google-calendar-api";
 
 import { OnboardingActions } from "../../redux/actions";
 
 import "./styles.css";
+
+const { shell } = window.require("electron").remote;
 
 const PersonalInformationScreen = (props) => {
   const [message, setMessage] = useState("Drink Water");
@@ -23,6 +26,12 @@ const PersonalInformationScreen = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  useEffect(() => {
+    window.ipcRenderer.on("calendar-success", (event, data) => {
+      console.log("data", data);
+    });
+  }, []);
 
   return (
     <div className="step-container">
@@ -81,7 +90,11 @@ const PersonalInformationScreen = (props) => {
           style={{ borderRadius: "20px", marginTop: "1%" }}
           size="large"
           onClick={() => {
-            setIsModalVisible(true);
+            // ApiCalendar.handleAuthClick();
+            // ApiCalendar.onLoad(() => {
+            //   ApiCalendar.listenSign(signUpdate);
+            // });
+            shell.openExternal("http://localhost:3006/");
           }}
         >
           <PlusOutlined style={{ color: "white" }} />

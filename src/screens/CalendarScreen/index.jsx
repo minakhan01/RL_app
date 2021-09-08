@@ -16,7 +16,7 @@ const ColoredDateCellWrapper = ({ children }) =>
     },
   });
 
-const CalendarScreen = () => {
+const CalendarScreen = (props) => {
   const [events, setEvents] = useState([
     {
       start: moment().toDate(),
@@ -102,7 +102,7 @@ const CalendarScreen = () => {
       </Modal>
       <DnDCalendar
         selectable
-        resizable
+        resizable={true}
         events={events}
         views={["day", "week", "month"]}
         // step={60}
@@ -114,7 +114,7 @@ const CalendarScreen = () => {
         }}
         localizer={localizer}
         max={dates.add(dates.endOf(new Date(), "day"), -1, "hours")}
-        style={{ height: window.innerHeight }}
+        style={{ height: props.height ? props.height : window.innerHeight }}
         onEventResize={resizeEvent}
         onEventDrop={moveEvent}
         onDropFromOutside={onDropFromOutside}
@@ -123,7 +123,7 @@ const CalendarScreen = () => {
           setDraggedEvent(event);
         }}
         dragFromOutsideItem={draggedEvent}
-        onDragStart={console.log}
+        onDragStart={console.log("hmm")}
         resizableAccessor={() => false}
         onSelectEvent={() => {
           //add code for editing an existing event here
