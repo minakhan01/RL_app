@@ -58,7 +58,7 @@ const HomeScreen = (props) => {
             })}
           </div>
         </div>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}
           </p>
@@ -70,7 +70,7 @@ const HomeScreen = (props) => {
             How long you want these breaks to be :{" "}
             {props.onboarding.regularBreakLength} minute(s)
           </p>
-        </div>
+        </div> */}
         <Button>My Settings</Button>
         <Button
           onClick={() => {

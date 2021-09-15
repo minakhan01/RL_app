@@ -23,3 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 /dist
+
+.eslintcache
+
+/rl-app-darwin-x64
+
+rl-app-darwin-x64.zip

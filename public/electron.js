@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require("electron");
+const { app, BrowserWindow, Tray, Menu, ipcMain, nativeImage } = require("electron");
 app.commandLine.appendSwitch("disable-web-security");
 const isDev = require("electron-is-dev");
 const path = require("path");
@@ -65,7 +65,8 @@ app.setAsDefaultProtocolClient("rlapp");
 app
   .whenReady()
   .then(() => {
-    tray = new Tray(`${path.join(__dirname, "./icon.png")}`);
+    const image = nativeImage.createFromPath(path.join(__dirname, "./icon.png"))
+    tray = new Tray(image.resize({ width: 16, height: 16 }));
     var contextMenu = Menu.buildFromTemplate([
       {
         label: "Dashboard",
