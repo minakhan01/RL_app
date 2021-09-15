@@ -92,7 +92,6 @@ const BreakScreen = () => {
     );
   } else {
     curWindow.maximize();
-    curWindow.setSize(800, 600);
 
     return (
       <div className="break-div">

@@ -36,15 +36,7 @@ export default function eventHandler(history) {
 
     store.dispatch(BreakActions.setWindowChanged());
   } else if (store.getState().break.breakState === "break-stroop") {
-    // curWindow.restore();
     history.push("/stroop");
-    // //curWindow.maximize()
-    // curWindow.unmaximize();
-    // curWindow.setSize(800, 600);
-    // curWindow.center();
-    // curWindow.setAlwaysOnTop(true, "pop-up-menu");
-
-    // store.dispatch(BreakActions.setWindowChanged());
   }
 
   //sets window to full screen if break, and also ends the break after break time is over
