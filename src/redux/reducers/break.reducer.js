@@ -1,4 +1,4 @@
-import { BreakTypes } from "../types";
+import { BreakTypes, OnboardingTypes } from "../types";
 
 const initialState = {
   breakState: "no-break",
@@ -9,6 +9,7 @@ const initialState = {
   breakDuration: 0,
   popupStartTime: "",
   breaksTriggered: {},
+  breakEndTime: "",
 };
 
 const BreakReducer = (state = initialState, action) => {
@@ -35,6 +36,8 @@ const BreakReducer = (state = initialState, action) => {
 
     case BreakTypes.END_BREAK:
       return { ...state, breakState: "break-feedback" };
+    case BreakTypes.START_STROOP:
+      return { ...state, breakState: "break-stroop" };
 
     case BreakTypes.CLOSE_BREAK_SCREEN:
       return { ...state, breakState: "no-break", windowChanged: false };
@@ -43,6 +46,19 @@ const BreakReducer = (state = initialState, action) => {
       return { ...state, windowChanged: true };
     case BreakTypes.SET_BREAK_TRIGGERED:
       return { ...state, breaksTriggered: action.payload };
+
+    case OnboardingTypes.RESET:
+      return {
+        breakState: "no-break",
+        windowChanged: true,
+        breakType: "",
+        breakDescription: "",
+        breakStartTime: "",
+        breakDuration: 0,
+        popupStartTime: "",
+        breaksTriggered: {},
+        breakEndTime: "",
+      };
 
     default:
       return state;

@@ -12,12 +12,7 @@ import FinishingUpScreen from "./FinishingUp";
 import { OnboardingActions } from "../../redux/actions";
 import "./styles.css";
 import { setOnboardingComplete } from "../../redux/actions/onboarding.action";
-const customTitlebar = window.require("custom-electron-titlebar");
-
-new customTitlebar.Titlebar({
-  backgroundColor: customTitlebar.Color.fromHex("#FFFFFF"),
-});
-
+import BreakManager from "../../breakmanager";
 
 const { Step } = Steps;
 
@@ -26,8 +21,10 @@ const OnboardingScreen = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (props.onboarding.complete) {
-      history.push("/calendar");
+    if (props.break.breakState === "break-popup") {
+      history.push("/popup");
+    } else if (props.onboarding.complete) {
+      history.push("/home");
     }
   }, []);
 
@@ -36,16 +33,16 @@ const OnboardingScreen = (props) => {
       <Steps current={current} labelPlacement="vertical">
         <Step title="PERSONAL INFORMATION" />
         <Step title="SCHEDULED BREAKS" />
-        <Step title="INTERVAL BASED BREAKS" />
-        <Step title="ACTIVITY BASED BREAKS" />
+        {/* <Step title="INTERVAL BASED BREAKS" /> */}
+        {/* <Step title="ACTIVITY BASED BREAKS" /> */}
         <Step title="FINISHING UP" />
       </Steps>
       <div>
         {current === 0 && <PersonalInformationScreen />}
         {current === 1 && <ScheduledBreakScreen />}
-        {current === 2 && <RegularBreakScreen />}
-        {current === 3 && <AdHocBreakScreen />}
-        {current === 4 && <FinishingUpScreen />}
+        {/* {current === 2 && <RegularBreakScreen />} */}
+        {/* {current === 3 && <AdHocBreakScreen />} */}
+        {current === 2 && <FinishingUpScreen />}
       </div>
       <div
         style={{
@@ -64,7 +61,7 @@ const OnboardingScreen = (props) => {
             Back
           </Button>
         )}
-        {current < 4 && (
+        {current < 2 && (
           <Button
             type="primary"
             onClick={() => {
@@ -74,12 +71,14 @@ const OnboardingScreen = (props) => {
             Next
           </Button>
         )}
-        {current === 4 && (
+        {current === 2 && (
           <Button
             type="primary"
             onClick={() => {
               props.setOnboardingComplete();
-              history.push("/calendar");
+              // curWindow.minimize();
+              history.push("/home");
+              BreakManager(history);
             }}
           >
             Done
@@ -91,7 +90,7 @@ const OnboardingScreen = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { onboarding: state.onboarding };
+  return { onboarding: state.onboarding, break: state.break };
 };
 
 const mapDispatchToProps = (dispatch) =>

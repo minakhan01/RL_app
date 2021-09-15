@@ -1,14 +1,12 @@
 import { BreakActions, PastActions } from "../../redux/actions";
 import { store } from "../../redux";
 
-//TO DO: CONNECT WITH ACTUAL USER SETTINGS. Currently hardcoded for triggering every one minute
-
 //Checks whether Interval break is triggered
 export default function checkIntervalBreak(history) {
   let onboardingProps = store.getState().onboarding;
+  let pastProps = store.getState().past;
   if (
-    store.getState().past.intervalBreakData
-      .minsAppRunningAfterLastIntervalBreak >=
+    pastProps.intervalBreakData.minsAppRunningAfterLastIntervalBreak >=
     onboardingProps.regularBreakLength
   ) {
     store.dispatch(PastActions.addIntervalBreak());

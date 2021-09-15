@@ -10,9 +10,9 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 function App() {
-  // useEffect(() => {
-  //   Firebase.initializeApp(config);
-  // }, []);
+  useEffect(() => {
+    console.log("hm");
+  }, []);
   return (
     <Provider store={store}>
       <HashRouter>

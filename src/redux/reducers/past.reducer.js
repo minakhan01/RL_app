@@ -1,4 +1,4 @@
-import { PastTypes } from "../types";
+import { PastTypes, OnboardingTypes, BreakTypes } from "../types";
 
 const initialState = {
   pastBreakData: [],
@@ -9,6 +9,7 @@ const initialState = {
     breakCount: 0,
   },
   awData: {},
+  lastScheduledBreak: "",
 };
 
 const PastReducer = (state = initialState, action) => {
@@ -72,6 +73,25 @@ const PastReducer = (state = initialState, action) => {
         ...state,
         pastBreakData: [...state.pastBreakData, action.payload],
       };
+
+    case OnboardingTypes.RESET:
+      return {
+        pastBreakData: [],
+        activityWatchData: {},
+        intervalBreakData: {
+          date: "",
+          minsAppRunningAfterLastIntervalBreak: 0,
+          breakCount: 0,
+        },
+        awData: {},
+        lastScheduledBreak: "",
+      };
+
+    case BreakTypes.CANCEL_BREAK:
+      return { ...state, lastScheduledBreak: action.payload.endtime };
+
+    case BreakTypes.END_BREAK:
+      return { ...state, lastScheduledBreak: action.payload.endtime };
 
     default:
       return state;

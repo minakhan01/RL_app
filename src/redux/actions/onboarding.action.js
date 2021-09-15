@@ -44,3 +44,8 @@ export const setOnboardingComplete = () => ({
   type: OnboardingTypes.SET_ONBOARDING_COMPLETE,
   payload: {},
 });
+
+export const reset = () => ({
+  type: OnboardingTypes.RESET,
+  payload: {},
+});

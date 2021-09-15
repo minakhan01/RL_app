@@ -3,7 +3,7 @@ const initialState = {
   name: "",
   breakMessage: "Drink Water",
   screenTime: { start: "", end: "" },
-  scheduledBreaks: [{ start: "", end: "" }],
+  scheduledBreaks: [{ start: "", end: "", day: "" }],
   regularBreakLength: 1,
   regularBreakInterval: 60,
   overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
@@ -11,6 +11,7 @@ const initialState = {
   loading: false,
   err: null,
   complete: false,
+  startTime: "",
 };
 
 const OnboardingReducer = (state = initialState, action) => {
@@ -33,6 +34,20 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, overRideSites: action.payload };
     case OnboardingTypes.SET_ONBOARDING_COMPLETE:
       return { ...state, complete: true };
+    case OnboardingTypes.RESET:
+      return {
+        name: "",
+        breakMessage: "Drink Water",
+        screenTime: { start: "", end: "" },
+        scheduledBreaks: [{ start: "", end: "", day: "" }],
+        regularBreakLength: 1,
+        regularBreakInterval: 60,
+        overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
+        allOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+        loading: false,
+        err: null,
+        complete: false,
+      };
     default:
       return state;
   }

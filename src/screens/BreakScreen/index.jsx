@@ -45,7 +45,8 @@ const BreakScreen = () => {
   const breakStartTime = store.getState().break.breakStartTime;
 
   if (breakState === "break" && !minimized) {
-    curWindow.unmaximize();
+    curWindow.maximize();
+    curWindow.setMovable(false);
     curWindow.setSize(
       electron.remote.screen.getPrimaryDisplay().size.width,
       Math.ceil(electron.remote.screen.getPrimaryDisplay().size.height)
@@ -61,11 +62,14 @@ const BreakScreen = () => {
           startTime={breakStartTime}
         />
         <div className="circle"></div>
-      <div className="break-text">Get up and drink some water!</div>
+        <div className="break-text">
+          {store.getState().onboarding.breakMessage}
+        </div>
       </div>
     );
   } else if (breakState === "break" && minimized) {
     curWindow.unmaximize();
+    curWindow.setMovable(true);
     curWindow.setSize(
       electron.remote.screen.getPrimaryDisplay().size.width,
       Math.ceil(electron.remote.screen.getPrimaryDisplay().size.height / 8)

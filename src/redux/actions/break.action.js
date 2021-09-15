@@ -1,8 +1,8 @@
 import { BreakTypes } from "../types";
 
-export const endBreak = () => ({
+export const endBreak = (endtime) => ({
   type: BreakTypes.END_BREAK,
-  payload: {},
+  payload: { endtime },
 });
 
 export const startBreak = () => ({
@@ -25,9 +25,14 @@ export const startPopup = (str, breakData) => ({
   payload: { start: str, breakData },
 });
 
-export const cancelBreak = () => ({
-  type: BreakTypes.CANCEL_BREAK,
+export const startStroop = (str, breakData) => ({
+  type: BreakTypes.START_STROOP,
   payload: {},
+});
+
+export const cancelBreak = (endtime) => ({
+  type: BreakTypes.CANCEL_BREAK,
+  payload: { endtime },
 });
 
 export const setBreakTriggered = (value) => ({

@@ -3,10 +3,13 @@ import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { BreakActions, PastActions } from "../../redux/actions";
 import { Button } from "antd";
+import { store } from "../../redux";
+import { useHistory } from "react-router-dom";
 
 //TO-DO: add style
 const PopupScreen = () => {
   let dispatch = useDispatch();
+  let history = useHistory();
   return (
     <div style={{ backgroundColor: "white", padding: "3%" }}>
       <div
@@ -31,13 +34,21 @@ const PopupScreen = () => {
         }}
       >
         <Button
-          onClick={() => dispatch(BreakActions.cancelBreak())}
+          onClick={() =>
+            dispatch(
+              BreakActions.cancelBreak(store.getState().break.breakEndTime)
+            )
+          }
           style={{ color: "#7DCAB6", borderWidth: 0 }}
         >
           CANCEL
         </Button>
         <Button
-          onClick={() => dispatch(BreakActions.startBreak())}
+          onClick={() => {
+            // dispatch(BreakActions.startBreak())
+            dispatch(BreakActions.startStroop());
+            // history.push("/stroop");
+          }}
           style={{ color: "#7DCAB6", borderWidth: 0 }}
         >
           CONTINUE

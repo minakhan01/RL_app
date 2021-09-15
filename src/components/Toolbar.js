@@ -13,9 +13,7 @@ export default function Toolbar(props) {
     };
   });
 
-  const [minsRem, setMinsRem] = useState(
-    Math.ceil((new Date() - new Date(props.startTime)) / 60000)
-  );
+  const [minsRem, setMinsRem] = useState(Math.ceil(props.totaltime / 60));
   setTimeout(() => {
     setMinsRem(minsRem - 1);
   }, 60000);
@@ -42,7 +40,7 @@ export default function Toolbar(props) {
         <button
           className="close-break2"
           onClick={() => {
-            store.dispatch(BreakActions.endBreak());
+            store.dispatch(BreakActions.endBreak(store.getState().break.breakEndTime));
           }}
         >
           &#10006;
@@ -68,7 +66,7 @@ export default function Toolbar(props) {
           <button
             className="close-break3"
             onClick={() => {
-              store.dispatch(BreakActions.endBreak());
+              store.dispatch(BreakActions.endBreak(store.getState().break.breakEndTime));
             }}
           >
             &#10006;

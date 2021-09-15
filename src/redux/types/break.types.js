@@ -6,4 +6,5 @@ export const BreakTypes = {
   START_POPUP: "@break/START_POPUP",
   CANCEL_BREAK: "@break/CANCEL_BREAK",
   SET_BREAK_TRIGGERED: "@break/SET_BREAK_TRIGGERED",
+  START_STROOP: "@break/START_STROOP",
 };

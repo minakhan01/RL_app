@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { OnboardingActions } from "../../redux/actions";
 import * as dates from "../../utils/dates";
 import "./styles.css";
+import { useHistory } from "react-router-dom";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
@@ -27,6 +31,7 @@ const CalendarScreen = (props) => {
   ]);
   const [draggedEvent, setDraggedEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(null);
+  const history = useHistory();
 
   const resizeEvent = ({ event, start, end }) => {
     console.log("looi", event);
@@ -100,6 +105,14 @@ const CalendarScreen = (props) => {
       >
         Hello
       </Modal>
+      <Button
+        onClick={() => {
+          props.resetInfo();
+          history.push("/")
+        }}
+      >
+        Reset
+      </Button>
       <DnDCalendar
         selectable
         resizable={true}
@@ -123,7 +136,6 @@ const CalendarScreen = (props) => {
           setDraggedEvent(event);
         }}
         dragFromOutsideItem={draggedEvent}
-        onDragStart={console.log("hmm")}
         resizableAccessor={() => false}
         onSelectEvent={() => {
           //add code for editing an existing event here
@@ -134,4 +146,11 @@ const CalendarScreen = (props) => {
   );
 };
 
-export default CalendarScreen;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ resetInfo: OnboardingActions.reset }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarScreen);

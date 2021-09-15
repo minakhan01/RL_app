@@ -60,10 +60,10 @@ const PersonalInformationScreen = (props) => {
           Would you like any message to show up during the break? (e.g. drink
           water, be kind, etc.)
         </p>
-        <p style={{ fontSize: "15px", color: "#696969", width: "60%" }}>
+        {/* <p style={{ fontSize: "15px", color: "#696969", width: "60%" }}>
           You can set up to 10 messages, the messages will appear interchangebly
           on different breaks
-        </p>
+        </p> */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Input
             size="large"
@@ -80,7 +80,7 @@ const PersonalInformationScreen = (props) => {
           />
         </div>
       </div>
-      <div style={{ marginTop: "3%" }}>
+      {/* <div style={{ marginTop: "3%" }}>
         <p style={{ fontSize: "18px", marginBottom: "0" }}>
           Add a calendar to help us keep track of any meetings/breaks we should
           work around
@@ -100,7 +100,7 @@ const PersonalInformationScreen = (props) => {
           <PlusOutlined style={{ color: "white" }} />
           ADD CALENDAR
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
