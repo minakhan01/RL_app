@@ -7,19 +7,21 @@ export default function checkIntervalBreak(history) {
   let pastProps = store.getState().past;
   if (
     pastProps.intervalBreakData.minsAppRunningAfterLastIntervalBreak >=
-    onboardingProps.regularBreakLength
+    parseInt(onboardingProps.regularBreakInterval)
   ) {
     store.dispatch(PastActions.addIntervalBreak());
     if (
       !(store.getState().break.breakState === "break") &&
       !(store.getState().break.breakState === "break-feedback") &&
-      !(store.getState().break.breakState === "break-popup")
+      !(store.getState().break.breakState === "break-popup") &&
+      !(store.getState().break.breakState === "break-stroop") &&
+      !(store.getState().break.breakState === "break-fruit")
     ) {
       let timeNow = new Date().toISOString();
       let breakData = {
         breakType: "interval",
         breakDescription: "NA",
-        breakDuration: onboardingProps.regularBreakLength * 60,
+        breakDuration: parseInt(onboardingProps.regularBreakLength) * 60,
       };
       store.dispatch(BreakActions.startPopup(timeNow, breakData));
       setTimeout(() => {
@@ -27,7 +29,7 @@ export default function checkIntervalBreak(history) {
           store.getState().break.breakState === "break-popup" &&
           store.getState().break.popupStartTime === timeNow
         ) {
-          store.dispatch(BreakActions.startBreak());
+          store.dispatch(BreakActions.startStroop());
         }
       }, 10000);
     }

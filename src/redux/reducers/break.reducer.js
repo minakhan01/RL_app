@@ -38,6 +38,8 @@ const BreakReducer = (state = initialState, action) => {
       return { ...state, breakState: "break-feedback" };
     case BreakTypes.START_STROOP:
       return { ...state, breakState: "break-stroop" };
+    case BreakTypes.START_FRUIT:
+      return { ...state, breakState: "break-fruit" };
 
     case BreakTypes.CLOSE_BREAK_SCREEN:
       return { ...state, breakState: "no-break", windowChanged: false };

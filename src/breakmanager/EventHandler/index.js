@@ -37,6 +37,8 @@ export default function eventHandler(history) {
     store.dispatch(BreakActions.setWindowChanged());
   } else if (store.getState().break.breakState === "break-stroop") {
     history.push("/stroop");
+  } else if (store.getState().break.breakState === "break-fruit") {
+    history.push("/fruit");
   }
 
   //sets window to full screen if break, and also ends the break after break time is over

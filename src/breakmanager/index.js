@@ -9,7 +9,7 @@ let BreakManager = (history) => {
   setInterval(() => {
     checkBreak(history);
   }, 30000);
-  // setInterval(() => { databaseUpdater() }, 60000)
+  setInterval(() => { databaseUpdater() }, 60000)
 };
 
 export default BreakManager;

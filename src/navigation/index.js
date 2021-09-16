@@ -9,6 +9,7 @@ const OnboardingScreen = lazy(() => import("../screens/OnboardingScreen"));
 const CalendarScreen = lazy(() => import("../screens/CalendarScreen"));
 const PopupScreen = lazy(() => import("../screens/PopupScreen"));
 const StroopScreen = lazy(() => import("../screens/StroopScreen"));
+const FruitNinjaScreen = lazy(() => import("../screens/FruitNinjaScreen"));
 
 const Main = () => {
   let history = useHistory();
@@ -22,6 +23,7 @@ const Main = () => {
         <Route path="/popup" component={PopupScreen} />
         <Route path="/home" component={HomeScreen} />
         <Route path="/stroop" component={StroopScreen} />
+        <Route path="/fruit" component={FruitNinjaScreen} />
       </Switch>
     </Suspense>
   );

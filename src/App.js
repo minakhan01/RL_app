@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import { HashRouter } from "react-router-dom";
+import { HashRouter, useHistory } from "react-router-dom";
+import BreakManager from "./breakmanager";
 
 import { store } from "./redux";
 import Main from "./navigation";
@@ -10,8 +11,11 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 function App() {
+  let history = useHistory();
   useEffect(() => {
-    console.log("hm");
+    if (store.getState().onboarding.complete) {
+      BreakManager(history);
+    }
   }, []);
   return (
     <Provider store={store}>

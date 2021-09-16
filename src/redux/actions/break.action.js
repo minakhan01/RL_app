@@ -25,8 +25,13 @@ export const startPopup = (str, breakData) => ({
   payload: { start: str, breakData },
 });
 
-export const startStroop = (str, breakData) => ({
+export const startStroop = () => ({
   type: BreakTypes.START_STROOP,
+  payload: {},
+});
+
+export const startFruit = () => ({
+  type: BreakTypes.START_FRUIT,
   payload: {},
 });
 

@@ -33,16 +33,16 @@ const OnboardingScreen = (props) => {
       <Steps current={current} labelPlacement="vertical">
         <Step title="PERSONAL INFORMATION" />
         <Step title="SCHEDULED BREAKS" />
-        {/* <Step title="INTERVAL BASED BREAKS" /> */}
+        <Step title="INTERVAL BASED BREAKS" />
         {/* <Step title="ACTIVITY BASED BREAKS" /> */}
         <Step title="FINISHING UP" />
       </Steps>
       <div>
         {current === 0 && <PersonalInformationScreen />}
         {current === 1 && <ScheduledBreakScreen />}
-        {/* {current === 2 && <RegularBreakScreen />} */}
+        {current === 2 && <RegularBreakScreen />}
         {/* {current === 3 && <AdHocBreakScreen />} */}
-        {current === 2 && <FinishingUpScreen />}
+        {current === 3 && <FinishingUpScreen />}
       </div>
       <div
         style={{
@@ -61,7 +61,7 @@ const OnboardingScreen = (props) => {
             Back
           </Button>
         )}
-        {current < 2 && (
+        {current < 3 && (
           <Button
             type="primary"
             onClick={() => {
@@ -71,7 +71,7 @@ const OnboardingScreen = (props) => {
             Next
           </Button>
         )}
-        {current === 2 && (
+        {current === 3 && (
           <Button
             type="primary"
             onClick={() => {
