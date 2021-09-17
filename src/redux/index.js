@@ -9,7 +9,7 @@ import createElectronStorage from "./store";
 const persistConfig = {
   key: "root",
   storage: createElectronStorage(),
-  whitelist: ["test", "onboarding", "past"], // which reducer want to store
+  whitelist: ["test", "onboarding", "past", "break"], // which reducer want to store
 };
 const finalReducers = persistReducer(persistConfig, reducers);
 

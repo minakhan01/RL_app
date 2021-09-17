@@ -14,7 +14,7 @@ function App() {
   let history = useHistory();
   useEffect(() => {
     if (store.getState().onboarding.complete) {
-      BreakManager(history);
+      // BreakManager(history);
     }
   }, []);
   return (

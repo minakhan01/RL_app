@@ -10,6 +10,7 @@ const initialState = {
   },
   awData: {},
   lastScheduledBreak: "",
+  initScheduled: {},
 };
 
 const PastReducer = (state = initialState, action) => {
@@ -85,6 +86,7 @@ const PastReducer = (state = initialState, action) => {
         },
         awData: {},
         lastScheduledBreak: "",
+        initScheduled: {},
       };
 
     case BreakTypes.CANCEL_BREAK:
@@ -92,6 +94,8 @@ const PastReducer = (state = initialState, action) => {
 
     case BreakTypes.END_BREAK:
       return { ...state, lastScheduledBreak: action.payload.endtime };
+    case PastTypes.SAVE_INIT_BREAK_DATA:
+      return { ...state, initScheduled: action.payload };
 
     default:
       return state;

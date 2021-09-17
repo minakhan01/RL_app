@@ -20,3 +20,8 @@ export const saveBreakData = (dat) => ({
   type: PastTypes.SAVE_BREAK_DATA,
   payload: dat,
 });
+
+export const saveInitBreakData = (dat) => ({
+  type: PastTypes.SAVE_INIT_BREAK_DATA,
+  payload: dat,
+});
