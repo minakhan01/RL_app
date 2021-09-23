@@ -34,12 +34,10 @@ export default function checkActivityRuleBreak() {
             }
           });
           let preGame = Math.ceil(totalUsage / (60 * indBreak.interval));
-          console.log("prte", preGame);
           let initScheduled = store.getState().past.initScheduled;
           if (initScheduled[indBreak.url]) {
             preGame = initScheduled[indBreak.url];
           }
-          console.log("ya", initScheduled);
           let currentBreaksTriggered = store.getState().break.breaksTriggered;
           let numberBreaks = 0;
           if (currentBreaksTriggered[indBreak.url]) {
@@ -51,9 +49,6 @@ export default function checkActivityRuleBreak() {
             BreakActions.setBreakTriggered(currentBreaksTriggered)
           );
           store.dispatch(PastActions.saveInitBreakData(initScheduled));
-          console.log("num", numberBreaks);
-          console.log("ya num", totalUsage / 60);
-          console.log("has num", indBreak.interval);
           if (preGame === 0) {
             if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
               console.log("ya", totalUsage / 60);
@@ -106,14 +101,14 @@ export default function checkActivityRuleBreak() {
                 breakDuration: indBreak.breakLength * 60,
               };
               store.dispatch(BreakActions.startPopup(timeNow, breakData));
-              // setTimeout(() => {
-              //   if (
-              //     store.getState().break.breakState === "break-popup" &&
-              //     store.getState().break.popupStartTime === timeNow
-              //   ) {
-              //     store.dispatch(BreakActions.startBreak());
-              //   }
-              // }, 10000);
+              setTimeout(() => {
+                if (
+                  store.getState().break.breakState === "break-popup" &&
+                  store.getState().break.popupStartTime === timeNow
+                ) {
+                  store.dispatch(BreakActions.startStroop());
+                }
+              }, 10000);
             }
           }
         }
