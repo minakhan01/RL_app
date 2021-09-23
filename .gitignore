@@ -28,4 +28,6 @@ yarn-error.log*
 
 /rl-app-darwin-x64
 
+/rl-app-win32-x64
+
 rl-app-darwin-x64.zip

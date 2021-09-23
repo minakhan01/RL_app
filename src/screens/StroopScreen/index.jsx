@@ -32,7 +32,7 @@ const StroopScreen = () => {
         ) : (
           <Button
             onClick={() => {
-              dispatch(BreakActions.startBreak());
+              dispatch(BreakActions.startFruit());
             }}
           >
             Take Break
@@ -44,7 +44,7 @@ const StroopScreen = () => {
     return (
       <div style={{ backgroundColor: "white", padding: "3%" }}>
         <StroopTest
-          len={4}
+          len={(scores.length + 2) * 2}
           style={s1}
           onComplete={(score) => {
             //   setStage({ ...stage, stroop: 2, scores: [...stage.scores, score] });
