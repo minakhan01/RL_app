@@ -6,5 +6,5 @@ import checkScheduledBreak from './scheduled.break'
 export default function checkBreak(history) {
   checkActivityRuleBreak()
   checkIntervalBreak(history)
-  checkScheduledBreak()
+  // checkScheduledBreak()
 }

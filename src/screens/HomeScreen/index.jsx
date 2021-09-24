@@ -14,7 +14,7 @@ const HomeScreen = (props) => {
   return (
     <div className="step-container">
       <div style={{ marginTop: "3%", width: "70%", margin: "5%" }}>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Scheduled Breaks :{" "}
           </p>
@@ -57,7 +57,7 @@ const HomeScreen = (props) => {
               );
             })}
           </div>
-        </div>
+        </div> */}
         <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}
@@ -72,14 +72,14 @@ const HomeScreen = (props) => {
           </p>
         </div>
         <Button>My Settings</Button>
-        <Button
+        {/* <Button
           onClick={() => {
             props.resetInfo();
             history.push("/");
           }}
         >
           Reset
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

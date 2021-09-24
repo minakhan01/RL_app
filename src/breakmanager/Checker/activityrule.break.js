@@ -69,14 +69,14 @@ export default function checkActivityRuleBreak() {
                 breakDuration: indBreak.breakLength * 60,
               };
               store.dispatch(BreakActions.startPopup(timeNow, breakData));
-              // setTimeout(() => {
-              //   if (
-              //     store.getState().break.breakState === "break-popup" &&
-              //     store.getState().break.popupStartTime === timeNow
-              //   ) {
-              //     store.dispatch(BreakActions.startBreak());
-              //   }
-              // }, 10000);
+              setTimeout(() => {
+                if (
+                  store.getState().break.breakState === "break-popup" &&
+                  store.getState().break.popupStartTime === timeNow
+                ) {
+                  store.dispatch(BreakActions.startStroop());
+                }
+              }, 10000);
             }
           } else {
             if (

@@ -41,7 +41,7 @@ export default function checkScheduledBreak() {
             breakDescription: "NA",
             breakStartTime: timeNowNew,
             breakDuration: (currentEnd - timeNow) / 1000,
-            breakEndTime: currentEnd,
+            breakEndTime: indBreak.end,
           };
           store.dispatch(BreakActions.startPopup(timeNowNew, breakData));
           setTimeout(() => {

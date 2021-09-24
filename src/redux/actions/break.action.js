@@ -10,6 +10,11 @@ export const startBreak = () => ({
   payload: {},
 });
 
+export const addBreakData = (breakData) => ({
+  type: BreakTypes.ADD_BREAK_DATA,
+  payload: { breakData },
+});
+
 export const closeBreakScreen = () => ({
   type: BreakTypes.CLOSE_BREAK_SCREEN,
   payload: {},

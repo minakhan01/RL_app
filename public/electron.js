@@ -78,6 +78,7 @@ app
         label: "Take a break",
         click: function () {
           mainWindow.show();
+          mainWindow.webContents.send('asynchronous-message', {'SAVED': 'File Saved'});
         },
       },
       {

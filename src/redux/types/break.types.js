@@ -8,4 +8,5 @@ export const BreakTypes = {
   SET_BREAK_TRIGGERED: "@break/SET_BREAK_TRIGGERED",
   START_STROOP: "@break/START_STROOP",
   START_FRUIT: "@break/START_FRUIT",
+  ADD_BREAK_DATA: "@break/ADD_BREAK_DATA",
 };

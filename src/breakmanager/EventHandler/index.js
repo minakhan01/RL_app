@@ -7,6 +7,7 @@ const path = window.require("path");
 
 //handles window and route changes when break-state changes
 export default function eventHandler(history) {
+  console.log("ya")
   //sets screen back to normal if no break
   if (
     store.getState().break.breakState === "no-break" &&
@@ -46,6 +47,7 @@ export default function eventHandler(history) {
     store.getState().break.breakState === "break" &&
     !store.getState().break.windowChanged
   ) {
+    console.log("yaaa3")
     curWindow.setOpacity(0.8);
     curWindow.maximize();
 

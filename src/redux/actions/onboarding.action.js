@@ -49,3 +49,13 @@ export const reset = () => ({
   type: OnboardingTypes.RESET,
   payload: {},
 });
+
+export const awChecked = () => ({
+  type: OnboardingTypes.AW_CHECKED,
+  payload: {},
+});
+
+export const loginUser = (data) => ({
+  type: OnboardingTypes.LOGIN_USER,
+  payload: data,
+});

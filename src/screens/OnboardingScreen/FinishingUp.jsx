@@ -18,7 +18,7 @@ const FinishingUpScreen = (props) => {
           <br />
           <br />
         </p>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Scheduled Breaks :{" "}
           </p>
@@ -61,7 +61,7 @@ const FinishingUpScreen = (props) => {
               );
             })}
           </div>
-        </div>
+        </div> */}
         <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}

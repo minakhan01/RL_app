@@ -21,10 +21,12 @@ const OnboardingScreen = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (props.break.breakState === "break-popup") {
-      history.push("/popup");
-    } else if (props.onboarding.complete) {
+    if (props.onboarding.complete) {
       history.push("/home");
+    } else if (Object.keys(props.onboarding.user).length === 0) {
+      history.push("/login");
+    } else if (!props.onboarding.awChecked) {
+      history.push("/aw");
     }
   }, []);
 
@@ -32,17 +34,17 @@ const OnboardingScreen = (props) => {
     <div className="main">
       <Steps current={current} labelPlacement="vertical">
         <Step title="PERSONAL INFORMATION" />
-        <Step title="SCHEDULED BREAKS" />
+        {/* <Step title="SCHEDULED BREAKS" /> */}
         <Step title="INTERVAL BASED BREAKS" />
         <Step title="ACTIVITY BASED BREAKS" />
         <Step title="FINISHING UP" />
       </Steps>
       <div>
         {current === 0 && <PersonalInformationScreen />}
-        {current === 1 && <ScheduledBreakScreen />}
-        {current === 2 && <RegularBreakScreen />}
-        {current === 3 && <AdHocBreakScreen />}
-        {current === 4 && <FinishingUpScreen />}
+        {/* {current === 1 && <ScheduledBreakScreen />} */}
+        {current === 1 && <RegularBreakScreen />}
+        {current === 2 && <AdHocBreakScreen />}
+        {current === 3 && <FinishingUpScreen />}
       </div>
       <div
         style={{
@@ -61,7 +63,7 @@ const OnboardingScreen = (props) => {
             Back
           </Button>
         )}
-        {current < 4 && (
+        {current < 3 && (
           <Button
             type="primary"
             onClick={() => {
@@ -71,7 +73,7 @@ const OnboardingScreen = (props) => {
             Next
           </Button>
         )}
-        {current === 4 && (
+        {current === 3 && (
           <Button
             type="primary"
             onClick={() => {
@@ -97,6 +99,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       setOnboardingComplete: OnboardingActions.setOnboardingComplete,
+      reset: OnboardingActions.reset,
     },
     dispatch
   );

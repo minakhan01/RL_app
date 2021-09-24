@@ -32,7 +32,18 @@ const BreakReducer = (state = initialState, action) => {
       };
 
     case BreakTypes.CANCEL_BREAK:
-      return { ...state, breakState: "no-break", windowChanged: false };
+      return {
+        ...state,
+        breakState: "no-break",
+        windowChanged: false,
+        breakType: "",
+        breakDescription: "",
+        breakStartTime: "",
+        breakDuration: 0,
+        popupStartTime: "",
+        breaksTriggered: {},
+        breakEndTime: "",
+      };
 
     case BreakTypes.END_BREAK:
       return { ...state, breakState: "break-feedback" };
@@ -42,12 +53,25 @@ const BreakReducer = (state = initialState, action) => {
       return { ...state, breakState: "break-fruit" };
 
     case BreakTypes.CLOSE_BREAK_SCREEN:
-      return { ...state, breakState: "no-break", windowChanged: false };
+      return {
+        ...state,
+        breakState: "no-break",
+        windowChanged: false,
+        breakType: "",
+        breakDescription: "",
+        breakStartTime: "",
+        breakDuration: 0,
+        popupStartTime: "",
+        breaksTriggered: {},
+        breakEndTime: "",
+      };
 
     case BreakTypes.SET_WINDOW_CHANGED:
       return { ...state, windowChanged: true };
     case BreakTypes.SET_BREAK_TRIGGERED:
       return { ...state, breaksTriggered: action.payload };
+    case BreakTypes.ADD_BREAK_DATA:
+      return { ...state, ...action.payload.breakData };
 
     case OnboardingTypes.RESET:
       return {

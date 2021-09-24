@@ -12,12 +12,16 @@ const initialState = {
   err: null,
   complete: false,
   startTime: "",
+  user: {},
+  awChecked: false,
 };
 
 const OnboardingReducer = (state = initialState, action) => {
   switch (action.type) {
     case OnboardingTypes.SET_NAME:
       return { ...state, name: action.payload };
+    case OnboardingTypes.LOGIN_USER:
+      return { ...state, user: action.payload, name: action.payload.name };
     case OnboardingTypes.SET_BREAK_MESSAGE:
       return { ...state, breakMessage: action.payload };
     case OnboardingTypes.SET_SCHEDULED_BREAKS:
@@ -34,6 +38,8 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, overRideSites: action.payload };
     case OnboardingTypes.SET_ONBOARDING_COMPLETE:
       return { ...state, complete: true };
+    case OnboardingTypes.AW_CHECKED:
+      return { ...state, awChecked: true };
     case OnboardingTypes.RESET:
       return {
         name: "",
@@ -47,6 +53,8 @@ const OnboardingReducer = (state = initialState, action) => {
         loading: false,
         err: null,
         complete: false,
+        user: {},
+        awChecked: false,
       };
     default:
       return state;

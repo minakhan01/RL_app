@@ -4,6 +4,9 @@ import { BreakActions, PastActions } from "../../redux/actions";
 import { Button } from "antd";
 import { store } from "../../redux";
 import StroopTest from "../../components/stroop_test";
+import Games from "../../components/Games";
+
+const { ipcRenderer, remote } = window.require("electron");
 
 var s1 = {
   height: "100vh",
@@ -17,45 +20,15 @@ const StroopScreen = () => {
   const [complte, setComplete] = useState(false);
   const [scores, setScore] = useState([]);
   let dispatch = useDispatch();
-  console.log("sc", scores);
-  if (complte) {
-    return (
-      <div style={{ backgroundColor: "white", padding: "3%" }}>
-        {scores.length < 3 ? (
-          <Button
-            onClick={() => {
-              setComplete(false);
-            }}
-          >
-            Continue
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              dispatch(BreakActions.startFruit());
-            }}
-          >
-            Take Break
-          </Button>
-        )}
-      </div>
-    );
-  } else {
-    return (
-      <div style={{ backgroundColor: "white", padding: "3%" }}>
-        <StroopTest
-          len={(scores.length + 2) * 2}
-          style={s1}
-          onComplete={(score) => {
-            //   setStage({ ...stage, stroop: 2, scores: [...stage.scores, score] });
-            let tempArray = [...scores];
-            tempArray.push(score);
-            setScore(tempArray);
-            setComplete(true);
-          }}
-        />
-      </div>
-    );
-  }
+  var order = Math.floor(Math.random() * 2);
+  return (
+    <Games
+      order={0}
+      onComplete={() => {
+        //remove in mobile app
+        remote.getCurrentWindow().close();
+      }}
+    />
+  );
 };
 export default StroopScreen;
