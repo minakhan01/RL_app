@@ -72,14 +72,14 @@ const HomeScreen = (props) => {
           </p>
         </div>
         <Button>My Settings</Button>
-        {/* <Button
+        <Button
           onClick={() => {
             props.resetInfo();
             history.push("/");
           }}
         >
           Reset
-        </Button> */}
+        </Button>
       </div>
     </div>
   );
