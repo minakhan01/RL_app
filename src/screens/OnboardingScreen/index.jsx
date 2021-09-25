@@ -23,7 +23,7 @@ const OnboardingScreen = (props) => {
   useEffect(() => {
     if (props.onboarding.complete) {
       history.push("/home");
-    } else if (Object.keys(props.onboarding.user).length === 0) {
+    } else if (props.onboarding.user && Object.keys(props.onboarding.user).length === 0) {
       history.push("/login");
     } else if (!props.onboarding.awChecked) {
       history.push("/aw");
