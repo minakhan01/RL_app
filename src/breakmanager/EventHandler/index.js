@@ -7,7 +7,6 @@ const path = window.require("path");
 
 //handles window and route changes when break-state changes
 export default function eventHandler(history) {
-  console.log("ya")
   //sets screen back to normal if no break
   if (
     store.getState().break.breakState === "no-break" &&

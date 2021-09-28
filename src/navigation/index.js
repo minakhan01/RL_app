@@ -15,6 +15,8 @@ const StroopScreen = lazy(() => import("../screens/StroopScreen"));
 const FruitNinjaScreen = lazy(() => import("../screens/FruitNinjaScreen"));
 const LoginScreen = lazy(() => import("../screens/LoginScreen"));
 const AWCheckerScreen = lazy(() => import("../screens/AWCheckerScreen"));
+const AnalyticsScreen = lazy(() => import("../screens/AnalyticsScreen"));
+const NewHomeScreen = lazy(() => import("../screens/NewHomeScreen"));
 
 const Main = () => {
   let history = useHistory();
@@ -22,6 +24,7 @@ const Main = () => {
   let dispatch = useDispatch();
   useEffect(() => {
     if (store.getState().onboarding.complete) {
+      console.log("hm")
       BreakManager(history);
     }
     if (store.getState().break.breakState === "break-popup") {
@@ -52,6 +55,8 @@ const Main = () => {
         <Route path="/stroop" component={StroopScreen} />
         <Route path="/fruit" component={FruitNinjaScreen} />
         <Route path="/aw" component={AWCheckerScreen} />
+        <Route path="/ana" component={AnalyticsScreen} />
+        <Route path="/new" component={NewHomeScreen} />
       </Switch>
     </Suspense>
   );

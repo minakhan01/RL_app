@@ -40,6 +40,8 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, complete: true };
     case OnboardingTypes.AW_CHECKED:
       return { ...state, awChecked: true };
+    case OnboardingTypes.ADD_ONB_INFO:
+      return { ...state, ...action.payload };
     case OnboardingTypes.RESET:
       return {
         name: "",

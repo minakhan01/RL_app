@@ -28,10 +28,10 @@ const RegularBreakScreen = (props) => {
             style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
             placeholder="Length"
             type="number"
-            value={props.onboarding.regularBreakLength}
+            value={props.onboarding.regularBreakLength.toString()}
             onChange={(e) => {
               if (e.target.value > 0)
-                props.setRegularBreakLength(e.target.value);
+                props.setRegularBreakLength(parseInt(e.target.value));
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -56,10 +56,10 @@ const RegularBreakScreen = (props) => {
             style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
             placeholder="Interval"
             type="number"
-            value={props.onboarding.regularBreakInterval}
+            value={props.onboarding.regularBreakInterval.toString()}
             onChange={(e) => {
               if (e.target.value > 0 && e.target.value < 61)
-                props.setRegularBreakInterval(e.target.value);
+                props.setRegularBreakInterval(parseInt(e.target.value));
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>

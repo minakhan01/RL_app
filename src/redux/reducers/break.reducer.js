@@ -10,6 +10,14 @@ const initialState = {
   popupStartTime: "",
   breaksTriggered: {},
   breakEndTime: "",
+  prebreakScores: {
+    stroop: [],
+    fruit: [],
+  },
+  postbreakScores: {
+    stroop: [],
+    fruit: [],
+  },
 };
 
 const BreakReducer = (state = initialState, action) => {
@@ -43,6 +51,14 @@ const BreakReducer = (state = initialState, action) => {
         popupStartTime: "",
         breaksTriggered: {},
         breakEndTime: "",
+        prebreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        postbreakScores: {
+          stroop: [],
+          fruit: [],
+        },
       };
 
     case BreakTypes.END_BREAK:
@@ -64,6 +80,14 @@ const BreakReducer = (state = initialState, action) => {
         popupStartTime: "",
         breaksTriggered: {},
         breakEndTime: "",
+        prebreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        postbreakScores: {
+          stroop: [],
+          fruit: [],
+        },
       };
 
     case BreakTypes.SET_WINDOW_CHANGED:
@@ -84,6 +108,14 @@ const BreakReducer = (state = initialState, action) => {
         popupStartTime: "",
         breaksTriggered: {},
         breakEndTime: "",
+        prebreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        postbreakScores: {
+          stroop: [],
+          fruit: [],
+        },
       };
 
     default:

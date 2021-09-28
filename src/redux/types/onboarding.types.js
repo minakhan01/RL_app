@@ -9,5 +9,6 @@ export const SET_ALL_OVERRIDES = "SET_ALL_OVERRIDES";
 export const SET_ONBOARDING_COMPLETE = "SET_ONBOARDING_COMPLETE";
 export const LOGIN_USER = "LOGIN_USER";
 export const AW_CHECKED = "AW_CHECKED";
+export const ADD_ONB_INFO = "ADD_ONB_INFO";
 
 export const RESET = "RESET";

@@ -51,8 +51,6 @@ export default function checkActivityRuleBreak() {
           store.dispatch(PastActions.saveInitBreakData(initScheduled));
           if (preGame === 0) {
             if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
-              console.log("ya", totalUsage / 60);
-              console.log("has", indBreak.interval);
               if (currentBreaksTriggered[indBreak.url]) {
                 currentBreaksTriggered[indBreak.url] += 1;
                 initScheduled[indBreak.url] += 1;

@@ -20,8 +20,12 @@ const AWCheckerScreen = (props) => {
     try {
       let resp = await client.getAppTotals();
       if (Object.keys(resp).length > 0) {
-        history.push("/");
         props.awChecked();
+        if (props.onboarding.complete) {
+          history.push("/home");
+        } else {
+          history.push("/");
+        }
       }
     } catch (error) {
       setLoading(false);
@@ -71,7 +75,7 @@ const AWCheckerScreen = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { onboarding: state.onboarding };
 };
 
 const mapDispatchToProps = (dispatch) =>

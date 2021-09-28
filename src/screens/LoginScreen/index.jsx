@@ -20,6 +20,13 @@ const LoginScreen = (props) => {
     if (response.data.message === "Successful Login") {
       props.loginUserAction(response.data.userInfo);
       history.push("/aw");
+      let onbData = response.data.onbInfo;
+      if (onbData.length > 0) {
+        let findata = onbData[0];
+        delete findata.user;
+        findata.complete = true;
+        props.addOnbInfo(findata);
+      }
     }
   };
   return (
@@ -69,7 +76,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
-    { loginUserAction: OnboardingActions.loginUser },
+    {
+      loginUserAction: OnboardingActions.loginUser,
+      addOnbInfo: OnboardingActions.addOnbInfo,
+    },
     dispatch
   );
 

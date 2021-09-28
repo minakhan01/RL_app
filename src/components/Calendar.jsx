@@ -34,20 +34,15 @@ const CalendarComponent = () => {
   };
 
   return (
-    <DnDCalendar
+    <Calendar
       events={events}
       views={["day", "week", "month"]}
       step={60}
       showMultiDayTimes
-      defaultDate={new Date()}
-      components={{
-        timeSlotWrapper: ColoredDateCellWrapper,
-      }}
       localizer={localizer}
-      max={dates.add(dates.endOf(new Date(), "day"), -1, "hours")}
+      defaultDate={new Date()}
+      popup
       style={{ height: 500 }}
-      onEventResize={onEventResize}
-      onEventDrop={onEventDrop}
     />
   );
 };

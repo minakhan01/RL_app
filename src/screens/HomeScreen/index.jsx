@@ -71,7 +71,14 @@ const HomeScreen = (props) => {
             {props.onboarding.regularBreakLength} minute(s)
           </p>
         </div>
-        <Button>My Settings</Button>
+        <Button
+          onClick={() => {
+            props.resetInfo();
+            history.push("/new");
+          }}
+        >
+          My Settings
+        </Button>
         <Button
           onClick={() => {
             props.resetInfo();

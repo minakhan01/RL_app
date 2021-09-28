@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { BreakActions, PastActions } from "../../redux/actions";
 import { Button } from "antd";
 import { store } from "../../redux";
-import StroopTest from "../../components/stroop_test";
 import Games from "../../components/Games";
 
 const { ipcRenderer, remote } = window.require("electron");

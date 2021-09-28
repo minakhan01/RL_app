@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Steps, Button } from "antd";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import PersonalInformationScreen from "./PersonalInformation";
 import ScheduledBreakScreen from "./ScheduledBreaks";
@@ -20,10 +21,32 @@ const OnboardingScreen = (props) => {
   const [current, setCurrent] = useState(0);
   const history = useHistory();
 
+  const addOnbInfo = async () => {
+    let body = { ...props.onboarding };
+    if (props.onboarding.user && props.onboarding.user._id) {
+      body.user = props.onboarding.user._id;
+      console.log("look bo", body);
+      let response = await axios.post(
+        "https://thepallab.com/api/user/onb",
+        body
+      );
+      if (response.data.message === "Successful Added") {
+        history.push("/home");
+        BreakManager(history);
+      }
+    } else {
+      props.reset();
+      history.push("/login");
+    }
+  };
+
   useEffect(() => {
     if (props.onboarding.complete) {
       history.push("/home");
-    } else if (props.onboarding.user && Object.keys(props.onboarding.user).length === 0) {
+    } else if (
+      props.onboarding.user &&
+      Object.keys(props.onboarding.user).length === 0
+    ) {
       history.push("/login");
     } else if (!props.onboarding.awChecked) {
       history.push("/aw");
@@ -79,8 +102,9 @@ const OnboardingScreen = (props) => {
             onClick={() => {
               props.setOnboardingComplete();
               // curWindow.minimize();
-              history.push("/home");
-              BreakManager(history);
+              addOnbInfo();
+              // history.push("/home");
+              
             }}
           >
             Done

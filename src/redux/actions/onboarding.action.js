@@ -59,3 +59,8 @@ export const loginUser = (data) => ({
   type: OnboardingTypes.LOGIN_USER,
   payload: data,
 });
+
+export const addOnbInfo = (data) => ({
+  type: OnboardingTypes.ADD_ONB_INFO,
+  payload: data,
+});
