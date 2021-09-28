@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { OnboardingActions } from "../../redux/actions";
-import { Button, Input } from "antd";
-import axios from "axios";
+import { Button } from "antd";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Loading from "../../components/Loading";
 import { AWClientService } from "../../services";
 let client = new AWClientService();
 
@@ -17,6 +15,8 @@ const AWCheckerScreen = (props) => {
   }, []);
 
   const awcheck = async () => {
+    // props.awChecked();
+    // history.push("/");
     try {
       let resp = await client.getAppTotals();
       if (Object.keys(resp).length > 0) {

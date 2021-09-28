@@ -17,6 +17,9 @@ const LoginScreen = lazy(() => import("../screens/LoginScreen"));
 const AWCheckerScreen = lazy(() => import("../screens/AWCheckerScreen"));
 const AnalyticsScreen = lazy(() => import("../screens/AnalyticsScreen"));
 const NewHomeScreen = lazy(() => import("../screens/NewHomeScreen"));
+const BreakFeedbackScreen = lazy(() =>
+  import("../screens/BreakFeedbackScreen")
+);
 
 const Main = () => {
   let history = useHistory();
@@ -24,7 +27,6 @@ const Main = () => {
   let dispatch = useDispatch();
   useEffect(() => {
     if (store.getState().onboarding.complete) {
-      console.log("hm")
       BreakManager(history);
     }
     if (store.getState().break.breakState === "break-popup") {
@@ -51,12 +53,12 @@ const Main = () => {
         <Route exact path="/" component={OnboardingScreen} />
         <Route path="/break" component={BreakScreen} />
         <Route path="/popup" component={PopupScreen} />
-        <Route path="/home" component={HomeScreen} />
+        <Route path="/home" component={NewHomeScreen} />
         <Route path="/stroop" component={StroopScreen} />
         <Route path="/fruit" component={FruitNinjaScreen} />
         <Route path="/aw" component={AWCheckerScreen} />
         <Route path="/ana" component={AnalyticsScreen} />
-        <Route path="/new" component={NewHomeScreen} />
+        <Route path="/feedback" component={BreakFeedbackScreen} />
       </Switch>
     </Suspense>
   );

@@ -14,11 +14,12 @@ export default function eventHandler(history) {
   ) {
     curWindow.setOpacity(1);
     curWindow.unmaximize();
-    curWindow.setSize(1200, 1000);
+    curWindow.setSize(1000, 800);
     curWindow.minimize();
     history.push("/");
     store.dispatch(BreakActions.setWindowChanged());
     curWindow.setAlwaysOnTop(false);
+    curWindow.reload();
   }
 
   //sets screen to popup window size if break-popup
@@ -38,7 +39,16 @@ export default function eventHandler(history) {
   } else if (store.getState().break.breakState === "break-stroop") {
     history.push("/stroop");
   } else if (store.getState().break.breakState === "break-fruit") {
+    curWindow.unmaximize();
+    curWindow.setSize(800, 600);
+    curWindow.setOpacity(1);
+
+    curWindow.setMovable(true);
     history.push("/fruit");
+  } else if (store.getState().break.breakState === "break-feedback") {
+    curWindow.maximize();
+    curWindow.setAlwaysOnTop(false);
+    history.push("/feedback");
   }
 
   //sets window to full screen if break, and also ends the break after break time is over
@@ -46,7 +56,6 @@ export default function eventHandler(history) {
     store.getState().break.breakState === "break" &&
     !store.getState().break.windowChanged
   ) {
-    console.log("yaaa3")
     curWindow.setOpacity(0.8);
     curWindow.maximize();
 
@@ -57,12 +66,10 @@ export default function eventHandler(history) {
       if (
         store.getState().break.breakState === "break" &&
         s1 === store.getState().break.breakStartTime
-      )
-        store.dispatch(
-          BreakActions.endBreak(store.getState().break.breakEndTime)
-        );
-      curWindow.setAlwaysOnTop(false);
-      curWindow.setMovable(true);
+      ) {
+        console.log("not");
+        store.dispatch(BreakActions.startFruit());
+      }
     }, store.getState().break.breakDuration * 1000);
   }
 }

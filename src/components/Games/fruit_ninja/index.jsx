@@ -30,7 +30,6 @@ function FruitNinja(props) {
         const callback = function (mutationsList, observer) {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList') {
-                    console.log('okay we are printing ' + targetNode.innerHTML)
                     props.onComplete(parseInt(targetNode.innerHTML))
                 }
             }

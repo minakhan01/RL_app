@@ -29,7 +29,6 @@ const PersonalInformationScreen = (props) => {
 
   useEffect(() => {
     window.ipcRenderer.on("calendar-success", (event, data) => {
-      console.log("data", data);
     });
   }, []);
 

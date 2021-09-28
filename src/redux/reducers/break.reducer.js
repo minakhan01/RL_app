@@ -96,6 +96,23 @@ const BreakReducer = (state = initialState, action) => {
       return { ...state, breaksTriggered: action.payload };
     case BreakTypes.ADD_BREAK_DATA:
       return { ...state, ...action.payload.breakData };
+    case BreakTypes.ADD_PREBREAK_DATA:
+      return {
+        ...state,
+        prebreakScores: {
+          stroop: action.payload.stroop,
+          fruit: action.payload.fruit,
+        },
+      };
+
+    case BreakTypes.ADD_POSTBREAK_DATA:
+      return {
+        ...state,
+        postbreakScores: {
+          stroop: action.payload.stroop,
+          fruit: action.payload.fruit,
+        },
+      };
 
     case OnboardingTypes.RESET:
       return {

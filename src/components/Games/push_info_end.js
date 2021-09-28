@@ -12,24 +12,24 @@ var s1 = {
   justifyContent: "center",
   alignItems: "center",
 };
-export default function PushInfo(props) {
+export default function PushInfoEnd(props) {
   let dispatch = useDispatch();
   useEffect(() => {
     let scores = props.stage.scores;
     let fruit = scores.splice(0, 3);
     let stroop = scores;
-    dispatch(BreakActions.prebreakScores(stroop, fruit));
+    dispatch(BreakActions.postbreakScores(stroop, fruit));
   }, []);
   return (
     <div style={{ ...s1, flexDirection: "column" }}>
       {/* <div>Scores are respectively {JSON.stringify(props.stage.scores)}</div> */}
       <Button
         onClick={() => {
-          remote.getCurrentWindow().reload();
-          dispatch(BreakActions.startBreak());
+          //   remote.getCurrentWindow().reload();
+          dispatch(BreakActions.endBreak(store.getState().break.breakEndTime));
         }}
       >
-        Take Break
+        End Break
       </Button>
     </div>
   );

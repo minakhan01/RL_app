@@ -18,7 +18,7 @@ const FinishingUpScreen = (props) => {
           <br />
           <br />
         </p>
-        {/* <div style={{ width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Scheduled Breaks :{" "}
           </p>
@@ -36,32 +36,34 @@ const FinishingUpScreen = (props) => {
           </div>
           <div>
             {props.onboarding.scheduledBreaks.map((item, index) => {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    width: "50%",
-                    marginTop: index !== 0 ? "1%" : "0%",
-                  }}
-                >
-                  <p style={{ flex: 1 }}>{item.day}</p>
-                  <p style={{ flex: 1 }}>
-                    {new Date(item.start).getHours() +
-                      ":" +
-                      new Date(item.start).getMinutes()}
-                  </p>
-                  <p style={{ flex: 1 }}>
-                    {new Date(item.end).getHours() +
-                      ":" +
-                      new Date(item.end).getMinutes()}
-                  </p>
-                </div>
-              );
+              if (item.start.length > 0) {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      marginTop: index !== 0 ? "1%" : "0%",
+                    }}
+                  >
+                    <p style={{ flex: 1 }}>{item.day}</p>
+                    <p style={{ flex: 1 }}>
+                      {new Date(item.start).getHours() +
+                        ":" +
+                        new Date(item.start).getMinutes()}
+                    </p>
+                    <p style={{ flex: 1 }}>
+                      {new Date(item.end).getHours() +
+                        ":" +
+                        new Date(item.end).getMinutes()}
+                    </p>
+                  </div>
+                );
+              }
             })}
           </div>
-        </div> */}
+        </div>
         <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}

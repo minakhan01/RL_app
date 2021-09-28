@@ -9,4 +9,6 @@ export const BreakTypes = {
   START_STROOP: "@break/START_STROOP",
   START_FRUIT: "@break/START_FRUIT",
   ADD_BREAK_DATA: "@break/ADD_BREAK_DATA",
+  ADD_PREBREAK_DATA: "@break/ADD_PREBREAK_DATA",
+  ADD_POSTBREAK_DATA: "@break/ADD_POSTBREAK_DATA",
 };

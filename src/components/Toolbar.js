@@ -40,7 +40,7 @@ export default function Toolbar(props) {
         <button
           className="close-break2"
           onClick={() => {
-            store.dispatch(BreakActions.endBreak(store.getState().break.breakEndTime));
+            store.dispatch(BreakActions.startFruit());
           }}
         >
           &#10006;
@@ -66,7 +66,7 @@ export default function Toolbar(props) {
           <button
             className="close-break3"
             onClick={() => {
-              store.dispatch(BreakActions.endBreak(store.getState().break.breakEndTime));
+              store.dispatch(BreakActions.startFruit());
             }}
           >
             &#10006;

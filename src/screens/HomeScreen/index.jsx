@@ -14,7 +14,7 @@ const HomeScreen = (props) => {
   return (
     <div className="step-container">
       <div style={{ marginTop: "3%", width: "70%", margin: "5%" }}>
-        {/* <div style={{ width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Scheduled Breaks :{" "}
           </p>
@@ -32,32 +32,34 @@ const HomeScreen = (props) => {
           </div>
           <div>
             {props.onboarding.scheduledBreaks.map((item, index) => {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    width: "50%",
-                    marginTop: index !== 0 ? "1%" : "0%",
-                  }}
-                >
-                  <p style={{ flex: 1 }}>{item.day}</p>
-                  <p style={{ flex: 1 }}>
-                    {new Date(item.start).getHours() +
-                      ":" +
-                      new Date(item.start).getMinutes()}
-                  </p>
-                  <p style={{ flex: 1 }}>
-                    {new Date(item.end).getHours() +
-                      ":" +
-                      new Date(item.end).getMinutes()}
-                  </p>
-                </div>
-              );
+              if (item.start.length > 0) {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      marginTop: index !== 0 ? "1%" : "0%",
+                    }}
+                  >
+                    <p style={{ flex: 1 }}>{item.day}</p>
+                    <p style={{ flex: 1 }}>
+                      {new Date(item.start).getHours() +
+                        ":" +
+                        new Date(item.start).getMinutes()}
+                    </p>
+                    <p style={{ flex: 1 }}>
+                      {new Date(item.end).getHours() +
+                        ":" +
+                        new Date(item.end).getMinutes()}
+                    </p>
+                  </div>
+                );
+              }
             })}
           </div>
-        </div> */}
+        </div>
         <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}
@@ -71,14 +73,6 @@ const HomeScreen = (props) => {
             {props.onboarding.regularBreakLength} minute(s)
           </p>
         </div>
-        <Button
-          onClick={() => {
-            props.resetInfo();
-            history.push("/new");
-          }}
-        >
-          My Settings
-        </Button>
         <Button
           onClick={() => {
             props.resetInfo();

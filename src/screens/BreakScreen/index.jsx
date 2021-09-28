@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import "./styles.css";
 import { store } from "../../redux";
@@ -25,7 +28,7 @@ import s5y from "../../assets/s5y.png";
 var electron = window.require("electron");
 var curWindow = electron.remote.getCurrentWindow();
 
-const BreakScreen = () => {
+const BreakScreen = (props) => {
   let mounted = true;
 
   useEffect(() => {
@@ -37,8 +40,7 @@ const BreakScreen = () => {
   const breakState = useSelector((state) => state.break.breakState);
   const dispatch = useDispatch();
 
-  const [rate, setRate] = useState(0);
-  const [feedbackText, setFeedbackText] = useState("");
+  
   const [minimized, setMinimized] = useState(false);
 
   const breakDuration = store.getState().break.breakDuration;
@@ -90,72 +92,64 @@ const BreakScreen = () => {
         />
       </div>
     );
-  } else {
-    curWindow.maximize();
-    curWindow.setAlwaysOnTop(false);
+  } 
+  // else {
+  //   curWindow.maximize();
+  //   curWindow.setAlwaysOnTop(false);
 
-    return (
-      <div className="break-div">
-        <button
-          className="close-break"
-          onClick={() => {
-            let dat = {
-              ...store.getState().break,
-              breakEndTime: new Date().toISOString(),
-              rating: rate,
-              notes: feedbackText,
-            };
-            delete dat.breakState;
-            delete dat.windowChanged;
-            dispatch(PastActions.saveBreakData(dat));
-            dispatch(BreakActions.closeBreakScreen());
-          }}
-        >
-          <div>&#10006;</div>
-          <div className="save-button-text">Save feedback and close</div>
-        </button>
-        <div className="break-completed-text">
-          Break completed successfully!
-        </div>
+  //   return (
+  //     <div className="break-div">
+  //       <button
+  //         className="close-break"
+  //         onClick={() => {
+  //           addBreakInfo();
+  //         }}
+  //       >
+  //         <div>&#10006;</div>
+  //         <div className="save-button-text">Save feedback and close</div>
+  //       </button>
+  //       <div className="break-completed-text">
+  //         Break completed successfully!
+  //       </div>
 
-        <div className="feedback-text-box">
-          <div className="floating-label">Notes</div>
-          <textarea
-            onChange={(event) => {
-              if (mounted) setFeedbackText(event.target.value);
-            }}
-            data-role="none"
-            rows="3"
-            cols="80"
-            placeholder="Type in here any notes or reflections about the break that you would like to save"
-            className="feedback-text"
-          />
-        </div>
+  //       <div className="feedback-text-box">
+  //         <div className="floating-label">Notes</div>
+  //         <textarea
+  //           onChange={(event) => {
+  //             if (mounted) setFeedbackText(event.target.value);
+  //           }}
+  //           data-role="none"
+  //           rows="3"
+  //           cols="80"
+  //           placeholder="Type in here any notes or reflections about the break that you would like to save"
+  //           className="feedback-text"
+  //         />
+  //       </div>
 
-        <div className="feedback-request-text">How was this break?</div>
+  //       <div className="feedback-request-text">How was this break?</div>
 
-        <div className="break-feedback">
-          {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
-          {getImageButton(s4, s4y, 2, rate, setRate, mounted)}
-          {getImageButton(s3, s3y, 3, rate, setRate, mounted)}
-          {getImageButton(s2, s2y, 4, rate, setRate, mounted)}
-          {getImageButton(s1, s1y, 5, rate, setRate, mounted)}
-        </div>
+  //       <div className="break-feedback">
+  //         {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
+  //         {getImageButton(s4, s4y, 2, rate, setRate, mounted)}
+  //         {getImageButton(s3, s3y, 3, rate, setRate, mounted)}
+  //         {getImageButton(s2, s2y, 4, rate, setRate, mounted)}
+  //         {getImageButton(s1, s1y, 5, rate, setRate, mounted)}
+  //       </div>
 
-        <div style={{ display: "flex" }}>
-          <div style={{ width: "7vw", textAlign: "left", paddingLeft: "0vw" }}>
-            Not Helpful
-          </div>
-          <div style={{ width: "28vw" }} />
-          <div
-            style={{ width: "4vw", textAlign: "right", paddingRight: "1vw" }}
-          >
-            Helpful
-          </div>
-        </div>
-      </div>
-    );
-  }
+  //       <div style={{ display: "flex" }}>
+  //         <div style={{ width: "7vw", textAlign: "left", paddingLeft: "0vw" }}>
+  //           Not Helpful
+  //         </div>
+  //         <div style={{ width: "28vw" }} />
+  //         <div
+  //           style={{ width: "4vw", textAlign: "right", paddingRight: "1vw" }}
+  //         >
+  //           Helpful
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
   return null;
 };
 
@@ -170,7 +164,7 @@ let getImageButton = (name, name2, points, rate, setRate, mounted) => {
               if (mounted) setRate(points);
             }}
           >
-            <img src={name2} alt="Mountains" width="85" height="85"></img>
+            <p style={{ fontSize: "50px" }}>{points - 1}</p>
           </button>
         </div>
       </div>
@@ -185,11 +179,17 @@ let getImageButton = (name, name2, points, rate, setRate, mounted) => {
               if (mounted) setRate(points);
             }}
           >
-            <img src={name} alt="Mountains" width="85" height="85"></img>
+            <p style={{ fontSize: "50px" }}>{points - 1}</p>
           </button>
         </div>
       </div>
     );
 };
 
-export default BreakScreen;
+const mapStateToProps = (state) => {
+  return { onboarding: state.onboarding, break: state.break };
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(BreakScreen);

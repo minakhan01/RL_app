@@ -23,9 +23,10 @@ const StroopScreen = () => {
   return (
     <Games
       order={0}
+      status={"start"}
       onComplete={() => {
         //remove in mobile app
-        remote.getCurrentWindow().close();
+        // remote.getCurrentWindow().close();
       }}
     />
   );

@@ -5,8 +5,8 @@ import { Button, Tabs } from "antd";
 import { OnboardingActions } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 import CalendarComponent from "../../components/Calendar";
-import AnalyticsScreen from "../AnalyticsScreen"
-
+import AnalyticsScreen from "../AnalyticsScreen";
+import HomeScreen from "../HomeScreen";
 const { TabPane } = Tabs;
 
 const NewHomeScreen = (props) => {
@@ -17,13 +17,13 @@ const NewHomeScreen = (props) => {
       <div>
         <Tabs defaultActiveKey="1" type="card" size={"large"}>
           <TabPane tab="Break Settings" key="1">
-            tab 1
+            <HomeScreen />
           </TabPane>
           <TabPane tab="Past Breaks" key="2">
             <CalendarComponent />
           </TabPane>
           <TabPane tab="Analytics" key="3">
-            <AnalyticsScreen/>
+            <AnalyticsScreen />
           </TabPane>
         </Tabs>
       </div>

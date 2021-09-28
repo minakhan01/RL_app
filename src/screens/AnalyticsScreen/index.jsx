@@ -4,177 +4,183 @@ import { Button, Input } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Bar } from "react-chartjs-2";
 import { Chart } from "react-google-charts";
 
 const AnalyticsScreen = (props) => {
-  const data = {
-    labels: ["1", "2", "3", "4", "5", "6"],
-    datasets: [
-      {
-        label: "# of Red Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: "rgb(255, 99, 132)",
-      },
-      {
-        label: "# of Blue Votes",
-        data: [2, 3, 20, 5, 1, 4],
-        backgroundColor: "rgb(54, 162, 235)",
-      },
-      {
-        label: "# of Green Votes",
-        data: [3, 10, 13, 15, 22, 30],
-        backgroundColor: "rgb(75, 192, 192)",
-      },
-    ],
+  const [stroop, setstroop] = useState([]);
+  const [fruit, setfruit] = useState([]);
+  const [score, setscore] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let tomorrow = new Date();
+    tomorrow.setHours(23, 59, 59, 999);
+    let body = {
+      user: props.onboarding.user._id,
+      today: today,
+      tomorrow: tomorrow,
+    };
+    let response = await axios.post(
+      "https://thepallab.com/api/user/get-break",
+      body
+    );
+    if (response.data.finalArrayStroop) {
+      let stroopDataTemp = response.data.finalArrayStroop;
+      for (let i = 1; i < stroopDataTemp.length; i++) {
+        let newDate = new Date(stroopDataTemp[i][0]);
+        stroopDataTemp[i][0] =
+          newDate.getHours() +
+          ":" +
+          (newDate.getMinutes() < 10 ? "0" : "") +
+          newDate.getMinutes();
+      }
+      setstroop(stroopDataTemp);
+    }
+    if (response.data.finalArrayFruit) {
+      let fruitDataTemp = response.data.finalArrayFruit;
+      for (let i = 1; i < fruitDataTemp.length; i++) {
+        let newDate = new Date(fruitDataTemp[i][0]);
+        fruitDataTemp[i][0] =
+          newDate.getHours() +
+          ":" +
+          (newDate.getMinutes() < 10 ? "0" : "") +
+          newDate.getMinutes();
+      }
+      setfruit(fruitDataTemp);
+    }
+    if (response.data.finalScore) {
+      let scoreDataTemp = response.data.finalScore;
+      for (let i = 1; i < scoreDataTemp.length; i++) {
+        let newDate = new Date(scoreDataTemp[i][0]);
+        scoreDataTemp[i][0] =
+          newDate.getHours() +
+          ":" +
+          (newDate.getMinutes() < 10 ? "0" : "") +
+          newDate.getMinutes();
+      }
+      setscore(scoreDataTemp);
+    }
+    setLoading(false);
   };
-  return (
-    <div style={{ padding: "2%" }}>
+  if (loading) {
+    return (
       <div
         style={{
-          borderWidth: "1px",
-          borderColor: "lightgray",
-          borderStyle: "solid",
-          padding: "2%",
-          margin: "1%",
-          borderRadius: "10px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
         }}
       >
-        <Chart
-          width={"1000px"}
-          height={"300px"}
-          chartType="Bar"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ["Time", "Pre-break", "Post-break"],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-          ]}
-          options={{
-            // Material design options
-            vAxis: {
-              title: "Score",
-            },
-            colors: ["#0092C8", "#EA8600"],
-            chart: {
-              title: "Stroop Score",
-            },
-          }}
-          // For tests
-          rootProps={{ "data-testid": "2" }}
-        />
+        <h3 style={{ textAlign: "center" }}>Loading data...</h3>
       </div>
-      <div
-        style={{
-          borderWidth: "1px",
-          borderColor: "lightgray",
-          borderStyle: "solid",
-          padding: "2%",
-          margin: "1%",
-          borderRadius: "10px",
-        }}
-      >
-        <Chart
-          width={"1000px"}
-          height={"300px"}
-          chartType="Bar"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ["Time", "Pre-break", "Post-break"],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-            ["9:15", 4, 4],
-            ["10:00", 4, 6],
-            ["10:30", 5, 8],
-            ["11:00", 6, 8],
-          ]}
-          options={{
-            // Material design options
-            vAxis: {
-              title: "Score",
-            },
-            colors: ["#0092C8", "#EA8600"],
-            chart: {
-              title: "Fruit Ninja Score",
-            },
+    );
+  } else {
+    return (
+      <div style={{ padding: "2%" }}>
+        <Button
+          onClick={() => {
+            getData();
           }}
-          // For tests
-          rootProps={{ "data-testid": "2" }}
-        />
-      </div>
-      <div
-        style={{
-          borderWidth: "1px",
-          borderColor: "lightgray",
-          borderStyle: "solid",
-          padding: "2%",
-          margin: "1%",
-          borderRadius: "10px",
-        }}
-      >
-        <Chart
-          width={"1000px"}
-          height={"300px"}
-          chartType="Line"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ["Time", "Score"],
-            ["9:15", 0],
-            ["10:00", 2],
-            ["10:30", 3],
-            ["11:00", 1],
-            ["9:15", 0],
-            ["10:00", 2],
-            ["10:30", 3],
-            ["11:00", 1],
-            ["9:15", 0],
-            ["10:00", 2],
-            ["10:30", 3],
-            ["11:00", 1],
-            ["9:15", 0],
-            ["10:00", 2],
-            ["10:30", 3],
-            ["11:00", 1],
-          ]}
-          options={{
-            chart: {
-              title: "How helpful was the break?",
-            },
+        >
+          Click
+        </Button>
+        <div
+          style={{
+            borderWidth: "1px",
+            borderColor: "lightgray",
+            borderStyle: "solid",
+            padding: "2%",
+            margin: "1%",
+            borderRadius: "10px",
           }}
-          rootProps={{ "data-testid": "3" }}
-        />
+        >
+          <Chart
+            width={"1000px"}
+            height={"300px"}
+            chartType="Bar"
+            loader={<div>Loading Chart</div>}
+            data={stroop}
+            options={{
+              // Material design options
+              vAxis: {
+                title: "Score",
+              },
+              colors: ["#0092C8", "#EA8600"],
+              chart: {
+                title: "Stroop Score",
+              },
+            }}
+            // For tests
+            rootProps={{ "data-testid": "2" }}
+          />
+        </div>
+        <div
+          style={{
+            borderWidth: "1px",
+            borderColor: "lightgray",
+            borderStyle: "solid",
+            padding: "2%",
+            margin: "1%",
+            borderRadius: "10px",
+          }}
+        >
+          <Chart
+            width={"1000px"}
+            height={"300px"}
+            chartType="Bar"
+            loader={<div>Loading Chart</div>}
+            data={fruit}
+            options={{
+              // Material design options
+              vAxis: {
+                title: "Score",
+              },
+              colors: ["#0092C8", "#EA8600"],
+              chart: {
+                title: "Fruit Ninja Score",
+              },
+            }}
+            // For tests
+            rootProps={{ "data-testid": "2" }}
+          />
+        </div>
+        <div
+          style={{
+            borderWidth: "1px",
+            borderColor: "lightgray",
+            borderStyle: "solid",
+            padding: "2%",
+            margin: "1%",
+            borderRadius: "10px",
+          }}
+        >
+          <Chart
+            width={"1000px"}
+            height={"300px"}
+            chartType="Line"
+            loader={<div>Loading Chart</div>}
+            data={score}
+            options={{
+              chart: {
+                title: "How helpful was the break?",
+              },
+            }}
+            rootProps={{ "data-testid": "3" }}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { onboarding: state.onboarding };
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);

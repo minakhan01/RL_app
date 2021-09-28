@@ -81,8 +81,6 @@ export default function checkActivityRuleBreak() {
               totalUsage / 60 > indBreak.interval * preGame &&
               totalUsage > 0
             ) {
-              console.log("yaasas", totalUsage / 60);
-              console.log("hasasa", indBreak.interval * preGame);
               if (currentBreaksTriggered[indBreak.url]) {
                 currentBreaksTriggered[indBreak.url] += 1;
                 initScheduled[indBreak.url] += 1;

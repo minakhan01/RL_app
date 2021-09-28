@@ -49,3 +49,13 @@ export const setBreakTriggered = (value) => ({
   type: BreakTypes.SET_BREAK_TRIGGERED,
   payload: value,
 });
+
+export const prebreakScores = (stroop, fruit) => ({
+  type: BreakTypes.ADD_PREBREAK_DATA,
+  payload: { stroop, fruit },
+});
+
+export const postbreakScores = (stroop, fruit) => ({
+  type: BreakTypes.ADD_POSTBREAK_DATA,
+  payload: { stroop, fruit },
+});

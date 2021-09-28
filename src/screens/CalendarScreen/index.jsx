@@ -34,7 +34,6 @@ const CalendarScreen = (props) => {
   const history = useHistory();
 
   const resizeEvent = ({ event, start, end }) => {
-    console.log("looi", event);
     const nextEvents = events.map((existingEvent) => {
       return existingEvent.id === event.id
         ? { ...existingEvent, start, end }
@@ -132,7 +131,6 @@ const CalendarScreen = (props) => {
         onEventDrop={moveEvent}
         onDropFromOutside={onDropFromOutside}
         handleDragStart={(event) => {
-          console.log(event);
           setDraggedEvent(event);
         }}
         dragFromOutsideItem={draggedEvent}

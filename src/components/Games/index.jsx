@@ -8,6 +8,7 @@ import stroopTestManager from "./stroop_test_manager";
 import axios from "axios";
 import { store } from "../../redux";
 import PushInfo from "./push_info";
+import PushInfoEnd from "./push_info_end";
 import { useEffect } from "react";
 import { useRef } from "react";
 function Games(props) {
@@ -17,8 +18,6 @@ function Games(props) {
     fruit: 1,
     stroop: 1,
   });
-
-  console.log(stage);
 
   /////////////////////////////
   const stageRef = useRef(stage);
@@ -117,7 +116,11 @@ function Games(props) {
     return stroopTestManager(stage, setStage);
 
   if (stage.stage == 4) {
-    return <PushInfo stage={stage} prp={props} />;
+    if (props.status === "end") {
+      return <PushInfoEnd stage={stage} prp={props} />;
+    } else {
+      return <PushInfo stage={stage} prp={props} />;
+    }
   }
   return null;
 }
