@@ -5,6 +5,9 @@ class AWClientService {
     this.client = new AWClient("test-client");
     this.todayDate = new Date();
     this.tmrwDate = new Date();
+    this.yestDate = new Date();
+    this.yestDate.setDate(this.yestDate.getDate() - 1);
+    this.yestDate.setHours(0, 0, 0, 0);
     this.todayDate.setHours(0, 0, 0, 0);
     this.tmrwDate.setHours(23, 59, 59, 999);
     this.todayDate = this.todayDate.toISOString();
@@ -29,6 +32,9 @@ class AWClientService {
   updateDate() {
     this.todayDate = new Date();
     this.tmrwDate = new Date();
+    this.yestDate = new Date();
+    this.yestDate.setDate(this.yestDate.getDate() - 1);
+    this.yestDate.setHours(0, 0, 0, 0);
     this.todayDate.setHours(0, 0, 0, 0);
     this.tmrwDate.setHours(23, 59, 59, 999);
     this.todayDate = this.todayDate.toISOString();
@@ -128,7 +134,49 @@ class AWClientService {
         websiteTotals: websiteTotals[0],
       };
     } catch (error) {
-      console.log("error",error)
+      console.log("error", error);
+      throw error;
+    }
+  }
+
+  async getAppTotalsTwo() {
+    try {
+      this.updateDate();
+      if (typeof this.bucketMap === "undefined") await this.createBucketMap();
+
+      var query = [
+        "window_events = query_bucket('" +
+          this.bucketMap["aw-watcher-window"] +
+          "');",
+        "events = merge_events_by_keys(window_events, ['app','title']);",
+        "events = sort_by_duration(events);",
+        "RETURN = events;",
+      ];
+      const queryWindows = [
+        "window_events = query_bucket('" + "aw-watcher-web-chrome" + "');",
+        "window_events_active = query_bucket('" +
+          this.bucketMap["aw-watcher-window"] +
+          "');",
+        "window_events_active = merge_events_by_keys(window_events_active, ['app','title']);",
+        "window_events = filter_period_intersect(window_events, window_events_active);",
+        "events = merge_events_by_keys(window_events, ['title','url']);",
+        "events = sort_by_duration(events);",
+        "RETURN = events;",
+      ];
+      const appTotalWithoutAudio = await this.client.query(
+        [this.yestDate + "/" + this.tmrwDate],
+        query
+      );
+      const websiteTotals = await this.client.query(
+        [this.yestDate + "/" + this.tmrwDate],
+        queryWindows
+      );
+      return {
+        appTotal: appTotalWithoutAudio[0],
+        websiteTotals: websiteTotals[0],
+      };
+    } catch (error) {
+      console.log("error", error);
       throw error;
     }
   }

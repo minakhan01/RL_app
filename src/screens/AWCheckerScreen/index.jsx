@@ -4,6 +4,7 @@ import { Button } from "antd";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import BreakManager from "../../breakmanager";
 import { AWClientService } from "../../services";
 let client = new AWClientService();
 
@@ -22,6 +23,7 @@ const AWCheckerScreen = (props) => {
       if (Object.keys(resp).length > 0) {
         props.awChecked();
         if (props.onboarding.complete) {
+          BreakManager(history);
           history.push("/home");
         } else {
           history.push("/");

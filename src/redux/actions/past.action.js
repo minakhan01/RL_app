@@ -10,7 +10,6 @@ export const addIntervalBreak = () => ({
   payload: {},
 });
 
-
 export const backupAWData = (dat) => ({
   type: PastTypes.BACKUP_AW_DATA,
   payload: dat,
@@ -29,4 +28,9 @@ export const setToday = (dat) => ({
 export const saveInitBreakData = (dat) => ({
   type: PastTypes.SAVE_INIT_BREAK_DATA,
   payload: dat,
+});
+
+export const setAwUpNum = (all, web, tod) => ({
+  type: PastTypes.SET_AW_UP_NUM,
+  payload: { all, web, tod },
 });

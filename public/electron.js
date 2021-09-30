@@ -23,7 +23,7 @@ function createWindow() {
   // Menu.setApplicationMenu(null);
 
   const startURL = isDev
-    ? "http://localhost:8888"
+    ? "http://localhost:3000"
     : `file://${path.join(__dirname, "../build/index.html")}`;
 
   mainWindow.loadURL(startURL);

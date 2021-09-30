@@ -12,6 +12,9 @@ const initialState = {
   lastScheduledBreak: "",
   initScheduled: {},
   today: "",
+  totalUploaded: 0,
+  webUploaded: 0,
+  todayaW: "",
 };
 
 const PastReducer = (state = initialState, action) => {
@@ -89,6 +92,9 @@ const PastReducer = (state = initialState, action) => {
         lastScheduledBreak: "",
         initScheduled: {},
         today: "",
+        totalUploaded: 0,
+        webUploaded: 0,
+        todayaW: "",
       };
 
     case BreakTypes.ON_CANCEL_BREAK:
@@ -103,6 +109,13 @@ const PastReducer = (state = initialState, action) => {
       return { ...state, lastScheduledBreak: action.payload.endtime };
     case PastTypes.SAVE_INIT_BREAK_DATA:
       return { ...state, initScheduled: action.payload };
+    case PastTypes.SET_AW_UP_NUM:
+      return {
+        ...state,
+        totalUploaded: action.payload.all,
+        webUploaded: action.payload.web,
+        todayaW: action.payload.tod,
+      };
     case PastTypes.SET_TODAY:
       return { ...state, today: action.payload };
 
