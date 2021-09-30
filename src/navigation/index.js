@@ -20,6 +20,17 @@ const NewHomeScreen = lazy(() => import("../screens/NewHomeScreen"));
 const BreakFeedbackScreen = lazy(() =>
   import("../screens/BreakFeedbackScreen")
 );
+const CancelScreen = lazy(() => import("../screens/CancelScreen"));
+const SuddenScreen = lazy(() => import("../screens/SuddenScreen"));
+const EditScheduledBreakScreen = lazy(() =>
+  import("../screens/EditScheduledBreaks")
+);
+const EditRegularBreakScreen = lazy(() =>
+  import("../screens/EditRegularBreaksScreen")
+);
+const EditAdHocBreakScreen = lazy(() =>
+  import("../screens/EditActivityBreaksScreen")
+);
 
 const Main = () => {
   let history = useHistory();
@@ -34,15 +45,7 @@ const Main = () => {
       dispatch(BreakActions.startBreak());
     }
     ipcRenderer.on("asynchronous-message", function (evt, message) {
-      let timeNow = new Date().toISOString();
-      let breakData = {
-        breakType: "chosen",
-        breakDescription: "chosen",
-        breakDuration: 10 * 60,
-        breakStartTime: timeNow,
-      };
-      dispatch(BreakActions.addBreakData(breakData));
-      dispatch(BreakActions.startBreak());
+      history.push("/sud");
     });
   }, []);
   return (
@@ -59,6 +62,11 @@ const Main = () => {
         <Route path="/aw" component={AWCheckerScreen} />
         <Route path="/ana" component={AnalyticsScreen} />
         <Route path="/feedback" component={BreakFeedbackScreen} />
+        <Route path="/cancel" component={CancelScreen} />
+        <Route path="/sud" component={SuddenScreen} />
+        <Route path="/edit-sched" component={EditScheduledBreakScreen} />
+        <Route path="/edit-reg" component={EditRegularBreakScreen} />
+        <Route path="/edit-act" component={EditAdHocBreakScreen} />
       </Switch>
     </Suspense>
   );

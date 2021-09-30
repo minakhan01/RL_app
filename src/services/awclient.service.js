@@ -106,6 +106,11 @@ class AWClientService {
       ];
       const queryWindows = [
         "window_events = query_bucket('" + "aw-watcher-web-chrome" + "');",
+        "window_events_active = query_bucket('" +
+          this.bucketMap["aw-watcher-window"] +
+          "');",
+        "window_events_active = merge_events_by_keys(window_events_active, ['app','title']);",
+        "window_events = filter_period_intersect(window_events, window_events_active);",
         "events = merge_events_by_keys(window_events, ['title','url']);",
         "events = sort_by_duration(events);",
         "RETURN = events;",
@@ -123,6 +128,7 @@ class AWClientService {
         websiteTotals: websiteTotals[0],
       };
     } catch (error) {
+      console.log("error",error)
       throw error;
     }
   }

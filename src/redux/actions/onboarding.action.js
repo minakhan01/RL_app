@@ -64,3 +64,18 @@ export const addOnbInfo = (data) => ({
   type: OnboardingTypes.ADD_ONB_INFO,
   payload: data,
 });
+
+export const addTempSched = (value) => ({
+  type: OnboardingTypes.ADD_TEMP_SCHED,
+  payload: { value },
+});
+
+export const addTempReg = (length, interval) => ({
+  type: OnboardingTypes.ADD_TEMP_REG,
+  payload: { length, interval },
+});
+
+export const addTempAct = (site, all) => ({
+  type: OnboardingTypes.ADD_TEMP_ACT,
+  payload: { site, all },
+});

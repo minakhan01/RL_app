@@ -1,0 +1,17 @@
+.main {
+  margin: 3%;
+}
+
+.ant-steps-item-title {
+  font-size: 13px;
+  padding-right: 5px;
+  line-height: 17px;
+}
+
+.step-container {
+  margin-top: 3%;
+}
+
+.window-title {
+  color: white;
+}

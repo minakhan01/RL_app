@@ -85,10 +85,11 @@ const AnalyticsScreen = (props) => {
       <div style={{ padding: "2%" }}>
         <Button
           onClick={() => {
+            setLoading(true);
             getData();
           }}
         >
-          Click
+          Refresh
         </Button>
         <div
           style={{
@@ -160,19 +161,21 @@ const AnalyticsScreen = (props) => {
             borderRadius: "10px",
           }}
         >
-          <Chart
-            width={"1000px"}
-            height={"300px"}
-            chartType="Line"
-            loader={<div>Loading Chart</div>}
-            data={score}
-            options={{
-              chart: {
-                title: "How helpful was the break?",
-              },
-            }}
-            rootProps={{ "data-testid": "3" }}
-          />
+          {score.length > 1 && (
+            <Chart
+              width={"1000px"}
+              height={"300px"}
+              chartType="Line"
+              loader={<div>Loading Chart</div>}
+              data={score}
+              options={{
+                chart: {
+                  title: "How helpful was the break?",
+                },
+              }}
+              rootProps={{ "data-testid": "3" }}
+            />
+          )}
         </div>
       </div>
     );

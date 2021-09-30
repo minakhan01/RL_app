@@ -26,7 +26,8 @@ export default function PushInfoEnd(props) {
       <Button
         onClick={() => {
           //   remote.getCurrentWindow().reload();
-          dispatch(BreakActions.endBreak(store.getState().break.breakEndTime));
+          let timeNow = new Date().toISOString();
+          dispatch(BreakActions.endBreak(timeNow));
         }}
       >
         End Break

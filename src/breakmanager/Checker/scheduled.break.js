@@ -26,6 +26,7 @@ export default function checkScheduledBreak() {
       currentStart.setHours(startTime.getHours(), startTime.getMinutes(), 0, 0);
       let currentEnd = new Date();
       currentEnd.setHours(endTime.getHours(), endTime.getMinutes(), 0, 0);
+      let lastEndTime = new Date(store.getState().past.lastScheduledBreak);
       if (currentStart <= timeNow && currentEnd >= timeNow) {
         if (
           !(store.getState().break.breakState === "break") &&
@@ -33,9 +34,10 @@ export default function checkScheduledBreak() {
           !(store.getState().break.breakState === "break-popup") &&
           !(store.getState().break.breakState === "break-stroop") &&
           !(store.getState().break.breakState === "break-fruit") &&
-          !(store.getState().past.lastScheduledBreak > currentStart)
+          !(store.getState().break.breakState === "cancel-break") &&
+          !(lastEndTime > currentStart)
         ) {
-          let timeNowNew = new Date().toISOString();
+          let timeNowNew = new Date();
           let breakData = {
             breakType: "scheduled",
             breakDescription: "NA",

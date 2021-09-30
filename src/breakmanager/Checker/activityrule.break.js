@@ -28,36 +28,42 @@ export default function checkActivityRuleBreak() {
               !(store.getState().break.breakState === "break-feedback") &&
               !(store.getState().break.breakState === "break-popup") &&
               !(store.getState().break.breakState === "break-stroop") &&
-              !(store.getState().break.breakState === "break-fruit")
+              !(store.getState().break.breakState === "break-fruit") &&
+              !(store.getState().break.breakState === "cancel-break")
             ) {
               totalUsage = totalUsage + ob.duration;
             }
           });
           let preGame = Math.ceil(totalUsage / (60 * indBreak.interval));
+          console.log("pre", preGame);
+          console.log("total", totalUsage);
           let initScheduled = store.getState().past.initScheduled;
+          let today = store.getState().past.initScheduled;
+          if (today.length === 0) {
+            today = new Date();
+            store.dispatch(PastActions.setToday(today.toISOString()));
+          } else {
+            today = new Date(today);
+          }
+          if (
+            today.getDate() !== new Date().getDate() ||
+            today.getMonth() !== new Date().getMonth()
+          ) {
+            today = new Date();
+            store.dispatch(PastActions.setToday(today.toISOString()));
+          } else {
+            initScheduled[indBreak.url] = preGame;
+          }
           if (initScheduled[indBreak.url]) {
             preGame = initScheduled[indBreak.url];
           }
-          let currentBreaksTriggered = store.getState().break.breaksTriggered;
-          let numberBreaks = 0;
-          if (currentBreaksTriggered[indBreak.url]) {
-            numberBreaks = currentBreaksTriggered[indBreak.url];
-          }
-          currentBreaksTriggered[indBreak.url] = numberBreaks;
+
           initScheduled[indBreak.url] = preGame;
-          store.dispatch(
-            BreakActions.setBreakTriggered(currentBreaksTriggered)
-          );
           store.dispatch(PastActions.saveInitBreakData(initScheduled));
           if (preGame === 0) {
             if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
-              if (currentBreaksTriggered[indBreak.url]) {
-                currentBreaksTriggered[indBreak.url] += 1;
-                initScheduled[indBreak.url] += 1;
-              }
-              store.dispatch(
-                BreakActions.setBreakTriggered(currentBreaksTriggered)
-              );
+              initScheduled[indBreak.url] += 1;
+
               store.dispatch(PastActions.saveInitBreakData(initScheduled));
               let timeNow = new Date().toISOString();
 
@@ -65,6 +71,7 @@ export default function checkActivityRuleBreak() {
                 breakType: "activity-rule (continuous)",
                 breakDescription: indBreak.name,
                 breakDuration: indBreak.breakLength * 60,
+                breakStartTime: timeNow,
               };
               store.dispatch(BreakActions.startPopup(timeNow, breakData));
               setTimeout(() => {
@@ -81,13 +88,8 @@ export default function checkActivityRuleBreak() {
               totalUsage / 60 > indBreak.interval * preGame &&
               totalUsage > 0
             ) {
-              if (currentBreaksTriggered[indBreak.url]) {
-                currentBreaksTriggered[indBreak.url] += 1;
-                initScheduled[indBreak.url] += 1;
-              }
-              store.dispatch(
-                BreakActions.setBreakTriggered(currentBreaksTriggered)
-              );
+              initScheduled[indBreak.url] += 1;
+
               store.dispatch(PastActions.saveInitBreakData(initScheduled));
               let timeNow = new Date().toISOString();
 
@@ -95,6 +97,7 @@ export default function checkActivityRuleBreak() {
                 breakType: "activity-rule (continuous)",
                 breakDescription: indBreak.name,
                 breakDuration: indBreak.breakLength * 60,
+                breakStartTime: timeNow,
               };
               store.dispatch(BreakActions.startPopup(timeNow, breakData));
               setTimeout(() => {

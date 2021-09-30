@@ -51,11 +51,13 @@ const FinishingUpScreen = (props) => {
                     <p style={{ flex: 1 }}>
                       {new Date(item.start).getHours() +
                         ":" +
+                        (new Date(item.start).getMinutes() < 10 ? "0" : "") +
                         new Date(item.start).getMinutes()}
                     </p>
                     <p style={{ flex: 1 }}>
                       {new Date(item.end).getHours() +
                         ":" +
+                        (new Date(item.end).getMinutes() < 10 ? "0" : "") +
                         new Date(item.end).getMinutes()}
                     </p>
                   </div>

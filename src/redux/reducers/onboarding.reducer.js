@@ -14,6 +14,11 @@ const initialState = {
   startTime: "",
   user: {},
   awChecked: false,
+  tempScheduledBreaks: [{ start: "", end: "", day: "" }],
+  tempRegularBreakLength: 1,
+  tempRegularBreakInterval: 60,
+  tempOverRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
+  tempAllOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
 };
 
 const OnboardingReducer = (state = initialState, action) => {
@@ -42,6 +47,20 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, awChecked: true };
     case OnboardingTypes.ADD_ONB_INFO:
       return { ...state, ...action.payload };
+    case OnboardingTypes.ADD_TEMP_SCHED:
+      return { ...state, tempScheduledBreaks: action.payload.value };
+    case OnboardingTypes.ADD_TEMP_REG:
+      return {
+        ...state,
+        tempRegularBreakLength: action.payload.length,
+        tempRegularBreakInterval: action.payload.interval,
+      };
+    case OnboardingTypes.ADD_TEMP_ACT:
+      return {
+        ...state,
+        tempOverRideSites: action.payload.site,
+        tempAllOverRides: action.payload.all,
+      };
     case OnboardingTypes.RESET:
       return {
         name: "",
@@ -57,6 +76,13 @@ const OnboardingReducer = (state = initialState, action) => {
         complete: false,
         user: {},
         awChecked: false,
+        tempScheduledBreaks: [{ start: "", end: "", day: "" }],
+        tempRegularBreakLength: 1,
+        tempRegularBreakInterval: 60,
+        tempOverRideSites: [
+          { name: "Youtube", url: "www.youtube.com", key: "1" },
+        ],
+        tempAllOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
       };
     default:
       return state;

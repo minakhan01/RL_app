@@ -10,5 +10,8 @@ export const SET_ONBOARDING_COMPLETE = "SET_ONBOARDING_COMPLETE";
 export const LOGIN_USER = "LOGIN_USER";
 export const AW_CHECKED = "AW_CHECKED";
 export const ADD_ONB_INFO = "ADD_ONB_INFO";
+export const ADD_TEMP_SCHED = "ADD_TEMP_SCHED";
+export const ADD_TEMP_REG = "ADD_TEMP_REG";
+export const ADD_TEMP_ACT = "ADD_TEMP_ACT";
 
 export const RESET = "RESET";

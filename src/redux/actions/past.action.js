@@ -21,6 +21,11 @@ export const saveBreakData = (dat) => ({
   payload: dat,
 });
 
+export const setToday = (dat) => ({
+  type: PastTypes.SET_TODAY,
+  payload: dat,
+});
+
 export const saveInitBreakData = (dat) => ({
   type: PastTypes.SAVE_INIT_BREAK_DATA,
   payload: dat,

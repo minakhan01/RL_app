@@ -18,6 +18,7 @@ const initialState = {
     stroop: [],
     fruit: [],
   },
+  suddenReason: "",
 };
 
 const BreakReducer = (state = initialState, action) => {
@@ -37,6 +38,13 @@ const BreakReducer = (state = initialState, action) => {
         popupStartTime: action.payload.start,
         windowChanged: false,
         ...action.payload.breakData,
+      };
+
+    case BreakTypes.ON_CANCEL_BREAK:
+      return {
+        ...state,
+        breakState: "cancel-break",
+        breaksTriggered: action.payload.breaksTriggered,
       };
 
     case BreakTypes.CANCEL_BREAK:
@@ -59,6 +67,7 @@ const BreakReducer = (state = initialState, action) => {
           stroop: [],
           fruit: [],
         },
+        suddenReason: "",
       };
 
     case BreakTypes.END_BREAK:
@@ -88,6 +97,7 @@ const BreakReducer = (state = initialState, action) => {
           stroop: [],
           fruit: [],
         },
+        suddenReason: "",
       };
 
     case BreakTypes.SET_WINDOW_CHANGED:
@@ -133,6 +143,7 @@ const BreakReducer = (state = initialState, action) => {
           stroop: [],
           fruit: [],
         },
+        suddenReason: "",
       };
 
     default:

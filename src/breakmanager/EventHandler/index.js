@@ -27,13 +27,13 @@ export default function eventHandler(history) {
     store.getState().break.breakState === "break-popup" &&
     !store.getState().break.windowChanged
   ) {
+    curWindow.setAlwaysOnTop(true, "pop-up-menu");
     curWindow.restore();
     history.push("/popup");
     //curWindow.maximize()
     curWindow.unmaximize();
     curWindow.setSize(800, 600);
     curWindow.center();
-    curWindow.setAlwaysOnTop(true, "pop-up-menu");
 
     store.dispatch(BreakActions.setWindowChanged());
   } else if (store.getState().break.breakState === "break-stroop") {

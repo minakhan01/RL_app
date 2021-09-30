@@ -40,9 +40,14 @@ export const startFruit = () => ({
   payload: {},
 });
 
-export const cancelBreak = (endtime) => ({
+export const cancelBreak = () => ({
   type: BreakTypes.CANCEL_BREAK,
-  payload: { endtime },
+  payload: {},
+});
+
+export const onCancelBreak = (endtime) => ({
+  type: BreakTypes.ON_CANCEL_BREAK,
+  payload: endtime,
 });
 
 export const setBreakTriggered = (value) => ({

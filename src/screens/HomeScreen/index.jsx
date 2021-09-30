@@ -15,9 +15,20 @@ const HomeScreen = (props) => {
     <div className="step-container">
       <div style={{ marginTop: "3%", width: "70%", margin: "5%" }}>
         <div style={{ width: "100%" }}>
-          <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-            Scheduled Breaks :{" "}
-          </p>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+              Scheduled Breaks :{" "}
+            </p>
+            <Button
+              onClick={() => {
+                props.addTempSched(props.onboarding.scheduledBreaks);
+                history.push("/edit-sched");
+              }}
+            >
+              Edit Scheduled Breaks
+            </Button>
+          </div>
+
           <div
             style={{
               display: "flex",
@@ -47,11 +58,13 @@ const HomeScreen = (props) => {
                     <p style={{ flex: 1 }}>
                       {new Date(item.start).getHours() +
                         ":" +
+                        (new Date(item.start).getMinutes() < 10 ? "0" : "") +
                         new Date(item.start).getMinutes()}
                     </p>
                     <p style={{ flex: 1 }}>
                       {new Date(item.end).getHours() +
                         ":" +
+                        (new Date(item.end).getMinutes() < 10 ? "0" : "") +
                         new Date(item.end).getMinutes()}
                     </p>
                   </div>
@@ -61,9 +74,22 @@ const HomeScreen = (props) => {
           </div>
         </div>
         <div style={{ width: "100%" }}>
-          <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-            Regular Breaks :{" "}
-          </p>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+              Regular Breaks :{" "}
+            </p>
+            <Button
+              onClick={() => {
+                props.addTempReg(
+                  props.onboarding.regularBreakLength,
+                  props.onboarding.regularBreakInterval
+                );
+                history.push("/edit-reg");
+              }}
+            >
+              Edit Regular Breaks
+            </Button>{" "}
+          </div>
           <p>
             How often you want to take regular breaks :{" "}
             {props.onboarding.regularBreakInterval} minute(s)
@@ -73,6 +99,59 @@ const HomeScreen = (props) => {
             {props.onboarding.regularBreakLength} minute(s)
           </p>
         </div>
+        <div style={{ width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+              Activity Based Breaks :{" "}
+            </p>
+            <Button
+              onClick={() => {
+                props.addTempAct(
+                  props.onboarding.overRideSites,
+                  props.onboarding.allOverRides
+                );
+                history.push("/edit-act");
+              }}
+            >
+              Edit Activity Based Breaks
+            </Button>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "50%",
+            }}
+          >
+            <p style={{ flex: 1 }}>Site</p>
+            <p style={{ flex: 1 }}>Break Interval</p>
+            <p style={{ flex: 1 }}>Break Length</p>
+          </div>
+          <div>
+            {props.onboarding.allOverRides.map((item, index) => {
+              if (item.name.length > 0) {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      marginTop: index !== 0 ? "1%" : "0%",
+                    }}
+                  >
+                    <p style={{ flex: 1 }}>{item.name}</p>
+                    <p style={{ flex: 1 }}>{item.interval}</p>
+                    <p style={{ flex: 1 }}>{item.breakLength}</p>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </div>
+
         <Button
           onClick={() => {
             props.resetInfo();
@@ -91,6 +170,14 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ resetInfo: OnboardingActions.reset }, dispatch);
+  bindActionCreators(
+    {
+      resetInfo: OnboardingActions.reset,
+      addTempSched: OnboardingActions.addTempSched,
+      addTempReg: OnboardingActions.addTempReg,
+      addTempAct: OnboardingActions.addTempAct,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

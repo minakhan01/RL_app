@@ -34,11 +34,22 @@ const PopupScreen = () => {
         }}
       >
         <Button
-          onClick={() =>
-            dispatch(
-              BreakActions.cancelBreak(store.getState().break.breakEndTime)
-            )
-          }
+          onClick={() => {
+            let breakInfo = store.getState().break;
+            let pastInfo = store.getState().past;
+            let endtime = breakInfo.breakEndTime;
+            if (breakInfo.breakEndTime.length === 0) {
+              endtime = new Date().toISOString();
+            }
+            let data = {
+              endtime: endtime,
+              intervalBreakData: pastInfo.intervalBreakData,
+              initScheduled: pastInfo.initScheduled,
+              breaksTriggered: breakInfo.breaksTriggered,
+            };
+            dispatch(BreakActions.onCancelBreak(data));
+            history.push("/cancel");
+          }}
           style={{ color: "#7DCAB6", borderWidth: 0 }}
         >
           CANCEL

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Button, Tabs } from "antd";
+import { Button, Tabs, Modal } from "antd";
 import { OnboardingActions } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 import CalendarComponent from "../../components/Calendar";
