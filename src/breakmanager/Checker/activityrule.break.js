@@ -35,8 +35,6 @@ export default function checkActivityRuleBreak() {
             }
           });
           let preGame = Math.ceil(totalUsage / (60 * indBreak.interval));
-          console.log("pre", preGame);
-          console.log("total", totalUsage);
           let initScheduled = store.getState().past.initScheduled;
           let today = store.getState().past.initScheduled;
           if (today.length === 0) {

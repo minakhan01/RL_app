@@ -8,27 +8,83 @@ import Loading from "../../components/Loading";
 import { AWClientService } from "../../services";
 import { BreakActions, PastActions } from "../../redux/actions";
 import { store } from "../../redux";
-import s1 from "../../assets/s1.png";
-import s2 from "../../assets/s2.png";
-import s3 from "../../assets/s3.png";
-import s4 from "../../assets/s4.png";
-import s5 from "../../assets/s5.png";
+import Angry from "../../assets/angry.jpg";
+import Alarmed from "../../assets/alarmed.jpg";
+import Aroused from "../../assets/aroused.jpg";
+import Afraid from "../../assets/afraid.jpg";
+import Tense from "../../assets/tense.jpg";
+import Distressed from "../../assets/distressed.jpg";
+import Annoyed from "../../assets/annoyed.jpg";
+import Frustrated from "../../assets/frustrated.jpg";
+import Miserable from "../../assets/miserable.jpg";
+import Depressed from "../../assets/depressed.jpg";
+import Sad from "../../assets/sad.jpg";
+import Gloomy from "../../assets/gloomy.jpg";
+import Bored from "../../assets/bored.jpg";
+import Droopy from "../../assets/drowsy.jpg";
+import Tired from "../../assets/tired.jpg";
+import Excited from "../../assets/excited.jpg";
+import Astonished from "../../assets/astonished.jpg";
+import Delighted from "../../assets/delighted.jpg";
+import Glad from "../../assets/glad.jpg";
+import Happy from "../../assets/happy.jpg";
+import Pleased from "../../assets/pleased.jpg";
+import Satisfied from "../../assets/satisfied.jpg";
+import Content from "../../assets/content.jpg";
+import Serene from "../../assets/tranquil.jpg";
+import Calm from "../../assets/calm.jpg";
+import At_ease from "../../assets/at_ease.jpg";
+import Relaxed from "../../assets/relaxed.jpg";
+import Sleepy from "../../assets/sleepy.jpg";
 
-import s1y from "../../assets/s1y.png";
-import s2y from "../../assets/s2y.png";
-import s3y from "../../assets/s3y.png";
-import s4y from "../../assets/s4y.png";
-import s5y from "../../assets/s5y.png";
+import "./styles.css"
 
 const BreakFeedbackScreen = (props) => {
   const [loading, setLoading] = useState(true);
   const [rate, setRate] = useState(0);
   const [feedbackText, setFeedbackText] = useState("");
+  const [selected, setSelected] = useState([]);
+  const [shuffled, setShuffled] = useState([]);
   const history = useHistory();
   let mounted = true;
   const dispatch = useDispatch();
+  const emotions = {
+    angry: Angry,
+    alarmed: Alarmed,
+    aroused: Aroused,
+    afraid: Afraid,
+    tense: Tense,
+    distressed: Distressed,
+    annoyed: Annoyed,
+    frustrated: Frustrated,
+    miserable: Miserable,
+    depressed: Depressed,
+    sad: Sad,
+    gloomy: Gloomy,
+    bored: Bored,
+    droopy: Droopy,
+    tired: Tired,
+    excited: Excited,
+    astonished: Astonished,
+    delighted: Delighted,
+    glad: Glad,
+    happy: Happy,
+    pleased: Pleased,
+    satisfied: Satisfied,
+    content: Content,
+    serene: Serene,
+    calm: Calm,
+    at_ease: At_ease,
+    relaxed: Relaxed,
+    sleepy: Sleepy,
+  };
 
-  let getImageButton = (name, name2, points, rate, setRate, mounted) => {
+  useEffect(() => {
+    let shuf = shuffleArray(Object.keys(emotions));
+    setShuffled(shuf);
+  }, []);
+
+  let getImageButton = (points, rate, setRate, mounted) => {
     if (points == rate)
       return (
         <div className="responsive">
@@ -72,7 +128,7 @@ const BreakFeedbackScreen = (props) => {
         type: breakState.breakType,
         feedbackScore: rate,
         feedbackText: feedbackText,
-        panas: [],
+        panas: selected,
         user: props.onboarding.user._id,
         suddenReason: breakState.suddenReason,
       };
@@ -95,30 +151,89 @@ const BreakFeedbackScreen = (props) => {
     }
   };
 
-  return (
-    <div className="break-div">
-      <button
-        className="close-break"
-        onClick={() => {
-          addBreakInfo();
-        }}
-      >
-        <div>&#10006;</div>
-        <div className="save-button-text">Save feedback and close</div>
-      </button>
-      <div className="break-completed-text">Break completed successfully!</div>
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      // Generate random number
+      var j = Math.floor(Math.random() * (i + 1));
 
-      <div className="feedback-request-text">How was helpful this break?</div>
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
 
-      <div className="break-feedback">
-        {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
-        {getImageButton(s4, s4y, 2, rate, setRate, mounted)}
-        {getImageButton(s3, s3y, 3, rate, setRate, mounted)}
-        {getImageButton(s2, s2y, 4, rate, setRate, mounted)}
-        {getImageButton(s1, s1y, 5, rate, setRate, mounted)}
+    return array;
+  }
+
+  if (loading) {
+    return (
+      <div className="break-div" style={{ backgroundColor: "white" }}>
+        <p style={{ textAlign: "center", fontSize: "20px",color:"black" }}>
+          Choose the images that best represent your emotional state right now
+        </p>
+        <div
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
+          {shuffled.map((item, index) => {
+            return (
+              <div
+                style={{
+                  padding: "1%",
+                  backgroundColor: selected.includes(item.toString())
+                    ? "green"
+                    : "white",
+                }}
+                onClick={() => {
+                  let tempSelected = [...selected];
+                  if (tempSelected.includes(item.toString())) {
+                    let tempIndex = tempSelected.indexOf(item.toString());
+                    tempSelected.splice(tempIndex, 1);
+                  } else {
+                    tempSelected.push(item.toString());
+                  }
+                  setSelected(tempSelected);
+                }}
+              >
+                <img src={emotions[item]} width="150px" height="150px" />
+              </div>
+            );
+          })}
+        </div>
+        <Button
+          onClick={() => {
+            setLoading(false);
+          }}
+        >
+          Next
+        </Button>
       </div>
+    );
+  } else {
+    return (
+      <div className="break-div">
+        <button
+          className="close-break"
+          onClick={() => {
+            addBreakInfo();
+          }}
+        >
+          <div>&#10006;</div>
+          <div className="save-button-text">Save feedback and close</div>
+        </button>
+        <div className="break-completed-text">
+          Break completed successfully!
+        </div>
 
-      {/* <div style={{ display: "flex" }}>
+        <div className="feedback-request-text">How was helpful this break?</div>
+
+        <div className="break-feedback">
+          {getImageButton(1, rate, setRate, mounted)}
+          {getImageButton(2, rate, setRate, mounted)}
+          {getImageButton(3, rate, setRate, mounted)}
+          {getImageButton(4, rate, setRate, mounted)}
+          {getImageButton(5, rate, setRate, mounted)}
+        </div>
+
+        {/* <div style={{ display: "flex" }}>
         <div style={{ width: "7vw", textAlign: "left", paddingLeft: "0vw" }}>
           Not Helpful
         </div>
@@ -128,21 +243,24 @@ const BreakFeedbackScreen = (props) => {
         </div>
       </div> */}
 
-      <div className="feedback-text-box">
-        <div className="floating-label">Why was this break helpful/unhelpful?</div>
-        <textarea
-          onChange={(event) => {
-            if (mounted) setFeedbackText(event.target.value);
-          }}
-          data-role="none"
-          rows="3"
-          cols="80"
-          placeholder="Type in here any notes or reflections about the break that you would like to save"
-          className="feedback-text"
-        />
+        <div className="feedback-text-box">
+          <div className="floating-label">
+            Why was this break helpful/unhelpful?
+          </div>
+          <textarea
+            onChange={(event) => {
+              if (mounted) setFeedbackText(event.target.value);
+            }}
+            data-role="none"
+            rows="3"
+            cols="80"
+            placeholder="Type in here any notes or reflections about the break that you would like to save"
+            className="feedback-text"
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const mapStateToProps = (state) => {

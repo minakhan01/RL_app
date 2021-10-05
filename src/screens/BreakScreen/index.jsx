@@ -13,18 +13,6 @@ import ToolBar from "../../components/Toolbar";
 import { useDispatch, useSelector } from "react-redux";
 import { BreakActions, PastActions } from "../../redux/actions";
 
-import s1 from "../../assets/s1.png";
-import s2 from "../../assets/s2.png";
-import s3 from "../../assets/s3.png";
-import s4 from "../../assets/s4.png";
-import s5 from "../../assets/s5.png";
-
-import s1y from "../../assets/s1y.png";
-import s2y from "../../assets/s2y.png";
-import s3y from "../../assets/s3y.png";
-import s4y from "../../assets/s4y.png";
-import s5y from "../../assets/s5y.png";
-
 var electron = window.require("electron");
 var curWindow = electron.remote.getCurrentWindow();
 
@@ -40,7 +28,6 @@ const BreakScreen = (props) => {
   const breakState = useSelector((state) => state.break.breakState);
   const dispatch = useDispatch();
 
-  
   const [minimized, setMinimized] = useState(false);
 
   const breakDuration = store.getState().break.breakDuration;
@@ -92,98 +79,8 @@ const BreakScreen = (props) => {
         />
       </div>
     );
-  } 
-  // else {
-  //   curWindow.maximize();
-  //   curWindow.setAlwaysOnTop(false);
-
-  //   return (
-  //     <div className="break-div">
-  //       <button
-  //         className="close-break"
-  //         onClick={() => {
-  //           addBreakInfo();
-  //         }}
-  //       >
-  //         <div>&#10006;</div>
-  //         <div className="save-button-text">Save feedback and close</div>
-  //       </button>
-  //       <div className="break-completed-text">
-  //         Break completed successfully!
-  //       </div>
-
-  //       <div className="feedback-text-box">
-  //         <div className="floating-label">Notes</div>
-  //         <textarea
-  //           onChange={(event) => {
-  //             if (mounted) setFeedbackText(event.target.value);
-  //           }}
-  //           data-role="none"
-  //           rows="3"
-  //           cols="80"
-  //           placeholder="Type in here any notes or reflections about the break that you would like to save"
-  //           className="feedback-text"
-  //         />
-  //       </div>
-
-  //       <div className="feedback-request-text">How was this break?</div>
-
-  //       <div className="break-feedback">
-  //         {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
-  //         {getImageButton(s4, s4y, 2, rate, setRate, mounted)}
-  //         {getImageButton(s3, s3y, 3, rate, setRate, mounted)}
-  //         {getImageButton(s2, s2y, 4, rate, setRate, mounted)}
-  //         {getImageButton(s1, s1y, 5, rate, setRate, mounted)}
-  //       </div>
-
-  //       <div style={{ display: "flex" }}>
-  //         <div style={{ width: "7vw", textAlign: "left", paddingLeft: "0vw" }}>
-  //           Not Helpful
-  //         </div>
-  //         <div style={{ width: "28vw" }} />
-  //         <div
-  //           style={{ width: "4vw", textAlign: "right", paddingRight: "1vw" }}
-  //         >
-  //           Helpful
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  }
   return null;
-};
-
-let getImageButton = (name, name2, points, rate, setRate, mounted) => {
-  if (points == rate)
-    return (
-      <div className="responsive">
-        <div className="gallery">
-          <button
-            className="feedback-button"
-            onClick={() => {
-              if (mounted) setRate(points);
-            }}
-          >
-            <p style={{ fontSize: "50px" }}>{points - 1}</p>
-          </button>
-        </div>
-      </div>
-    );
-  else
-    return (
-      <div className="responsive">
-        <div className="gallery">
-          <button
-            className="feedback-button"
-            onClick={() => {
-              if (mounted) setRate(points);
-            }}
-          >
-            <p style={{ fontSize: "50px" }}>{points - 1}</p>
-          </button>
-        </div>
-      </div>
-    );
 };
 
 const mapStateToProps = (state) => {

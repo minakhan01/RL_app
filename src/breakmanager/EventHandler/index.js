@@ -67,7 +67,6 @@ export default function eventHandler(history) {
         store.getState().break.breakState === "break" &&
         s1 === store.getState().break.breakStartTime
       ) {
-        console.log("not");
         store.dispatch(BreakActions.startFruit());
       }
     }, store.getState().break.breakDuration * 1000);

@@ -18,79 +18,44 @@ export default function updateDatabase() {
 
   //Also backing up today's total screen time per app, although unnecessary
   client.getAppTotals().then(async (dat) => {
-    let all = store.getState().past.totalUploaded;
-    let web = store.getState().past.webUploaded;
-    let tod = new Date();
-    if (store.getState().past.todayaW.length > 0) {
-      tod = new Date(store.getState().past.todayaW);
-    }
-    let actTod = new Date();
-    if (
-      tod.getDate() === actTod.getDate() &&
-      tod.getMonth() === actTod.getMonth()
-    ) {
+    let all = dat.appTotal;
+    let web = dat.websiteTotals;
+    let complete = false;
+    
+    let i = 0;
+    while (!complete) {
       let finAll = [];
-      let tempAll = dat.appTotal;
-      let newAll = tempAll.length;
       let finWeb = [];
-      let tempWeb = dat.websiteTotals;
-      let newWeb = tempWeb.length;
-      if (all !== 0) {
-        finAll = tempAll.slice(all, all + tempAll.length);
-      } else {
-        finAll = tempAll;
+      let start = false;
+      if (all[i]) {
+        finAll = all.slice(i, i + 50);
+      } 
+      if (web[i]) {
+        finWeb = web.slice(i, i + 50);
+      } 
+      if (i === 0) {
+        start = true;
       }
-      if (web !== 0) {
-        finWeb = tempWeb.slice(web, web + tempWeb.length);
-      } else {
-        finWeb = tempWeb;
-      }
-      if (finAll.length > 0 || finWeb.length > 0) {
-        store.dispatch(
-          PastActions.setAwUpNum(newAll, newWeb, actTod.toISOString())
-        );
-        let body = {
-          user: store.getState().onboarding.user._id,
-          appTotal: finAll,
-          websiteTotals: finWeb,
-        };
-        let response = await axios.post(
-          "https://thepallab.com/api/user/aw",
-          body
-        );
-      }
-    } else {
-      all = 0;
-      web = 0;
-      let finAll = [];
-      let tempAll = dat.appTotal;
-      let newAll = tempAll.length;
-      let finWeb = [];
-      let tempWeb = dat.websiteTotals;
-      let newWeb = tempWeb.length;
-      if (all !== 0) {
-        finAll = tempAll.slice(all, all + tempAll.length);
-      } else {
-        finAll = tempAll;
-      }
-      if (web !== 0) {
-        finWeb = tempWeb.slice(web, web + tempWeb.length);
-      } else {
-        finWeb = tempWeb;
-      }
-      if (finAll.length > 0 || finWeb.length > 0) {
-        store.dispatch(
-          PastActions.setAwUpNum(newAll, newWeb, actTod.toISOString())
-        );
-        let body = {
-          user: store.getState().onboarding.user._id,
-          appTotal: finAll,
-          websiteTotals: finWeb,
-        };
-        let response = await axios.post(
-          "https://thepallab.com/api/user/aw",
-          body
-        );
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+      let tomorrow = new Date();
+      tomorrow.setHours(23, 59, 59, 999);
+      let body = {
+        user: store.getState().onboarding.user._id,
+        appTotal: finAll,
+        websiteTotals: finWeb,
+        start,
+        today: today,
+        tomorrow: tomorrow,
+        timestamp: new Date(),
+      };
+      let response = await axios.post(
+        "https://thepallab.com/api/user/aw",
+        body
+      );
+      i += 50;
+      if (!all[i] && !web[i]) {
+        complete = true;
       }
     }
 
