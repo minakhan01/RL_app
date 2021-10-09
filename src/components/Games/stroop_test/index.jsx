@@ -19,12 +19,12 @@ function StroopTest(props) {
     colors: [],
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      props.onComplete(count.score);
-      return <>Test completed. The score is {count.score}</>;
-    }, 10000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     props.onComplete(count.score);
+  //     return <>Test completed. The score is {count.score}</>;
+  //   }, 10000);
+  // }, []);
 
   if (count.colors.length == 0) {
     var words = [
@@ -95,10 +95,10 @@ function StroopTest(props) {
     setCount({ ...count, total: count.total + 1, lastResult: "Wrong!" });
     // handle each error that occurs
   };
-  // if (count.total == 10) {
-  //     props.onComplete(count.score)
-  //     return <>Test completed. The score is {count.score}</>
-  // }
+  if (count.total == 3) {
+      props.onComplete(count.score)
+      return <>Test completed. The score is {count.score}</>
+  }
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -114,7 +114,7 @@ function StroopTest(props) {
           });
         }}
         isPlaying
-        duration={5}
+        duration={10}
         size={100}
         colors="#000000"
         strokeWidth={6}
@@ -132,6 +132,7 @@ function StroopTest(props) {
         words={words}
         incorrectMessage="Incorrect!"
         completionMessage="Out of time!"
+        timeLimit={30000}
       />
       <div>{count.lastResult}</div>
       <div>{count.score}</div>

@@ -158,7 +158,7 @@ const HomeScreen = (props) => {
             history.push("/");
           }}
         >
-          Reset
+          Sign Out
         </Button>
       </div>
     </div>
