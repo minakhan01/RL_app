@@ -45,11 +45,11 @@ function Games(props) {
               return { ...stg, stroop: stg.stroop + 1 };
             });
           }
-          if (lastStage.stage == 2) {
-            setStage((stg) => {
-              return { ...stg, stage: 3 };
-            });
-          }
+          // if (lastStage.stage == 2) {
+          //   setStage((stg) => {
+          //     return { ...stg, stage: 3 };
+          //   });
+          // }
         }
         lastStage = thisStage;
       }
@@ -89,6 +89,11 @@ function Games(props) {
       return (
         <div style={{ ...s1, flexDirection: "column" }}>
           <div>Score is {stage.scores[2]}</div>
+          <p style={{ textAlign: "center" }}>
+            The next game is stroop test. You will be given a list of words that
+            are printed in a different color than the meaning of the word. You
+            have to choose the name color of the word, not the word itself
+          </p>
           <Button onClick={() => setStage({ ...stage, stage: 3 })}>
             Next game
           </Button>
@@ -101,6 +106,11 @@ function Games(props) {
             Score is {stage.scores[2]}. The time limit of Fruit Ninja is 10
             seconds
           </div>
+          <p style={{ textAlign: "center" }}>
+            The next game is stroop test. You will be given a list of words that
+            are printed in a different color than the meaning of the word. You
+            have to choose the name color of the word, not the word itself
+          </p>
           <Button onClick={() => setStage({ ...stage, stage: 3 })}>
             Next game
           </Button>
