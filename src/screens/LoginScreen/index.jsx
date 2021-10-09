@@ -5,6 +5,7 @@ import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+var shell = window.require("electron").shell;
 
 const LoginScreen = (props) => {
   const [username, setUsername] = useState("");
@@ -65,6 +66,17 @@ const LoginScreen = (props) => {
         }}
       >
         Login
+      </Button>
+
+      <Button
+        style={{ background: "white", marginTop: "5%" }}
+        onClick={() => {
+          shell.openExternal(
+            "https://thepallab.com/stroopreg"
+          );
+        }}
+      >
+        Don't have an account? Click here to register
       </Button>
     </div>
   );
