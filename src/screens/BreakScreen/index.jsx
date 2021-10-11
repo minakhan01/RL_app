@@ -58,7 +58,7 @@ const BreakScreen = (props) => {
     );
   } else if (breakState === "break" && minimized) {
     curWindow.unmaximize();
-    curWindow.setMovable(true);
+    curWindow.setMovable(false);
     curWindow.setSize(
       electron.remote.screen.getPrimaryDisplay().size.width,
       Math.ceil(electron.remote.screen.getPrimaryDisplay().size.height / 8)
@@ -75,7 +75,7 @@ const BreakScreen = (props) => {
           minimize={setMinimized}
           totaltime={breakDuration}
           startTime={breakStartTime}
-          message={"Be kind!"}
+          message={store.getState().onboarding.breakMessage}
         />
       </div>
     );

@@ -39,6 +39,9 @@ const Main = () => {
   useEffect(() => {
     if (store.getState().onboarding.complete) {
       BreakManager(history);
+      if (store.getState().break.breakState !== "break") {
+        dispatch(BreakActions.resetBreak());
+      }
     }
     if (store.getState().break.breakState === "break-popup") {
     } else if (store.getState().break.breakState === "break") {

@@ -69,13 +69,30 @@ function Games(props) {
     alignItems: "center",
   };
 
-  if (stage.stage == 0)
-    return (
-      <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
-        <h3>Welcome!</h3>
-        <Button onClick={() => setStage({ ...stage, stage: 1 })}>Start</Button>
-      </div>
-    );
+  if (stage.stage == 0) {
+    if (props.status === "end") {
+      return (
+        <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
+          <h3 style={{ textAlign: "center" }}>
+            Your break is complete. This is a post-break test to evaluate how
+            effective the break was. Please press start to continue!
+          </h3>
+          <Button onClick={() => setStage({ ...stage, stage: 1 })}>
+            Start
+          </Button>
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
+          <h3>Welcome! This is a pre-break test.</h3>
+          <Button onClick={() => setStage({ ...stage, stage: 1 })}>
+            Start
+          </Button>
+        </div>
+      );
+    }
+  }
 
   if (
     (stage.stage == 1 && props.order == 0) ||
@@ -92,7 +109,7 @@ function Games(props) {
           <p style={{ textAlign: "center" }}>
             The next game is stroop test. You will be given a list of words that
             are printed in a different color than the meaning of the word. You
-            have to choose the name color of the word, not the word itself
+            have to choose the name of the color, not the word itself
           </p>
           <Button onClick={() => setStage({ ...stage, stage: 3 })}>
             Next game
@@ -109,7 +126,7 @@ function Games(props) {
           <p style={{ textAlign: "center" }}>
             The next game is stroop test. You will be given a list of words that
             are printed in a different color than the meaning of the word. You
-            have to choose the name color of the word, not the word itself
+            have to choose the name of the color, not the word itself
           </p>
           <Button onClick={() => setStage({ ...stage, stage: 3 })}>
             Next game

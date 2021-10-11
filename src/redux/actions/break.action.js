@@ -64,3 +64,8 @@ export const postbreakScores = (stroop, fruit) => ({
   type: BreakTypes.ADD_POSTBREAK_DATA,
   payload: { stroop, fruit },
 });
+
+export const resetBreak = () => ({
+  type: BreakTypes.RESET_BREAK,
+  payload: {},
+});

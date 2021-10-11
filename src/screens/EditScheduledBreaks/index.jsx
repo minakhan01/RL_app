@@ -80,12 +80,28 @@ const EditScheduledBreakScreen = (props) => {
                   tempArray[index] = tempObject;
                   props.addTempSched(tempArray);
                 }}
+                onSelect={(e) => {
+                  const time = e.toString();
+                  const tempObject = item;
+                  tempObject.start = time;
+                  const tempArray = props.onboarding.tempScheduledBreaks;
+                  tempArray[index] = tempObject;
+                  props.addTempSched(tempArray);
+                }}
               />
               <TimePicker
                 format={"HH:mm"}
                 style={{ flex: 1 }}
                 value={item.end.length !== 0 ? moment(item.end) : null}
                 onChange={(e) => {
+                  const time = e.toString();
+                  const tempObject = item;
+                  tempObject.end = time;
+                  const tempArray = props.onboarding.tempScheduledBreaks;
+                  tempArray[index] = tempObject;
+                  props.addTempSched(tempArray);
+                }}
+                onSelect={(e) => {
                   const time = e.toString();
                   const tempObject = item;
                   tempObject.end = time;

@@ -147,19 +147,21 @@ const AdHocBreakScreen = (props) => {
       <h1>Break Overrides</h1>
 
       <div style={{ marginTop: "2%" }}>
-        <p style={{ fontSize: "15px", color: "#696969", width: "60%" }}>
+        <p style={{ fontSize: "15px", color: "#696969", width: "80%" }}>
           This section is to set up any specific breaks that you want to take.
           For example you can set the app up to start some breaks every time you
           open a specific app like Facebook.
         </p>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
           <div
             style={{
               marginTop: "1%",
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              width: "60%",
+              width: "100%",
             }}
           >
             <p style={{ flex: 2, fontSize: "18px" }}>Site Name</p>
@@ -174,7 +176,7 @@ const AdHocBreakScreen = (props) => {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    width: "60%",
+                    width: "100%",
                   }}
                 >
                   <div style={{ flex: 2 }}>
@@ -326,7 +328,12 @@ const AdHocBreakScreen = (props) => {
             }}
             onClick={() => {
               let tempArray = props.onboarding.allOverRides;
-              tempArray.push({ name: "", url: "", interval: 60, breakLength: 1 });
+              tempArray.push({
+                name: "",
+                url: "",
+                interval: 60,
+                breakLength: 1,
+              });
               props.setAllOverrides(tempArray);
             }}
           >

@@ -77,12 +77,28 @@ const ScheduledBreakScreen = (props) => {
                   tempArray[index] = tempObject;
                   props.setScheduledBreaks(tempArray);
                 }}
+                onSelect={(e) => {
+                  const time = e.toString();
+                  const tempObject = item;
+                  tempObject.start = time;
+                  const tempArray = props.onboarding.scheduledBreaks;
+                  tempArray[index] = tempObject;
+                  props.setScheduledBreaks(tempArray);
+                }}
               />
               <TimePicker
                 format={"HH:mm"}
                 style={{ flex: 1 }}
                 value={item.end.length !== 0 ? moment(item.end) : null}
                 onChange={(e) => {
+                  const time = e.toString();
+                  const tempObject = item;
+                  tempObject.end = time;
+                  const tempArray = props.onboarding.scheduledBreaks;
+                  tempArray[index] = tempObject;
+                  props.setScheduledBreaks(tempArray);
+                }}
+                onSelect={(e) => {
                   const time = e.toString();
                   const tempObject = item;
                   tempObject.end = time;

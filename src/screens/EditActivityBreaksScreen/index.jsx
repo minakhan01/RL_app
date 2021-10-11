@@ -68,7 +68,10 @@ const EditAdHocBreakScreen = (props) => {
   };
 
   return (
-    <div className="step-container" style={{ marginBottom: "10px" }}>
+    <div
+      className="step-container"
+      style={{ marginBottom: "10px", margin: "2%" }}
+    >
       <Modal
         title=""
         visible={isModalVisible}
@@ -154,7 +157,7 @@ const EditAdHocBreakScreen = (props) => {
       <h1>Break Overrides</h1>
 
       <div style={{ marginTop: "2%" }}>
-        <p style={{ fontSize: "15px", color: "#696969", width: "60%" }}>
+        <p style={{ fontSize: "15px", color: "#696969", width: "80%" }}>
           This section is to set up any specific breaks that you want to take.
           For example you can set the app up to start some breaks every time you
           open a specific app like Facebook.
@@ -166,7 +169,7 @@ const EditAdHocBreakScreen = (props) => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              width: "60%",
+              width: "100%",
             }}
           >
             <p style={{ flex: 2, fontSize: "18px" }}>Site Name</p>
@@ -181,7 +184,7 @@ const EditAdHocBreakScreen = (props) => {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    width: "60%",
+                    width: "100%",
                   }}
                 >
                   <div style={{ flex: 2 }}>

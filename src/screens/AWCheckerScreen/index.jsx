@@ -8,6 +8,8 @@ import BreakManager from "../../breakmanager";
 import { AWClientService } from "../../services";
 import AWError from "../../assets/awerror.png";
 import AWFull from "../../assets/awfull.png";
+import AWscreen from "../../assets/awscreen.png";
+
 import "./styles.css";
 var shell = window.require("electron").shell;
 let client = new AWClientService();
@@ -114,7 +116,23 @@ const AWCheckerScreen = (props) => {
         </p>
         <p>5. You will see a small activty watch logo in your tray : </p>
         <img src={AWFull} width="100px" height="100px" />
-        <p>6. You have successfully installed activity watch. Please press refresh to continue </p>
+        <p>6. You have successfully installed activity watch.</p>
+        <p
+          className="linktext"
+          style={{ color: "blue" }}
+          onClick={() => {
+            shell.openExternal("http://localhost:5600");
+          }}
+        >
+          7. To make sure Activity Watch is running please click here and verify
+          you see the following page :
+        </p>
+        <img src={AWscreen} width="500px" height="300px" />
+        <p>
+          7.1 : If you do not see the screen above, please launch activity watc
+          from launchpad and click on the link above again. Once you see the
+          screen above hit refresh to continue.
+        </p>
         <Button
           onClick={() => {
             setLoading(true);

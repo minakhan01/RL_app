@@ -38,10 +38,12 @@ export default function eventHandler(history) {
     store.dispatch(BreakActions.setWindowChanged());
   } else if (store.getState().break.breakState === "break-stroop") {
     history.push("/stroop");
+    curWindow.center();
   } else if (store.getState().break.breakState === "break-fruit") {
     curWindow.unmaximize();
     curWindow.setSize(800, 600);
     curWindow.setOpacity(1);
+    curWindow.center();
 
     curWindow.setMovable(true);
     history.push("/fruit");

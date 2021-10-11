@@ -78,6 +78,17 @@ const LoginScreen = (props) => {
       >
         Don't have an account? Click here to register
       </Button>
+
+      <Button
+        style={{ background: "white", marginTop: "5%" }}
+        onClick={() => {
+          shell.openExternal(
+            "https://thepallab.com/forgotpass"
+          );
+        }}
+      >
+        Forgot Password
+      </Button>
     </div>
   );
 };

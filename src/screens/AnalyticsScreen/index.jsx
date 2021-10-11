@@ -165,13 +165,15 @@ const AnalyticsScreen = (props) => {
             <Chart
               width={"1000px"}
               height={"300px"}
-              chartType="Line"
+              chartType="Scatter"
               loader={<div>Loading Chart</div>}
               data={score}
               options={{
                 chart: {
                   title: "How helpful was the break?",
                 },
+
+                pointsVisible: true,
               }}
               rootProps={{ "data-testid": "3" }}
             />

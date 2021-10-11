@@ -124,6 +124,28 @@ const BreakReducer = (state = initialState, action) => {
         },
       };
 
+    case BreakTypes.RESET_BREAK:
+      return {
+        breakState: "no-break",
+        windowChanged: true,
+        breakType: "",
+        breakDescription: "",
+        breakStartTime: "",
+        breakDuration: 0,
+        popupStartTime: "",
+        breaksTriggered: {},
+        breakEndTime: "",
+        prebreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        postbreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        suddenReason: "",
+      };
+
     case OnboardingTypes.RESET:
       return {
         breakState: "no-break",

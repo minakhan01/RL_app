@@ -1,7 +1,7 @@
 import { OnboardingTypes } from "../types";
 const initialState = {
   name: "",
-  breakMessage: "Drink Water",
+  breakMessage: "",
   screenTime: { start: "", end: "" },
   scheduledBreaks: [{ start: "", end: "", day: "" }],
   regularBreakLength: 1,
@@ -64,7 +64,7 @@ const OnboardingReducer = (state = initialState, action) => {
     case OnboardingTypes.RESET:
       return {
         name: "",
-        breakMessage: "Drink Water",
+        breakMessage: "",
         screenTime: { start: "", end: "" },
         scheduledBreaks: [{ start: "", end: "", day: "" }],
         regularBreakLength: 1,

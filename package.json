@@ -1,6 +1,6 @@
 {
-  "name": "rl-app",
-  "productName": "rl-app",
+  "name": "pal",
+  "productName": "PAL",
   "homepage": "./",
   "main": "./public/electron.js",
   "version": "0.1.0",

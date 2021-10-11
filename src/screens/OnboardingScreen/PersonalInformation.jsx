@@ -45,6 +45,7 @@ const PersonalInformationScreen = (props) => {
         <p>Some contents...</p>
       </Modal>
       <h1>Personal Information</h1>
+      <p style={{ fontSize: "18px", marginBottom: "0" }}>Name</p>
       <Input
         size="large"
         style={{ width: "30%", borderRadius: 5, verticalAlign: "center" }}
