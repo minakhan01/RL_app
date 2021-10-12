@@ -37,7 +37,7 @@ import At_ease from "../../assets/at_ease.jpg";
 import Relaxed from "../../assets/relaxed.jpg";
 import Sleepy from "../../assets/sleepy.jpg";
 
-import "./styles.css"
+import "./styles.css";
 
 const BreakFeedbackScreen = (props) => {
   const [loading, setLoading] = useState(true);
@@ -131,6 +131,7 @@ const BreakFeedbackScreen = (props) => {
         panas: selected,
         user: props.onboarding.user._id,
         suddenReason: breakState.suddenReason,
+        skipped: breakState.skipped,
       };
       let response = await axios.post(
         "https://thepallab.com/api/user/break",
@@ -167,7 +168,7 @@ const BreakFeedbackScreen = (props) => {
   if (loading) {
     return (
       <div className="break-div" style={{ backgroundColor: "white" }}>
-        <p style={{ textAlign: "center", fontSize: "20px",color:"black" }}>
+        <p style={{ textAlign: "center", fontSize: "20px", color: "black" }}>
           Choose the images that best represent your emotional state right now
         </p>
         <div

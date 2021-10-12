@@ -5,20 +5,25 @@ import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Chart } from "react-google-charts";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const AnalyticsScreen = (props) => {
   const [stroop, setstroop] = useState([]);
   const [fruit, setfruit] = useState([]);
   const [score, setscore] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   useEffect(() => {
     getData();
   }, []);
   const getData = async () => {
-    let today = new Date();
+    let today = startDate;
     today.setHours(0, 0, 0, 0);
-    let tomorrow = new Date();
+    let tomorrow = endDate;
     tomorrow.setHours(23, 59, 59, 999);
     let body = {
       user: props.onboarding.user._id,
@@ -34,6 +39,10 @@ const AnalyticsScreen = (props) => {
       for (let i = 1; i < stroopDataTemp.length; i++) {
         let newDate = new Date(stroopDataTemp[i][0]);
         stroopDataTemp[i][0] =
+          newDate.getDate() +
+          "/" +
+          (newDate.getMonth() + 1) +
+          " " +
           newDate.getHours() +
           ":" +
           (newDate.getMinutes() < 10 ? "0" : "") +
@@ -46,6 +55,10 @@ const AnalyticsScreen = (props) => {
       for (let i = 1; i < fruitDataTemp.length; i++) {
         let newDate = new Date(fruitDataTemp[i][0]);
         fruitDataTemp[i][0] =
+          newDate.getDate() +
+          "/" +
+          (newDate.getMonth() + 1) +
+          " " +
           newDate.getHours() +
           ":" +
           (newDate.getMinutes() < 10 ? "0" : "") +
@@ -58,6 +71,10 @@ const AnalyticsScreen = (props) => {
       for (let i = 1; i < scoreDataTemp.length; i++) {
         let newDate = new Date(scoreDataTemp[i][0]);
         scoreDataTemp[i][0] =
+          newDate.getDate() +
+          "/" +
+          (newDate.getMonth() + 1) +
+          " " +
           newDate.getHours() +
           ":" +
           (newDate.getMinutes() < 10 ? "0" : "") +
@@ -91,6 +108,35 @@ const AnalyticsScreen = (props) => {
         >
           Refresh
         </Button>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div>
+            Start Date :
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => {
+                setStartDate(date);
+              }}
+            />
+          </div>
+          <div>
+            End Date :
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => {
+                setEndDate(date);
+              }}
+            />
+          </div>
+          <Button
+            onClick={() => {
+              setLoading(true);
+              getData();
+            }}
+          >
+            Get Data
+          </Button>
+        </div>
+
         <div
           style={{
             borderWidth: "1px",

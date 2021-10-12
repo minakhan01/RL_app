@@ -19,6 +19,7 @@ const initialState = {
     fruit: [],
   },
   suddenReason: "",
+  skipped: [],
 };
 
 const BreakReducer = (state = initialState, action) => {
@@ -68,6 +69,7 @@ const BreakReducer = (state = initialState, action) => {
           fruit: [],
         },
         suddenReason: "",
+        skipped: [],
       };
 
     case BreakTypes.END_BREAK:
@@ -76,6 +78,8 @@ const BreakReducer = (state = initialState, action) => {
       return { ...state, breakState: "break-stroop" };
     case BreakTypes.START_FRUIT:
       return { ...state, breakState: "break-fruit" };
+    case BreakTypes.SETSKIPPED:
+      return { ...state, skipped: action.payload.val };
 
     case BreakTypes.CLOSE_BREAK_SCREEN:
       return {
@@ -98,6 +102,7 @@ const BreakReducer = (state = initialState, action) => {
           fruit: [],
         },
         suddenReason: "",
+        skipped: [],
       };
 
     case BreakTypes.SET_WINDOW_CHANGED:
@@ -144,6 +149,7 @@ const BreakReducer = (state = initialState, action) => {
           fruit: [],
         },
         suddenReason: "",
+        skipped: [],
       };
 
     case OnboardingTypes.RESET:
@@ -166,6 +172,7 @@ const BreakReducer = (state = initialState, action) => {
           fruit: [],
         },
         suddenReason: "",
+        skipped: [],
       };
 
     default:

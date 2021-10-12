@@ -13,4 +13,5 @@ export const BreakTypes = {
   ADD_PREBREAK_DATA: "@break/ADD_PREBREAK_DATA",
   ADD_POSTBREAK_DATA: "@break/ADD_POSTBREAK_DATA",
   RESET_BREAK: "@break/RESET_BREAK",
+  SETSKIPPED: "@break/SETSKIPPED",
 };

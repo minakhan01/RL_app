@@ -129,7 +129,7 @@ const AWCheckerScreen = (props) => {
         </p>
         <img src={AWscreen} width="500px" height="300px" />
         <p>
-          7.1 : If you do not see the screen above, please launch activity watc
+          7.1 : If you do not see the screen above, please launch activity watch
           from launchpad and click on the link above again. Once you see the
           screen above hit refresh to continue.
         </p>

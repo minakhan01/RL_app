@@ -79,6 +79,45 @@ const FinishingUpScreen = (props) => {
             {props.onboarding.regularBreakLength} minute(s)
           </p>
         </div>
+        <div style={{ width: "100%" }}>
+          <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+            Activity Based Breaks :{" "}
+          </p>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "50%",
+            }}
+          >
+            <p style={{ flex: 1 }}>Site</p>
+            <p style={{ flex: 1 }}>Break Interval (minutes)</p>
+            <p style={{ flex: 1 }}>Break Length (minutes)</p>
+          </div>
+          <div>
+            {props.onboarding.allOverRides.map((item, index) => {
+              if (item.name.length > 0) {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "50%",
+                      marginTop: index !== 0 ? "1%" : "0%",
+                    }}
+                  >
+                    <p style={{ flex: 1 }}>{item.name}</p>
+                    <p style={{ flex: 1 }}>{item.interval}</p>
+                    <p style={{ flex: 1 }}>{item.breakLength}</p>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </div>
         <p style={{ fontSize: "18px", marginBottom: "5%" }}>
           If you want to make any changes, click on the back button and change
           your settings. You can always come back and make edits to your

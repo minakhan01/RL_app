@@ -32,6 +32,8 @@ const EditAdHocBreakScreen = lazy(() =>
   import("../screens/EditActivityBreaksScreen")
 );
 
+const AWScreen = lazy(() => import("../screens/AWScreen"));
+
 const Main = () => {
   let history = useHistory();
   //script to manage break triggers is called here
@@ -70,6 +72,7 @@ const Main = () => {
         <Route path="/edit-sched" component={EditScheduledBreakScreen} />
         <Route path="/edit-reg" component={EditRegularBreakScreen} />
         <Route path="/edit-act" component={EditAdHocBreakScreen} />
+        <Route path="/awviz" component={AWScreen} />
       </Switch>
     </Suspense>
   );

@@ -6,6 +6,7 @@ import { OnboardingActions } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 import CalendarComponent from "../../components/Calendar";
 import AnalyticsScreen from "../AnalyticsScreen";
+import AWScreen from "../AWScreen";
 import HomeScreen from "../HomeScreen";
 const { TabPane } = Tabs;
 
@@ -24,6 +25,9 @@ const NewHomeScreen = (props) => {
           </TabPane>
           <TabPane tab="Analytics" key="3">
             <AnalyticsScreen />
+          </TabPane>
+          <TabPane tab="Activity Watch" key="4">
+            <AWScreen />
           </TabPane>
         </Tabs>
       </div>

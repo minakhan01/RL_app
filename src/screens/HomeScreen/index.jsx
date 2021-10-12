@@ -126,8 +126,8 @@ const HomeScreen = (props) => {
             }}
           >
             <p style={{ flex: 1 }}>Site</p>
-            <p style={{ flex: 1 }}>Break Interval</p>
-            <p style={{ flex: 1 }}>Break Length</p>
+            <p style={{ flex: 1 }}>Break Interval (minutes)</p>
+            <p style={{ flex: 1 }}>Break Length (minutes)</p>
           </div>
           <div>
             {props.onboarding.allOverRides.map((item, index) => {

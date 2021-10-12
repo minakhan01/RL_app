@@ -14,7 +14,7 @@ export default function eventHandler(history) {
   ) {
     curWindow.setOpacity(1);
     curWindow.unmaximize();
-    curWindow.setSize(1000, 800);
+    curWindow.setSize(1400, 800);
     curWindow.minimize();
     history.push("/");
     store.dispatch(BreakActions.setWindowChanged());

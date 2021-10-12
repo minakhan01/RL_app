@@ -11,6 +11,9 @@ import PushInfo from "./push_info";
 import PushInfoEnd from "./push_info_end";
 import { useEffect } from "react";
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BreakActions } from "../../redux/actions";
+const { ipcRenderer, remote } = window.require("electron");
 function Games(props) {
   var [stage, setStage] = useState({
     stage: 0,
@@ -18,6 +21,7 @@ function Games(props) {
     fruit: 1,
     stroop: 1,
   });
+  let dispatch = useDispatch();
 
   /////////////////////////////
   const stageRef = useRef(stage);
@@ -77,8 +81,27 @@ function Games(props) {
             Your break is complete. This is a post-break test to evaluate how
             effective the break was. Please press start to continue!
           </h3>
-          <Button onClick={() => setStage({ ...stage, stage: 1 })}>
+          <Button
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal.push(false);
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 1 });
+            }}
+          >
             Start
+          </Button>
+          <Button
+            style={{ marginTop: "2%" }}
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal.push(true);
+              dispatch(BreakActions.setSkipped(skipVal));
+              let timeNow = new Date().toISOString();
+              dispatch(BreakActions.endBreak(timeNow));
+            }}
+          >
+            Skip
           </Button>
         </div>
       );
@@ -86,8 +109,27 @@ function Games(props) {
       return (
         <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
           <h3>Welcome! This is a pre-break test.</h3>
-          <Button onClick={() => setStage({ ...stage, stage: 1 })}>
+          <Button
+            onClick={() => {
+              let skipVal = [];
+              skipVal.push(false);
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 1 });
+            }}
+          >
             Start
+          </Button>
+          <Button
+            style={{ marginTop: "2%" }}
+            onClick={() => {
+              let skipVal = [];
+              skipVal.push(true);
+              dispatch(BreakActions.setSkipped(skipVal));
+              remote.getCurrentWindow().reload();
+              dispatch(BreakActions.startBreak());
+            }}
+          >
+            Skip
           </Button>
         </div>
       );

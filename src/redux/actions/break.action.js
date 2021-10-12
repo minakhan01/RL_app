@@ -69,3 +69,8 @@ export const resetBreak = () => ({
   type: BreakTypes.RESET_BREAK,
   payload: {},
 });
+
+export const setSkipped = (val) => ({
+  type: BreakTypes.SETSKIPPED,
+  payload: { val },
+});
