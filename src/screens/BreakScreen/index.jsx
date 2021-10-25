@@ -50,7 +50,7 @@ const BreakScreen = (props) => {
           totaltime={breakDuration}
           startTime={breakStartTime}
         />
-        <div className="circle"></div>
+        {/* <div className="circle"></div> */}
         <div className="break-text">
           {store.getState().onboarding.breakMessage}
         </div>

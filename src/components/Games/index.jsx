@@ -78,7 +78,7 @@ function Games(props) {
       return (
         <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
           <h3 style={{ textAlign: "center" }}>
-            Your break is complete. This is a post-break test to evaluate how
+            Your break is complete. This is a 60 second post-break test to evaluate how
             effective the break was. Please press start to continue!
           </h3>
           <Button
@@ -108,7 +108,7 @@ function Games(props) {
     } else {
       return (
         <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
-          <h3>Welcome! This is a pre-break test.</h3>
+          <h3>Welcome! This is a 60 second pre-break test.</h3>
           <Button
             onClick={() => {
               let skipVal = [];

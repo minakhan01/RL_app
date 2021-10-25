@@ -35,6 +35,7 @@ const CalendarComponent = (props) => {
   const [selectedEvent, setSelectedEvent] = useState({});
   const [rate, setRate] = useState(0);
   const [feedbackText, setFeedbackText] = useState("");
+  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const months = [
     "January",
     "February",
@@ -139,6 +140,7 @@ const CalendarComponent = (props) => {
     return (
       <div>
         <Modal
+          width={"1000px"}
           visible={modalVisible}
           onOk={async () => {
             let body = {
@@ -179,14 +181,33 @@ const CalendarComponent = (props) => {
             <p>Break Type : {selectedEvent.title}</p>
             <p>Break Score : </p>
             <div className="break-feedback">
-              {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
+              {number_array.map((item, index) => {
+                return getImageButton(
+                  s5,
+                  s5y,
+                  item + 1,
+                  rate,
+                  setRate,
+                  mounted
+                );
+              })}
+              {/* {getImageButton(s5, s5y, 1, rate, setRate, mounted)}
               {getImageButton(s4, s4y, 2, rate, setRate, mounted)}
               {getImageButton(s3, s3y, 3, rate, setRate, mounted)}
               {getImageButton(s2, s2y, 4, rate, setRate, mounted)}
-              {getImageButton(s1, s1y, 5, rate, setRate, mounted)}
+              {getImageButton(s1, s1y, 5, rate, setRate, mounted)} */}
             </div>
             <p>Break Feedback : </p>
-            <div className="feedback-text-box">
+            <div
+              className=""
+              style={{
+                height: "15%",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: "white",
+              }}
+            >
               <textarea
                 onChange={(event) => {
                   if (mounted) setFeedbackText(event.target.value);

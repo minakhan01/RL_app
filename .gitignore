@@ -31,3 +31,7 @@ yarn-error.log*
 /rl-app-win32-x64
 
 rl-app-darwin-x64.zip
+
+/PAL-darwin-x64
+
+PAL-darwin-x64.zip

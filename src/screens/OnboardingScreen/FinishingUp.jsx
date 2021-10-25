@@ -72,7 +72,7 @@ const FinishingUpScreen = (props) => {
           </p>
           <p>
             How often you want to take regular breaks :{" "}
-            {props.onboarding.regularBreakInterval} minute(s)
+            {props.onboarding.regularBreakInterval} hour(s)
           </p>
           <p>
             How long you want these breaks to be :{" "}

@@ -7,27 +7,21 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 var shell = window.require("electron").shell;
 
-const LoginScreen = (props) => {
+const SignupScreen = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const history = useHistory();
 
   const loginUser = async () => {
-    let body = { email: username, password };
+    let body = { email: username, password, name };
     let response = await axios.post(
-      "https://thepallab.com/api/user/loginid",
+      "https://thepallab.com/api/user/register",
       body
     );
-    if (response.data.message === "Successful Login") {
-      props.loginUserAction(response.data.userInfo);
+    if (response.data.message === "User Added!") {
+      props.loginUserAction(response.data.newUser);
       history.push("/aw");
-      let onbData = response.data.onbInfo;
-      if (onbData.length > 0) {
-        let findata = onbData[0];
-        delete findata.user;
-        findata.complete = true;
-        props.addOnbInfo(findata);
-      }
     }
   };
   return (
@@ -39,8 +33,16 @@ const LoginScreen = (props) => {
         width: "100%",
       }}
     >
-      <h3 style={{ textAlign: "center" }}>Please Login To Continue</h3>
+      <h3 style={{ textAlign: "center" }}>Please Register To Continue</h3>
       <div style={{ marginTop: "5%" }}>
+        <Input
+          placeholder="Name"
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
         <Input
           placeholder="Email"
           style={{ marginBottom: "3%", borderRadius: "8px" }}
@@ -65,27 +67,7 @@ const LoginScreen = (props) => {
           loginUser();
         }}
       >
-        Login
-      </Button>
-
-      <Button
-        style={{ background: "white", marginTop: "5%" }}
-        onClick={() => {
-          history.push("/signup")
-        }}
-      >
-        Don't have an account? Click here to register
-      </Button>
-
-      <Button
-        style={{ background: "white", marginTop: "5%" }}
-        onClick={() => {
-          shell.openExternal(
-            "https://thepallab.com/forgotpass"
-          );
-        }}
-      >
-        Forgot Password
+        Register
       </Button>
     </div>
   );
@@ -104,4 +86,4 @@ const mapDispatchToProps = (dispatch) =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen);

@@ -60,6 +60,7 @@ export default function eventHandler(history) {
   ) {
     curWindow.setOpacity(0.8);
     curWindow.maximize();
+    curWindow.setAlwaysOnTop(true);
 
     history.push("/break");
     store.dispatch(BreakActions.setWindowChanged());

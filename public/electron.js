@@ -72,6 +72,7 @@ app
         label: "Dashboard",
         click: function () {
           mainWindow.show();
+          mainWindow.webContents.send('asynchronous-message-two', {'SAVED': 'File Saved'});
         },
       },
       {

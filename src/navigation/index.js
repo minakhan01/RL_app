@@ -31,6 +31,7 @@ const EditRegularBreakScreen = lazy(() =>
 const EditAdHocBreakScreen = lazy(() =>
   import("../screens/EditActivityBreaksScreen")
 );
+const SignupScreen = lazy(() => import("../screens/SignUpScreen"));
 
 const AWScreen = lazy(() => import("../screens/AWScreen"));
 
@@ -51,6 +52,10 @@ const Main = () => {
     }
     ipcRenderer.on("asynchronous-message", function (evt, message) {
       history.push("/sud");
+    });
+    ipcRenderer.on("asynchronous-message-two", function (evt, message) {
+      BreakActions.resetBreak();
+      history.push("/home");
     });
   }, []);
   return (
@@ -73,6 +78,7 @@ const Main = () => {
         <Route path="/edit-reg" component={EditRegularBreakScreen} />
         <Route path="/edit-act" component={EditAdHocBreakScreen} />
         <Route path="/awviz" component={AWScreen} />
+        <Route path="/signup" component={SignupScreen} />
       </Switch>
     </Suspense>
   );

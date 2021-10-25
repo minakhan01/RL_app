@@ -47,9 +47,23 @@ const CancelScreen = (props) => {
       }}
     >
       <p>Why did you cancel the break?</p>
+      <Button
+        onClick={() => {
+          setUsername("I was in a meeting");
+        }}
+      >
+        I was in a meeting
+      </Button>
+      <Button
+        onClick={() => {
+          setUsername("I'm in the flow!");
+        }}
+      >
+        I'm in the flow!
+      </Button>
 
       <TextArea
-        placeholder="Type your reason..."
+        placeholder="None of the above? Type your reason..."
         style={{ marginBottom: "3%", borderRadius: "8px" }}
         rows={4}
         value={username}
@@ -58,8 +72,22 @@ const CancelScreen = (props) => {
         }}
       />
       <p>How can we improve in the future?</p>
+      <Button
+        onClick={() => {
+          setPassword("Cancel the break when I am working");
+        }}
+      >
+        Cancel the break when I am working
+      </Button>
+      <Button
+        onClick={() => {
+          setPassword("Ask me again");
+        }}
+      >
+        Ask me again
+      </Button>
       <TextArea
-        placeholder="Type your response..."
+        placeholder="None of the above? Type your response..."
         style={{ borderRadius: "8px" }}
         value={password}
         rows={4}

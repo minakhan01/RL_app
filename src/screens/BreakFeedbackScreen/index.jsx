@@ -45,6 +45,7 @@ const BreakFeedbackScreen = (props) => {
   const [feedbackText, setFeedbackText] = useState("");
   const [selected, setSelected] = useState([]);
   const [shuffled, setShuffled] = useState([]);
+  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const history = useHistory();
   let mounted = true;
   const dispatch = useDispatch();
@@ -167,8 +168,8 @@ const BreakFeedbackScreen = (props) => {
 
   if (loading) {
     return (
-      <div className="break-div" style={{ backgroundColor: "white" }}>
-        <p style={{ textAlign: "center", fontSize: "20px", color: "black" }}>
+      <div className="break-div" style={{ backgroundColor: "black" }}>
+        <p style={{ textAlign: "center", fontSize: "20px", color: "white" }}>
           Choose the images that best represent your emotional state right now
         </p>
         <div
@@ -181,7 +182,7 @@ const BreakFeedbackScreen = (props) => {
                   padding: "1%",
                   backgroundColor: selected.includes(item.toString())
                     ? "green"
-                    : "white",
+                    : "black",
                 }}
                 onClick={() => {
                   let tempSelected = [...selected];
@@ -194,7 +195,7 @@ const BreakFeedbackScreen = (props) => {
                   setSelected(tempSelected);
                 }}
               >
-                <img src={emotions[item]} width="150px" height="150px" />
+                <img src={emotions[item]} width="130px" height="130px" />
               </div>
             );
           })}
@@ -211,7 +212,7 @@ const BreakFeedbackScreen = (props) => {
   } else {
     return (
       <div className="break-div">
-        <button
+        {/* <button
           className="close-break"
           onClick={() => {
             addBreakInfo();
@@ -219,7 +220,7 @@ const BreakFeedbackScreen = (props) => {
         >
           <div>&#10006;</div>
           <div className="save-button-text">Save feedback and close</div>
-        </button>
+        </button> */}
         <div className="break-completed-text">
           Break completed successfully!
         </div>
@@ -227,11 +228,14 @@ const BreakFeedbackScreen = (props) => {
         <div className="feedback-request-text">How was helpful this break?</div>
 
         <div className="break-feedback">
-          {getImageButton(1, rate, setRate, mounted)}
-          {getImageButton(2, rate, setRate, mounted)}
+          {number_array.map((item,index)=>{
+            return getImageButton(item + 1, rate, setRate, mounted)
+          })}
+          
+          {/* {getImageButton(2, rate, setRate, mounted)}
           {getImageButton(3, rate, setRate, mounted)}
           {getImageButton(4, rate, setRate, mounted)}
-          {getImageButton(5, rate, setRate, mounted)}
+          {getImageButton(5, rate, setRate, mounted)} */}
         </div>
 
         {/* <div style={{ display: "flex" }}>
@@ -259,6 +263,14 @@ const BreakFeedbackScreen = (props) => {
             className="feedback-text"
           />
         </div>
+        <Button
+          style={{ marginTop: "3%" }}
+          onClick={() => {
+            addBreakInfo();
+          }}
+        >
+          Save feedback and close
+        </Button>
       </div>
     );
   }

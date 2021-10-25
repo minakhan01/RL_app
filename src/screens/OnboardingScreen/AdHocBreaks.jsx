@@ -144,7 +144,7 @@ const AdHocBreakScreen = (props) => {
           </div>
         </div>
       </Modal>
-      <h1>Break Overrides</h1>
+      <h1>Activity Based Breaks</h1>
 
       <div style={{ marginTop: "2%" }}>
         <p style={{ fontSize: "15px", color: "#696969", width: "80%" }}>

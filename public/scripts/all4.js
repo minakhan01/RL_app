@@ -6660,7 +6660,7 @@ define("scripts/lib/sound.js", function(exports) {
   ClassBuzz.prototype.play = function(s) {
     s = this.sound;
     s.setPercent(0);
-    s.setVolume(100);
+    s.setVolume(10);
     s.play();
   };
 
