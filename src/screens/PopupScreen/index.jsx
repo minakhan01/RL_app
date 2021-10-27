@@ -57,7 +57,7 @@ const PopupScreen = () => {
         <Button
           onClick={() => {
             // dispatch(BreakActions.startBreak())
-            dispatch(BreakActions.startStroop());
+            dispatch(BreakActions.startPrebreakfeedback());
             // history.push("/stroop");
           }}
           style={{ color: "#7DCAB6", borderWidth: 0 }}

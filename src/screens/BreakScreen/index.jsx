@@ -57,6 +57,7 @@ const BreakScreen = (props) => {
       </div>
     );
   } else if (breakState === "break" && minimized) {
+    curWindow.setAlwaysOnTop(true);
     curWindow.unmaximize();
     curWindow.setMovable(false);
     curWindow.setSize(
@@ -65,7 +66,7 @@ const BreakScreen = (props) => {
     );
     curWindow.setPosition(
       0,
-      (7 / 8) * electron.remote.screen.getPrimaryDisplay().size.height
+      (6 / 8) * electron.remote.screen.getPrimaryDisplay().size.height
     );
 
     return (

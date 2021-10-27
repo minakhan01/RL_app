@@ -77,7 +77,7 @@ export default function checkActivityRuleBreak() {
                   store.getState().break.breakState === "break-popup" &&
                   store.getState().break.popupStartTime === timeNow
                 ) {
-                  store.dispatch(BreakActions.startStroop());
+                  store.dispatch(BreakActions.startPrebreakfeedback());
                 }
               }, 10000);
             }
@@ -103,7 +103,7 @@ export default function checkActivityRuleBreak() {
                   store.getState().break.breakState === "break-popup" &&
                   store.getState().break.popupStartTime === timeNow
                 ) {
-                  store.dispatch(BreakActions.startStroop());
+                  store.dispatch(BreakActions.startPrebreakfeedback());
                 }
               }, 10000);
             }

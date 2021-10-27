@@ -80,7 +80,7 @@ const PersonalInformationScreen = (props) => {
           />
         </div>
       </div>
-      {/* <div style={{ marginTop: "3%" }}>
+      <div style={{ marginTop: "3%" }}>
         <p style={{ fontSize: "18px", marginBottom: "0" }}>
           Add a calendar to help us keep track of any meetings/breaks we should
           work around
@@ -94,13 +94,13 @@ const PersonalInformationScreen = (props) => {
             // ApiCalendar.onLoad(() => {
             //   ApiCalendar.listenSign(signUpdate);
             // });
-            shell.openExternal("http://localhost:3006/");
+            shell.openExternal("http://localhost:8009/auth/google");
           }}
         >
           <PlusOutlined style={{ color: "white" }} />
           ADD CALENDAR
         </Button>
-      </div> */}
+      </div>
     </div>
   );
 };

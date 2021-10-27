@@ -28,6 +28,10 @@ export default function Toolbar(props) {
           className="minimize-break2"
           onClick={() => {
             if (mounted) props.minimize(true);
+            let date = new Date().toISOString();
+            let curr = store.getState().break.maxMinTrack;
+            curr.push({ type: "max", time: date });
+            store.dispatch(BreakActions.setMaxMinTrack(curr));
           }}
         >
           <img
@@ -57,6 +61,10 @@ export default function Toolbar(props) {
             className="minimize-break3"
             onClick={() => {
               if (mounted) props.minimize(false);
+              let date = new Date().toISOString();
+              let curr = store.getState().break.maxMinTrack;
+              curr.push({ type: "min", time: date });
+              store.dispatch(BreakActions.setMaxMinTrack(curr));
             }}
           >
             <img src={fullscreen} alt="Mountains" width="70" height="70"></img>

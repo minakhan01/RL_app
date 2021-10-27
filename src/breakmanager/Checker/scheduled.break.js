@@ -51,7 +51,7 @@ export default function checkScheduledBreak() {
               store.getState().break.breakState === "break-popup" &&
               store.getState().break.popupStartTime === timeNowNew
             ) {
-              store.dispatch(BreakActions.startStroop());
+              store.dispatch(BreakActions.startPrebreakfeedback());
             }
           }, 10000);
         }

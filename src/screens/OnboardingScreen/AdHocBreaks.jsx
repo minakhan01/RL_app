@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Input, Menu, Dropdown, Button, Modal, message } from "antd";
+import { Input, Menu, Dropdown, Button, Modal, message, Checkbox } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
 import { OnboardingActions } from "../../redux/actions";
@@ -167,6 +167,7 @@ const AdHocBreakScreen = (props) => {
             <p style={{ flex: 2, fontSize: "18px" }}>Site Name</p>
             <p style={{ flex: 1, fontSize: "18px" }}>After Every</p>
             <p style={{ flex: 1, fontSize: "18px" }}>take a Break For</p>
+            <p style={{ flex: 1, fontSize: "18px" }}></p>
           </div>
           {props.onboarding.allOverRides.map((item, index) => {
             return (
@@ -311,6 +312,45 @@ const AdHocBreakScreen = (props) => {
                         }}
                       >
                         minutes
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Checkbox
+                      checked={item.cumulative}
+                      onChange={(e) => {
+                        let tempArray = props.onboarding.allOverRides;
+                        let tempObj = tempArray[index];
+                        tempObj.cumulative = e.target.checked;
+                        tempArray[index] = tempObj;
+                        props.setAllOverrides(tempArray);
+                      }}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        height: "100%",
+                      }}
+                    >
+                      <p
+                        style={{
+                          paddingTop: "20%",
+                          marginLeft: "7%",
+                          fontSize: "15px",
+                          flex: 1,
+                          height: "100%",
+                        }}
+                      >
+                        Cumulative
                       </p>
                     </div>
                   </div>

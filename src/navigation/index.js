@@ -34,6 +34,16 @@ const EditAdHocBreakScreen = lazy(() =>
 const SignupScreen = lazy(() => import("../screens/SignUpScreen"));
 
 const AWScreen = lazy(() => import("../screens/AWScreen"));
+const PreBreakFeedbackScreen = lazy(() =>
+  import("../screens/PreBreakFeedbackScreen")
+);
+
+const CPTScreen = lazy(() =>
+  import("../screens/CPTScreen")
+);
+const WeeklyForm = lazy(() =>
+  import("../screens/WeeklyForm")
+);
 
 const Main = () => {
   let history = useHistory();
@@ -79,6 +89,9 @@ const Main = () => {
         <Route path="/edit-act" component={EditAdHocBreakScreen} />
         <Route path="/awviz" component={AWScreen} />
         <Route path="/signup" component={SignupScreen} />
+        <Route path="/prefeedback" component={PreBreakFeedbackScreen} />
+        <Route path="/cpt" component={CPTScreen} />
+        <Route path="/week" component={WeeklyForm} />
       </Switch>
     </Suspense>
   );

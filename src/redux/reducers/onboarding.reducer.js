@@ -7,7 +7,9 @@ const initialState = {
   regularBreakLength: 1,
   regularBreakInterval: 1,
   overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
-  allOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+  allOverRides: [
+    { name: "", url: "", interval: 60, breakLength: 1, cumulative: true },
+  ],
   loading: false,
   err: null,
   complete: false,
@@ -70,7 +72,9 @@ const OnboardingReducer = (state = initialState, action) => {
         regularBreakLength: 1,
         regularBreakInterval: 1,
         overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
-        allOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+        allOverRides: [
+          { name: "", url: "", interval: 60, breakLength: 1, cumulative: true },
+        ],
         loading: false,
         err: null,
         complete: false,

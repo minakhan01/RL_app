@@ -45,7 +45,29 @@ const BreakFeedbackScreen = (props) => {
   const [feedbackText, setFeedbackText] = useState("");
   const [selected, setSelected] = useState([]);
   const [shuffled, setShuffled] = useState([]);
-  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const panas_emotions = [
+    "Interested",
+    "Distressed",
+    "Excited",
+    "Upset",
+    "Strong",
+    "Determined",
+    "Guilty",
+    "Scared",
+    "Hostile",
+    "Enthusiastic",
+    "Proud",
+    "Attentive",
+    "Jittery",
+    "Irritable",
+    "Alert",
+    "Ashamed",
+    "Inspired",
+    "Nervous",
+    "Afraid",
+    "Active",
+  ];
   const history = useHistory();
   let mounted = true;
   const dispatch = useDispatch();
@@ -133,6 +155,10 @@ const BreakFeedbackScreen = (props) => {
         user: props.onboarding.user._id,
         suddenReason: breakState.suddenReason,
         skipped: breakState.skipped,
+        prefeedbackScore: breakState.prebreakScore,
+        prefeedbackText: breakState.prebreakText,
+        maxMinTrack: breakState.maxMinTrack,
+        prepanas: breakState.prepanas,
       };
       let response = await axios.post(
         "https://thepallab.com/api/user/break",
@@ -166,53 +192,53 @@ const BreakFeedbackScreen = (props) => {
     return array;
   }
 
-  if (loading) {
-    return (
-      <div className="break-div" style={{ backgroundColor: "black" }}>
-        <p style={{ textAlign: "center", fontSize: "20px", color: "white" }}>
-          Choose the images that best represent your emotional state right now
-        </p>
-        <div
-          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
-        >
-          {shuffled.map((item, index) => {
-            return (
-              <div
-                style={{
-                  padding: "1%",
-                  backgroundColor: selected.includes(item.toString())
-                    ? "green"
-                    : "black",
-                }}
-                onClick={() => {
-                  let tempSelected = [...selected];
-                  if (tempSelected.includes(item.toString())) {
-                    let tempIndex = tempSelected.indexOf(item.toString());
-                    tempSelected.splice(tempIndex, 1);
-                  } else {
-                    tempSelected.push(item.toString());
-                  }
-                  setSelected(tempSelected);
-                }}
-              >
-                <img src={emotions[item]} width="130px" height="130px" />
-              </div>
-            );
-          })}
-        </div>
-        <Button
-          onClick={() => {
-            setLoading(false);
-          }}
-        >
-          Next
-        </Button>
-      </div>
-    );
-  } else {
-    return (
-      <div className="break-div">
-        {/* <button
+  // if (loading) {
+  //   return (
+  //     <div className="break-div" style={{ backgroundColor: "black" }}>
+  //       <p style={{ textAlign: "center", fontSize: "20px", color: "white" }}>
+  //         Choose the images that best represent your emotional state right now
+  //       </p>
+  //       <div
+  //         style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+  //       >
+  //         {panas_emotions.map((item, index) => {
+  //           return (
+  //             <div
+  //               style={{
+  //                 padding: "1%",
+  //                 backgroundColor: selected.includes(item.toString())
+  //                   ? "green"
+  //                   : "black",
+  //               }}
+  //               onClick={() => {
+  //                 let tempSelected = [...selected];
+  //                 if (tempSelected.includes(item.toString())) {
+  //                   let tempIndex = tempSelected.indexOf(item.toString());
+  //                   tempSelected.splice(tempIndex, 1);
+  //                 } else {
+  //                   tempSelected.push(item.toString());
+  //                 }
+  //                 setSelected(tempSelected);
+  //               }}
+  //             >
+  //               <img src={emotions[item]} width="130px" height="130px" />
+  //             </div>
+  //           );
+  //         })}
+  //       </div>
+  //       <Button
+  //         onClick={() => {
+  //           setLoading(false);
+  //         }}
+  //       >
+  //         Next
+  //       </Button>
+  //     </div>
+  //   );
+  // } else {
+  return (
+    <div className="break-div">
+      {/* <button
           className="close-break"
           onClick={() => {
             addBreakInfo();
@@ -221,24 +247,65 @@ const BreakFeedbackScreen = (props) => {
           <div>&#10006;</div>
           <div className="save-button-text">Save feedback and close</div>
         </button> */}
-        <div className="break-completed-text">
-          Break completed successfully!
-        </div>
+      <div className="break-completed-text">Break completed successfully!</div>
 
-        <div className="feedback-request-text">How was helpful this break?</div>
+      <div className="feedback-request-text">How was helpful this break?</div>
 
-        <div className="break-feedback">
-          {number_array.map((item,index)=>{
-            return getImageButton(item + 1, rate, setRate, mounted)
-          })}
-          
-          {/* {getImageButton(2, rate, setRate, mounted)}
+      <div className="break-feedback">
+        {number_array.map((item, index) => {
+          return getImageButton(item + 1, rate, setRate, mounted);
+        })}
+
+        {/* {getImageButton(2, rate, setRate, mounted)}
           {getImageButton(3, rate, setRate, mounted)}
           {getImageButton(4, rate, setRate, mounted)}
           {getImageButton(5, rate, setRate, mounted)} */}
-        </div>
+      </div>
 
-        {/* <div style={{ display: "flex" }}>
+      <div className="feedback-request-text" style={{ marginTop: "1%" }}>
+        How do you feel now (after the break)?
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          marginRight: "15%",
+          marginLeft: "15%",
+          justifyContent: "center",
+          marginBottom: "3%",
+        }}
+      >
+        {panas_emotions.map((item, index) => {
+          return (
+            <Button
+              onClick={() => {
+                let tempSelected = [...selected];
+                if (tempSelected.includes(item.toString())) {
+                  let tempIndex = tempSelected.indexOf(item.toString());
+                  tempSelected.splice(tempIndex, 1);
+                } else {
+                  tempSelected.push(item.toString());
+                }
+                setSelected(tempSelected);
+              }}
+              style={{
+                margin: "2px",
+                backgroundColor: selected.includes(item.toString())
+                  ? "green"
+                  : "white",
+                color: selected.includes(item.toString()) ? "white" : "black",
+                border: 0,
+                outline: "none",
+              }}
+            >
+              {item}
+            </Button>
+          );
+        })}
+      </div>
+
+      {/* <div style={{ display: "flex" }}>
         <div style={{ width: "7vw", textAlign: "left", paddingLeft: "0vw" }}>
           Not Helpful
         </div>
@@ -248,32 +315,32 @@ const BreakFeedbackScreen = (props) => {
         </div>
       </div> */}
 
-        <div className="feedback-text-box">
-          <div className="floating-label">
-            Why was this break helpful/unhelpful?
-          </div>
-          <textarea
-            onChange={(event) => {
-              if (mounted) setFeedbackText(event.target.value);
-            }}
-            data-role="none"
-            rows="3"
-            cols="80"
-            placeholder="Type in here any notes or reflections about the break that you would like to save"
-            className="feedback-text"
-          />
+      <div className="feedback-text-box">
+        <div className="floating-label">
+          Why was this break helpful/unhelpful?
         </div>
-        <Button
-          style={{ marginTop: "3%" }}
-          onClick={() => {
-            addBreakInfo();
+        <textarea
+          onChange={(event) => {
+            if (mounted) setFeedbackText(event.target.value);
           }}
-        >
-          Save feedback and close
-        </Button>
+          data-role="none"
+          rows="3"
+          cols="80"
+          placeholder="Type in here any notes or reflections about the break that you would like to save"
+          className="feedback-text"
+        />
       </div>
-    );
-  }
+      <Button
+        style={{ marginTop: "3%" }}
+        onClick={() => {
+          addBreakInfo();
+        }}
+      >
+        Save feedback and close
+      </Button>
+    </div>
+  );
+  // }
 };
 
 const mapStateToProps = (state) => {

@@ -74,3 +74,18 @@ export const setSkipped = (val) => ({
   type: BreakTypes.SETSKIPPED,
   payload: { val },
 });
+
+export const setPreBreakFeedback = (score, text, panas) => ({
+  type: BreakTypes.SET_PRE_BREAK_FEEDBACK,
+  payload: { score, text, panas },
+});
+
+export const startPrebreakfeedback = () => ({
+  type: BreakTypes.START_PRE_BREAK_FEEDBACK,
+  payload: {},
+});
+
+export const setMaxMinTrack = (data) => ({
+  type: BreakTypes.SET_MAX_MIN_TRACK,
+  payload: { data },
+});

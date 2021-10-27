@@ -20,6 +20,10 @@ const initialState = {
   },
   suddenReason: "",
   skipped: [],
+  prebreakScore: "",
+  prebreakText: "",
+  maxMinTrack: [],
+  prepanas: [],
 };
 
 const BreakReducer = (state = initialState, action) => {
@@ -70,10 +74,16 @@ const BreakReducer = (state = initialState, action) => {
         },
         suddenReason: "",
         skipped: [],
+        prebreakScore: "",
+        prebreakText: "",
+        maxMinTrack: [],
+        prepanas: [],
       };
 
     case BreakTypes.END_BREAK:
       return { ...state, breakState: "break-feedback" };
+    case BreakTypes.START_PRE_BREAK_FEEDBACK:
+      return { ...state, breakState: "pre-break-feedback" };
     case BreakTypes.START_STROOP:
       return { ...state, breakState: "break-stroop" };
     case BreakTypes.START_FRUIT:
@@ -103,6 +113,10 @@ const BreakReducer = (state = initialState, action) => {
         },
         suddenReason: "",
         skipped: [],
+        prebreakScore: "",
+        prebreakText: "",
+        maxMinTrack: [],
+        prepanas: [],
       };
 
     case BreakTypes.SET_WINDOW_CHANGED:
@@ -111,6 +125,18 @@ const BreakReducer = (state = initialState, action) => {
       return { ...state, breaksTriggered: action.payload };
     case BreakTypes.ADD_BREAK_DATA:
       return { ...state, ...action.payload.breakData };
+    case BreakTypes.SET_PRE_BREAK_FEEDBACK:
+      return {
+        ...state,
+        prebreakScore: action.payload.score,
+        prebreakText: action.payload.text,
+        prepanas: action.payload.panas,
+      };
+    case BreakTypes.SET_MAX_MIN_TRACK:
+      return {
+        ...state,
+        maxMinTrack: action.payload.data,
+      };
     case BreakTypes.ADD_PREBREAK_DATA:
       return {
         ...state,
@@ -150,6 +176,10 @@ const BreakReducer = (state = initialState, action) => {
         },
         suddenReason: "",
         skipped: [],
+        prebreakScore: "",
+        prebreakText: "",
+        maxMinTrack: [],
+        prepanas: [],
       };
 
     case OnboardingTypes.RESET:
@@ -173,6 +203,10 @@ const BreakReducer = (state = initialState, action) => {
         },
         suddenReason: "",
         skipped: [],
+        prebreakScore: "",
+        prebreakText: "",
+        maxMinTrack: [],
+        prepanas: [],
       };
 
     default:

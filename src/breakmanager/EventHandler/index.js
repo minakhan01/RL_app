@@ -36,6 +36,9 @@ export default function eventHandler(history) {
     curWindow.center();
 
     store.dispatch(BreakActions.setWindowChanged());
+  } else if (store.getState().break.breakState === "pre-break-feedback") {
+    history.push("/prefeedback");
+    curWindow.center();
   } else if (store.getState().break.breakState === "break-stroop") {
     history.push("/stroop");
     curWindow.center();
