@@ -66,17 +66,17 @@ const CPTScreen = (props) => {
     return array;
   }
 
-  useEffect(() => {
-    // let shuf = shuffleArray(params);
-    // setUsername(shuf);
-    let keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
-      callback_function: after_response,
-      valid_responses: trial.choices,
-      rt_method: "date",
-      persist: false,
-      allow_held_key: false,
-    });
-  }, []);
+  // useEffect(() => {
+  //   // let shuf = shuffleArray(params);
+  //   // setUsername(shuf);
+  //   let keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+  //     callback_function: after_response,
+  //     valid_responses: trial.choices,
+  //     rt_method: "date",
+  //     persist: false,
+  //     allow_held_key: false,
+  //   });
+  // }, []);
 
   jsPsych.pluginAPI.registerPreload("image-keyboard-response");
 
