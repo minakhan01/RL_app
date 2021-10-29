@@ -32,7 +32,7 @@ export default function eventHandler(history) {
     history.push("/popup");
     //curWindow.maximize()
     curWindow.unmaximize();
-    curWindow.setSize(800, 600);
+    curWindow.setSize(1000, 800);
     curWindow.center();
 
     store.dispatch(BreakActions.setWindowChanged());
@@ -76,5 +76,16 @@ export default function eventHandler(history) {
         store.dispatch(BreakActions.startFruit());
       }
     }, store.getState().break.breakDuration * 1000);
+  } else if (store.getState().onboarding.weeklyRem) {
+    curWindow.restore();
+    history.push("/weekpop");
+    //curWindow.maximize()
+    curWindow.unmaximize();
+    curWindow.setSize(1000, 800);
+    curWindow.center();
+    setTimeout(() => {
+      store.dispatch(PastActions.setWeeklyRem(false));
+      history.push("/home");
+    }, 60000);
   }
 }

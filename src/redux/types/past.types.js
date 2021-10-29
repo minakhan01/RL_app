@@ -5,5 +5,7 @@ export const PastTypes = {
   SAVE_BREAK_DATA: "@past/SAVE_BREAK_DATA",
   SAVE_INIT_BREAK_DATA: "@past/SAVE_INIT_BREAK_DATA",
   SET_TODAY: "@past/SET_TODAY",
-  SET_AW_UP_NUM: "@past/SET_AW_UP_NUM"
+  SET_AW_UP_NUM: "@past/SET_AW_UP_NUM",
+  ADD_WEEKLY: "@past/ADD_WEEKLY",
+  SET_WEEKLY_REM: "@past/SET_WEEKLY_REM",
 };

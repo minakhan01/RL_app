@@ -44,14 +44,14 @@ const SuddenScreen = (props) => {
           } else {
             let timeNow = new Date().toISOString();
             let breakData = {
-              breakType: "chosen",
-              breakDescription: "chosen",
+              breakType: "adhoc",
+              breakDescription: "adhoc",
               breakDuration: 30 * 60,
               breakStartTime: timeNow,
               suddenReason: username,
             };
             props.addBreakData(breakData);
-            props.startStroop();
+            props.startPrebreakfeedback();
           }
         }}
       >
@@ -70,6 +70,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       addBreakData: BreakActions.addBreakData,
       startStroop: BreakActions.startStroop,
+      startPrebreakfeedback: BreakActions.startPrebreakfeedback,
     },
     dispatch
   );

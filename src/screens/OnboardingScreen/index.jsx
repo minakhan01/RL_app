@@ -27,6 +27,7 @@ const OnboardingScreen = (props) => {
     let body = { ...props.onboarding };
     if (props.onboarding.user && props.onboarding.user._id) {
       body.user = props.onboarding.user._id;
+      body.timestamp = new Date();
       let response = await axios.post(
         "https://thepallab.com/api/user/onb",
         body
@@ -104,7 +105,6 @@ const OnboardingScreen = (props) => {
               // curWindow.minimize();
               addOnbInfo();
               // history.push("/home");
-              
             }}
           >
             Done

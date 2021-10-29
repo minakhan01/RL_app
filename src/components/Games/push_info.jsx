@@ -16,13 +16,15 @@ export default function PushInfo(props) {
   let dispatch = useDispatch();
   useEffect(() => {
     let scores = props.stage.scores;
-    let fruit = scores.splice(0, 3);
+    let fruit = scores.splice(0, 1);
     let stroop = scores;
     dispatch(BreakActions.prebreakScores(stroop, fruit));
   }, []);
   return (
     <div style={{ ...s1, flexDirection: "column" }}>
-      <div>Score is {props.stage.scores[props.stage.scores.length - 1]}</div>
+      <div>
+        Score is {props.stage.scores[props.stage.scores.length - 1].score}
+      </div>
       <Button
         onClick={() => {
           remote.getCurrentWindow().reload();

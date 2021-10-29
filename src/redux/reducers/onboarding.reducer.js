@@ -1,4 +1,4 @@
-import { OnboardingTypes } from "../types";
+import { OnboardingTypes, PastTypes } from "../types";
 const initialState = {
   name: "",
   breakMessage: "",
@@ -21,6 +21,9 @@ const initialState = {
   tempRegularBreakInterval: 1,
   tempOverRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
   tempAllOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+  timestamp: "",
+  weekly: [],
+  weeklyRem: false,
 };
 
 const OnboardingReducer = (state = initialState, action) => {
@@ -44,7 +47,7 @@ const OnboardingReducer = (state = initialState, action) => {
     case OnboardingTypes.SET_OVERRIDE_SITES:
       return { ...state, overRideSites: action.payload };
     case OnboardingTypes.SET_ONBOARDING_COMPLETE:
-      return { ...state, complete: true };
+      return { ...state, complete: true, timestamp: new Date().toISOString() };
     case OnboardingTypes.AW_CHECKED:
       return { ...state, awChecked: true };
     case OnboardingTypes.ADD_ONB_INFO:
@@ -87,7 +90,14 @@ const OnboardingReducer = (state = initialState, action) => {
           { name: "Youtube", url: "www.youtube.com", key: "1" },
         ],
         tempAllOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+        timestamp: "",
+        weekly: [],
+        weeklyRem: false,
       };
+    case PastTypes.ADD_WEEKLY:
+      return { ...state, weekly: action.payload.data };
+    case PastTypes.SET_WEEKLY_REM:
+      return { ...state, weeklyRem: action.payload.data };
     default:
       return state;
   }

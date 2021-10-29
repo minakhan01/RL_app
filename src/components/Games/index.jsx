@@ -39,11 +39,11 @@ function Games(props) {
           lastStage.stroop == thisStage.stroop &&
           lastStage.stage == thisStage.stage
         ) {
-          if (lastStage.fruit == 2 || lastStage.fruit == 4) {
-            setStage((stg) => {
-              return { ...stg, fruit: stg.fruit + 1 };
-            });
-          }
+          // if (lastStage.fruit == 2 || lastStage.fruit == 4) {
+          //   setStage((stg) => {
+          //     return { ...stg, fruit: stg.fruit + 1 };
+          //   });
+          // }
           if (lastStage.stroop == 2 || lastStage.stroop == 4) {
             setStage((stg) => {
               return { ...stg, stroop: stg.stroop + 1 };
@@ -78,8 +78,9 @@ function Games(props) {
       return (
         <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
           <h3 style={{ textAlign: "center" }}>
-            Your break is complete. This is a 60 second post-break test to evaluate how
-            effective the break was. Please press start to continue!
+            Your break is complete. This is a 60 second post-break test to
+            evaluate how effective the break was. Please press start to
+            continue!
           </h3>
           <Button
             onClick={() => {
@@ -109,6 +110,37 @@ function Games(props) {
       return (
         <div style={{ ...s1, display: "flex", flexDirection: "column" }}>
           <h3>Welcome! This is a 60 second pre-break test.</h3>
+          <p
+            style={{
+              textAlign: "center",
+              paddingLeft: "5%",
+              paddingRight: "5%",
+            }}
+          >
+            Your first test is a Continuous Performance Task (CPT). You will see
+            letters and symbols flashing. If an A is shown followed by an X, You
+            should press 'z' on your keyboard. If the first letter is not an A
+            but a B, or the second letter is not an X but a Y, you should press
+            the 'm' on your keyboard.
+            <br />
+            For example:
+            <br />
+            1. First letter shown is 'A' followed by an 'X' you need to click on
+            'z' on your keyboard
+            <br />
+            2. First letter shown is 'B' followed by an 'X' you need to click on
+            'm' on your keyboard
+            <br />
+            3. First letter shown is 'B' followed by an 'Y' you need to click on
+            'm' on your keyboard
+            <br />
+            4. First letter shown is 'A' followed by an 'Y' you need to click on
+            'm' on your keyboard
+            <br />
+            Please note there will be '+' symbols between each letter flashed.
+            You are to press the buttons on your keyboard only when either 'X'
+            or 'Y' are displayed.
+          </p>
           <Button
             onClick={() => {
               let skipVal = [];
@@ -161,10 +193,6 @@ function Games(props) {
     } else {
       return (
         <div style={{ ...s1, flexDirection: "column" }}>
-          <div>
-            Score is {stage.scores[2]}. The time limit of Fruit Ninja is 10
-            seconds
-          </div>
           <p style={{ textAlign: "center" }}>
             The next game is stroop test. You will be given a list of words that
             are printed in a different color than the meaning of the word. You

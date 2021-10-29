@@ -22,7 +22,9 @@ export default function PushInfoEnd(props) {
   }, []);
   return (
     <div style={{ ...s1, flexDirection: "column" }}>
-      <div>Score is {props.stage.scores[props.stage.scores.length - 1]}</div>
+      <div>
+        Score is {props.stage.scores[props.stage.scores.length - 1].score}
+      </div>
       <Button
         onClick={() => {
           //   remote.getCurrentWindow().reload();

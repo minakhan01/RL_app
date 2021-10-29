@@ -13,7 +13,7 @@ export default function stroopTestManager(stage, setStage) {
 
     if (stage.stroop == 2){
         return <div style={{ ...s1, flexDirection: 'column' }}>
-            <div>Score is {stage.scores[stage.scores.length - 1]}</div>
+            <div>Score is {stage.scores[stage.scores.length - 1].score}</div>
             <Button onClick={() => setStage({ ...stage, stroop: 3 })}>Next level</Button>
         </div>
     }
@@ -25,7 +25,7 @@ export default function stroopTestManager(stage, setStage) {
     if (stage.stroop == 4)
     {
         return <div style={{ ...s1, flexDirection: 'column' }}>
-            <div>Score is {stage.scores[stage.scores.length - 1]}</div>
+            <div>Score is {stage.scores[stage.scores.length - 1].score}</div>
             <Button onClick={() => setStage({ ...stage, stroop: 5 })}>Next level</Button>
         </div>
     }

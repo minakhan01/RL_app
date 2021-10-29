@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BreakActions } from "../../redux/actions";
-import { Button, Input, Checkbox } from "antd";
+import { PastActions } from "../../redux/actions";
+import { Button, Input, Checkbox, message } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -10,7 +10,7 @@ const { TextArea } = Input;
 
 const WeeklyForm = (props) => {
   const [username, setUsername] = useState([]);
-  const [password, setPassword] = useState(false);
+  const [password, setPassword] = useState({});
   const history = useHistory();
 
   const questions = [
@@ -48,7 +48,17 @@ const WeeklyForm = (props) => {
 
       {questions.map((item, index) => {
         return (
-          <div style={{ width: "100%", marginTop: "2%" }}>
+          <div
+            style={{
+              width: "100%",
+              marginTop: "2%",
+              borderColor: "lightgrey",
+              borderWidth: 1,
+              borderStyle: "solid",
+              padding: "2%",
+              borderRadius: "5px",
+            }}
+          >
             <p style={{ fontWeight: "bold", fontSize: "20px" }}>{item}</p>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <p style={{ flex: 1 }}>Strongly agree</p>
@@ -60,27 +70,107 @@ const WeeklyForm = (props) => {
               <p style={{ flex: 1 }}>Strongly disagree</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <Checkbox style={{ flex: 1 }} />
-              <Checkbox style={{ flex: 1 }} />
-              <Checkbox style={{ flex: 1 }} />
-              <Checkbox style={{ flex: 1 }} />
-              <Checkbox style={{ flex: 1 }} />
-              <Checkbox style={{ flex: 1 }} />
-              <Checkbox style={{ flex: 1 }} />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 0;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 0 ? true : false}
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 1;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 1 ? true : false}
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 2;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 2 ? true : false}
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 3;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 3 ? true : false}
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 4;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 4 ? true : false}
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 5;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 5 ? true : false}
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempPass = { ...password };
+                  tempPass[index] = 6;
+                  setPassword(tempPass);
+                }}
+                checked={password[index] === 6 ? true : false}
+              />
             </div>
           </div>
         );
       })}
-      <Button>Done</Button>
+      <Button
+        style={{ marginTop: "2%" }}
+        onClick={async () => {
+          if (Object.keys(password).length != 12) {
+            message.error("Please fill all the answers");
+          } else {
+            let tempWeekly = props.onboarding.weekly;
+            tempWeekly.push(password);
+            let body = {
+              weekly: tempWeekly,
+              user: props.onboarding.user._id,
+            };
+            let response = await axios.post(
+              "https://thepallab.com/api/user/update-onb",
+              body
+            );
+            if (response.data.message === "Successful Update") {
+              props.AddWeekly(tempWeekly);
+              history.push("/home");
+            }
+          }
+        }}
+      >
+        Done
+      </Button>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { break: state.break, onboarding: state.onboarding };
+  return { break: state.break, past: state.past, onboarding: state.onboarding };
 };
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ cancelBreak: BreakActions.cancelBreak }, dispatch);
+  bindActionCreators({ AddWeekly: PastActions.AddWeekly }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeeklyForm);

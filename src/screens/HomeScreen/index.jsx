@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { Button } from "antd";
 import { OnboardingActions } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import "./styles.css";
 
@@ -176,6 +177,7 @@ const mapDispatchToProps = (dispatch) =>
       addTempSched: OnboardingActions.addTempSched,
       addTempReg: OnboardingActions.addTempReg,
       addTempAct: OnboardingActions.addTempAct,
+      loginUserAction: OnboardingActions.loginUser,
     },
     dispatch
   );

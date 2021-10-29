@@ -34,3 +34,13 @@ export const setAwUpNum = (all, web, tod) => ({
   type: PastTypes.SET_AW_UP_NUM,
   payload: { all, web, tod },
 });
+
+export const AddWeekly = (data) => ({
+  type: PastTypes.ADD_WEEKLY,
+  payload: { data },
+});
+
+export const setWeeklyRem = (data) => ({
+  type: PastTypes.SET_WEEKLY_REM,
+  payload: { data },
+});

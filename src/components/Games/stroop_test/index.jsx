@@ -13,18 +13,21 @@ function shuffleArray(array) {
 function StroopTest(props) {
   const [count, setCount] = useState({
     total: 0,
-    score: 0,
+    score: {
+      times: [],
+      score: 0,
+    },
     lastResult: "",
     words: [],
     colors: [],
   });
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     props.onComplete(count.score);
-  //     return <>Test completed. The score is {count.score}</>;
-  //   }, 10000);
-  // }, []);
+  useEffect(() => {
+    let tempcount = { ...count };
+    let now = new Date();
+    tempcount.score.times.push(now);
+    setCount(tempcount);
+  }, []);
 
   if (count.colors.length == 0) {
     var words = [
@@ -82,22 +85,34 @@ function StroopTest(props) {
   };
 
   var onSuccess = (data) => {
+    let tempcount = { ...count };
+    let now = new Date();
+    tempcount.score.times.push(now);
+    tempcount.score.score = tempcount.score.score + 1;
     setCount({
       ...count,
       total: count.total + 1,
-      score: count.score + 1,
+      score: tempcount.score,
       lastResult: "Correct!",
     });
     // handle each success that occurs
   };
 
   var onError = (data) => {
-    setCount({ ...count, total: count.total + 1, lastResult: "Wrong!" });
+    let tempcount = { ...count };
+    let now = new Date();
+    tempcount.score.times.push(now);
+    setCount({
+      ...count,
+      total: count.total + 1,
+      score: tempcount.score,
+      lastResult: "Wrong!",
+    });
     // handle each error that occurs
   };
   if (count.total == 3) {
-      props.onComplete(count.score)
-      return <>Test completed. The score is {count.score}</>
+    props.onComplete(count.score);
+    return <>Test completed. The score is {count.score.score}</>;
   }
   return (
     <div
@@ -135,7 +150,7 @@ function StroopTest(props) {
         timeLimit={30000}
       />
       <div>{count.lastResult}</div>
-      <div>{count.score}</div>
+      <div>{count.score.score}</div>
     </div>
   );
 }

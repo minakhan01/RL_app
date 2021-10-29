@@ -6,7 +6,11 @@ import { connect, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { AWClientService } from "../../services";
-import { BreakActions, PastActions } from "../../redux/actions";
+import {
+  BreakActions,
+  PastActions,
+  OnboardingActions,
+} from "../../redux/actions";
 import { store } from "../../redux";
 import Angry from "../../assets/angry.jpg";
 import Alarmed from "../../assets/alarmed.jpg";
@@ -43,6 +47,7 @@ const BreakFeedbackScreen = (props) => {
   const [loading, setLoading] = useState(true);
   const [rate, setRate] = useState(0);
   const [feedbackText, setFeedbackText] = useState("");
+  const [nexpage, setNext] = useState("");
   const [selected, setSelected] = useState([]);
   const [shuffled, setShuffled] = useState([]);
   const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -171,6 +176,60 @@ const BreakFeedbackScreen = (props) => {
           rating: rate,
           notes: feedbackText,
         };
+        let expiryTime = new Date(props.onboarding.user.expiry);
+        let current = new Date();
+        let authToken = props.onboarding.user.token;
+        if (expiryTime < current) {
+          let res = await axios.post(`https://thepallab.com/api/user/refresh`, {
+            _id: props.onboarding.user._id,
+          });
+          props.loginUserAction(res.data.user);
+          authToken = res.data.user.token;
+        }
+        let calendarList = await axios.get(
+          "https://www.googleapis.com/calendar/v3/users/me/calendarList",
+
+          {
+            params: {
+              pageSize: 100,
+              pageToken: nexpage,
+            },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authToken,
+            },
+          }
+        );
+        let items = calendarList.data.items;
+        let callInfo = {};
+        for (let item of items) {
+          if (item.primary) {
+            callInfo = item;
+          }
+        }
+        if (callInfo.id) {
+          let today = new Date(breakState.breakStartTime);
+          let tomorrow = new Date();
+          try {
+            let insertCal = await axios.post(
+              `https://www.googleapis.com/calendar/v3/calendars/${callInfo.id}/events`,
+              {
+                end: { dateTime: tomorrow, timeZone: callInfo.timeZone },
+                start: { dateTime: today, timeZone: callInfo.timeZone },
+                summary: `${breakState.breakType} break taken on PAL`,
+                description: `You took a ${breakState.breakType} break on PAL`,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + authToken,
+                },
+              }
+            );
+          } catch (error) {
+            console.log("err", error);
+          }
+        }
         delete dat.breakState;
         delete dat.windowChanged;
         dispatch(PastActions.saveBreakData(dat));
@@ -347,7 +406,11 @@ const mapStateToProps = (state) => {
   return { onboarding: state.onboarding };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    { loginUserAction: OnboardingActions.loginUser },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,

@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { Input, Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import ApiCalendar from "react-google-calendar-api";
+import axios from "axios";
 
 import { OnboardingActions } from "../../redux/actions";
 
@@ -12,7 +13,8 @@ import "./styles.css";
 const { shell } = window.require("electron").remote;
 
 const PersonalInformationScreen = (props) => {
-  const [message, setMessage] = useState("Drink Water");
+  const [message, setMessage] = useState(null);
+  const [added, setAdded] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -28,9 +30,19 @@ const PersonalInformationScreen = (props) => {
   };
 
   useEffect(() => {
-    window.ipcRenderer.on("calendar-success", (event, data) => {
-    });
+    window.ipcRenderer.on("calendar-success", (event, data) => {});
   }, []);
+
+  const loginUser = async (id) => {
+    let body = { _id: id };
+    let response = await axios.post(
+      "https://thepallab.com/api/user/login",
+      body
+    );
+    if (response.data.user) {
+      props.loginUserAction(response.data.user);
+    }
+  };
 
   return (
     <div className="step-container">
@@ -85,21 +97,39 @@ const PersonalInformationScreen = (props) => {
           Add a calendar to help us keep track of any meetings/breaks we should
           work around
         </p>
-        <Button
-          type="primary"
-          style={{ borderRadius: "20px", marginTop: "1%" }}
-          size="large"
-          onClick={() => {
-            // ApiCalendar.handleAuthClick();
-            // ApiCalendar.onLoad(() => {
-            //   ApiCalendar.listenSign(signUpdate);
-            // });
-            shell.openExternal("http://localhost:8009/auth/google");
-          }}
-        >
-          <PlusOutlined style={{ color: "white" }} />
-          ADD CALENDAR
-        </Button>
+        {added ? (
+          <Button
+            type="primary"
+            style={{ borderRadius: "20px", marginTop: "1%" }}
+            size="large"
+          >
+            Calendar Added!
+          </Button>
+        ) : (
+          <Button
+            type="primary"
+            style={{ borderRadius: "20px", marginTop: "1%" }}
+            size="large"
+            onClick={() => {
+              // ApiCalendar.handleAuthClick();
+              // ApiCalendar.onLoad(() => {
+              //   ApiCalendar.listenSign(signUpdate);
+              // });
+              shell.openExternal("https://thepallab.com/auth/google");
+              let intervalInfo = setInterval(() => {
+                if (props.onboarding.user.token.length > 0) {
+                  setAdded(true);
+                  clearInterval(intervalInfo);
+                } else {
+                  loginUser(props.onboarding.user._id);
+                }
+              }, 10000);
+            }}
+          >
+            <PlusOutlined style={{ color: "white" }} />
+            ADD CALENDAR
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -114,6 +144,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       setName: OnboardingActions.setName,
       setBreakMessage: OnboardingActions.setBreakMessage,
+      loginUserAction: OnboardingActions.loginUser,
     },
     dispatch
   );
