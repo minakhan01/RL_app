@@ -44,7 +44,7 @@ export default function eventHandler(history) {
     curWindow.center();
   } else if (store.getState().break.breakState === "break-fruit") {
     curWindow.unmaximize();
-    curWindow.setSize(800, 600);
+    curWindow.setSize(1000, 800);
     curWindow.setOpacity(1);
     curWindow.center();
 

@@ -65,6 +65,7 @@ const AnalyticsScreen = (props) => {
           newDate.getMinutes();
       }
       setfruit(fruitDataTemp);
+      console.log("loo", fruitDataTemp);
     }
     if (response.data.finalScore) {
       let scoreDataTemp = response.data.finalScore;
@@ -100,14 +101,14 @@ const AnalyticsScreen = (props) => {
   } else {
     return (
       <div style={{ padding: "2%" }}>
-        <Button
+        {/* <Button
           onClick={() => {
             setLoading(true);
             getData();
           }}
         >
           Refresh
-        </Button>
+        </Button> */}
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div>
             Start Date :
@@ -190,7 +191,7 @@ const AnalyticsScreen = (props) => {
               },
               colors: ["#0092C8", "#EA8600"],
               chart: {
-                title: "Fruit Ninja Score",
+                title: "CPT Score",
               },
             }}
             // For tests

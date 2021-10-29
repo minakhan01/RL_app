@@ -100,7 +100,7 @@ const CPTScreen = (props) => {
             tempObj["endTime"] = now;
           }
         };
-        await sleep(700);
+        await sleep(500);
         setPassword("");
         if (i === 3 && tempObj["endTime"] > tempObj["startTime"]) {
           tempObj["correct"] = tempObj["pressed"] === tempObj["expected"];
@@ -108,7 +108,7 @@ const CPTScreen = (props) => {
           tempObj["pressed"] = "none";
           tempObj["correct"] = 0;
         }
-        await sleep(700);
+        await sleep(500);
         if (i === 3) {
           tempObj["pattern"] = trial[1] + trial[3];
           let tempArray = allTrials;
