@@ -12,34 +12,6 @@ import {
   OnboardingActions,
 } from "../../redux/actions";
 import { store } from "../../redux";
-import Angry from "../../assets/angry.jpg";
-import Alarmed from "../../assets/alarmed.jpg";
-import Aroused from "../../assets/aroused.jpg";
-import Afraid from "../../assets/afraid.jpg";
-import Tense from "../../assets/tense.jpg";
-import Distressed from "../../assets/distressed.jpg";
-import Annoyed from "../../assets/annoyed.jpg";
-import Frustrated from "../../assets/frustrated.jpg";
-import Miserable from "../../assets/miserable.jpg";
-import Depressed from "../../assets/depressed.jpg";
-import Sad from "../../assets/sad.jpg";
-import Gloomy from "../../assets/gloomy.jpg";
-import Bored from "../../assets/bored.jpg";
-import Droopy from "../../assets/drowsy.jpg";
-import Tired from "../../assets/tired.jpg";
-import Excited from "../../assets/excited.jpg";
-import Astonished from "../../assets/astonished.jpg";
-import Delighted from "../../assets/delighted.jpg";
-import Glad from "../../assets/glad.jpg";
-import Happy from "../../assets/happy.jpg";
-import Pleased from "../../assets/pleased.jpg";
-import Satisfied from "../../assets/satisfied.jpg";
-import Content from "../../assets/content.jpg";
-import Serene from "../../assets/tranquil.jpg";
-import Calm from "../../assets/calm.jpg";
-import At_ease from "../../assets/at_ease.jpg";
-import Relaxed from "../../assets/relaxed.jpg";
-import Sleepy from "../../assets/sleepy.jpg";
 
 import "./styles.css";
 
@@ -76,41 +48,6 @@ const BreakFeedbackScreen = (props) => {
   const history = useHistory();
   let mounted = true;
   const dispatch = useDispatch();
-  const emotions = {
-    angry: Angry,
-    alarmed: Alarmed,
-    aroused: Aroused,
-    afraid: Afraid,
-    tense: Tense,
-    distressed: Distressed,
-    annoyed: Annoyed,
-    frustrated: Frustrated,
-    miserable: Miserable,
-    depressed: Depressed,
-    sad: Sad,
-    gloomy: Gloomy,
-    bored: Bored,
-    droopy: Droopy,
-    tired: Tired,
-    excited: Excited,
-    astonished: Astonished,
-    delighted: Delighted,
-    glad: Glad,
-    happy: Happy,
-    pleased: Pleased,
-    satisfied: Satisfied,
-    content: Content,
-    serene: Serene,
-    calm: Calm,
-    at_ease: At_ease,
-    relaxed: Relaxed,
-    sleepy: Sleepy,
-  };
-
-  useEffect(() => {
-    let shuf = shuffleArray(Object.keys(emotions));
-    setShuffled(shuf);
-  }, []);
 
   let getImageButton = (points, rate, setRate, mounted) => {
     if (points == rate)

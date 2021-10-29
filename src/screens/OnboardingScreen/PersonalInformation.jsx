@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Input, Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import ApiCalendar from "react-google-calendar-api";
 import axios from "axios";
 
 import { OnboardingActions } from "../../redux/actions";
