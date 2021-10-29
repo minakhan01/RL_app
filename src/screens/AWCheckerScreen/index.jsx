@@ -74,7 +74,7 @@ const AWCheckerScreen = (props) => {
           className="linktext"
           style={{ color: "blue" }}
           onClick={() => {
-            shell.openExternal("https://activitywatch.net/downloads/");
+            shell.openExternal("https://github.com/ActivityWatch/activitywatch/releases/download/v0.10.0/activitywatch-v0.10.0-macos-x86_64.dmg");
           }}
         >
           1. Download the latest version of activity watch by clicking here.

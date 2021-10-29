@@ -1,6 +1,4 @@
 import React from "react";
-import FruitNinja from "./fruit_ninja";
-import StroopTest from "./stroop_test";
 import { useState } from "react";
 import { Button } from "antd";
 import fruitNinjaManager from "./fruit_ninja_manager";
