@@ -107,7 +107,7 @@ class AWClientService {
           this.bucketMap["aw-watcher-window"] +
           "');",
         "events = merge_events_by_keys(window_events, ['app','title']);",
-        "events = sort_by_duration(events);",
+        "events = sort_by_timestamp(events);",
         "RETURN = events;",
       ];
       const queryWindows = [
