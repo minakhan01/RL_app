@@ -18,7 +18,7 @@ const FinishingUpScreen = (props) => {
           <br />
           <br />
         </p>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Scheduled Breaks :{" "}
           </p>
@@ -78,7 +78,7 @@ const FinishingUpScreen = (props) => {
             How long you want these breaks to be :{" "}
             {props.onboarding.regularBreakLength} minute(s)
           </p>
-        </div>
+        </div> */}
         <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Activity Based Breaks :{" "}

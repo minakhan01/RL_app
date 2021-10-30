@@ -15,7 +15,7 @@ const HomeScreen = (props) => {
   return (
     <div className="step-container">
       <div style={{ marginTop: "3%", width: "70%", margin: "5%" }}>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
               Scheduled Breaks :{" "}
@@ -99,7 +99,7 @@ const HomeScreen = (props) => {
             How long you want these breaks to be :{" "}
             {props.onboarding.regularBreakLength} minute(s)
           </p>
-        </div>
+        </div> */}
         <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
