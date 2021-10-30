@@ -18,7 +18,7 @@ const FinishingUpScreen = (props) => {
           <br />
           <br />
         </p>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Scheduled Breaks :{" "}
           </p>
@@ -65,7 +65,7 @@ const FinishingUpScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
         <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}
@@ -79,7 +79,7 @@ const FinishingUpScreen = (props) => {
             {props.onboarding.regularBreakLength} minute(s)
           </p>
         </div>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Activity Based Breaks :{" "}
           </p>
@@ -117,7 +117,7 @@ const FinishingUpScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
         <p style={{ fontSize: "18px", marginBottom: "5%" }}>
           If you want to make any changes, click on the back button and change
           your settings. You can always come back and make edits to your

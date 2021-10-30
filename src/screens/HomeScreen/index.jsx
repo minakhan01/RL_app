@@ -15,7 +15,7 @@ const HomeScreen = (props) => {
   return (
     <div className="step-container">
       <div style={{ marginTop: "3%", width: "70%", margin: "5%" }}>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
               Scheduled Breaks :{" "}
@@ -73,7 +73,7 @@ const HomeScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
         <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
@@ -100,7 +100,7 @@ const HomeScreen = (props) => {
             {props.onboarding.regularBreakLength} minute(s)
           </p>
         </div>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
               Activity Based Breaks :{" "}
@@ -151,7 +151,7 @@ const HomeScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
 
         <Button
           onClick={() => {
