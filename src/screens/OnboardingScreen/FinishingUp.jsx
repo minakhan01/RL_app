@@ -66,7 +66,7 @@ const FinishingUpScreen = (props) => {
             })}
           </div>
         </div>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <p style={{ fontSize: "20px", fontWeight: "bold" }}>
             Regular Breaks :{" "}
           </p>
@@ -117,7 +117,7 @@ const FinishingUpScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
         <p style={{ fontSize: "18px", marginBottom: "5%" }}>
           If you want to make any changes, click on the back button and change
           your settings. You can always come back and make edits to your

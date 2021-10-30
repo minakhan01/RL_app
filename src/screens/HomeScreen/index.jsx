@@ -74,7 +74,7 @@ const HomeScreen = (props) => {
             })}
           </div>
         </div>
-        <div style={{ width: "100%" }}>
+        {/* <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
               Regular Breaks :{" "}
@@ -151,7 +151,7 @@ const HomeScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
 
         <Button
           onClick={() => {
