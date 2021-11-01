@@ -8,14 +8,32 @@ import { useHistory } from "react-router-dom";
 var validator = require("email-validator");
 var shell = window.require("electron").shell;
 
+const { TextArea } = Input;
+
 const SignupScreen = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [education, setEducation] = useState("");
+  const [location, setLocation] = useState("");
+  const [goal, setGoal] = useState("");
   const history = useHistory();
 
   const loginUser = async () => {
-    let body = { email: username, password, name };
+    let body = {
+      email: username,
+      password,
+      name,
+      age,
+      gender,
+      occupation,
+      education,
+      location,
+      goal,
+    };
     let response = await axios.post(
       "https://thepallab.com/api/user/register",
       body
@@ -67,6 +85,59 @@ const SignupScreen = (props) => {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Age (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={age}
+          onChange={(e) => {
+            setAge(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Gender (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={gender}
+          onChange={(e) => {
+            setGender(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Occupation (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={occupation}
+          onChange={(e) => {
+            setOccupation(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Education (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={education}
+          onChange={(e) => {
+            setEducation(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Location (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={location}
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+        />
+        <p style={{ marginTop: "1%" }}>
+          What is your goal with this application?
+        </p>
+
+        <TextArea
+          placeholder="None of the above? Type your reason..."
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
+          rows={4}
+          value={goal}
+          onChange={(e) => {
+            setGoal(e.target.value);
           }}
         />
       </div>
