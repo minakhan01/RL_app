@@ -33,6 +33,7 @@ const SignupScreen = (props) => {
       education,
       location,
       goal,
+      type: "3",
     };
     let response = await axios.post(
       "https://thepallab.com/api/user/register",
