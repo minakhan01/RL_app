@@ -106,8 +106,8 @@ class AWClientService {
         "window_events = query_bucket('" +
           this.bucketMap["aw-watcher-window"] +
           "');",
-        "events = merge_events_by_keys(window_events, ['app','title']);",
-        "events = sort_by_timestamp(events);",
+        "events = merge_events_by_keys(window_events, ['app']);",
+        "events = sort_by_duration(events);",
         "RETURN = events;",
       ];
       const queryWindows = [
@@ -145,35 +145,31 @@ class AWClientService {
       if (typeof this.bucketMap === "undefined") await this.createBucketMap();
 
       var query = [
-        "window_events = query_bucket('" +
-          this.bucketMap["aw-watcher-window"] +
-          "');",
-        "events = merge_events_by_keys(window_events, ['app','title']);",
-        "events = sort_by_duration(events);",
-        "RETURN = events;",
-      ];
-      const queryWindows = [
-        "window_events = query_bucket('" + "aw-watcher-web-chrome" + "');",
-        "window_events_active = query_bucket('" +
-          this.bucketMap["aw-watcher-window"] +
-          "');",
-        "window_events_active = merge_events_by_keys(window_events_active, ['app','title']);",
-        "window_events = filter_period_intersect(window_events, window_events_active);",
-        "events = merge_events_by_keys(window_events, ['title','url']);",
-        "events = sort_by_duration(events);",
-        "RETURN = events;",
-      ];
+        // Fetch window/app events
+        `events = flood(query_bucket("${this.bucketMap["aw-watcher-window"]}"));`,
+        // Fetch not-afk events
+        `not_afk = flood(query_bucket("${this.bucketMap["aw-watcher-afk"]}"));
+          not_afk = filter_keyvals(not_afk, "status", ["not-afk"]);`,
+
+        // Filter out window events when the user was afk
+        "events = filter_period_intersect(events, not_afk);",
+        "RETURN = events;"
+      ]
+      // var query = [
+      //   "window_events = query_bucket('" +
+      //     this.bucketMap["aw-watcher-window"] +
+      //     "');",
+      //   // "events = merge_events_by_keys(window_events, ['app','title']);",
+      //   "events = sort_by_timestamp(window_events);",
+      //   "RETURN = events;",
+      // ];
       const appTotalWithoutAudio = await this.client.query(
-        [this.yestDate + "/" + this.tmrwDate],
+        [this.todayDate + "/" + this.tmrwDate],
         query
       );
-      const websiteTotals = await this.client.query(
-        [this.yestDate + "/" + this.tmrwDate],
-        queryWindows
-      );
+
       return {
         appTotal: appTotalWithoutAudio[0],
-        websiteTotals: websiteTotals[0],
       };
     } catch (error) {
       console.log("error", error);
