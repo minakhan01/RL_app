@@ -1,20 +1,39 @@
 import React, { useState } from "react";
 import { OnboardingActions } from "../../redux/actions";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+var validator = require("email-validator");
 var shell = window.require("electron").shell;
+
+const { TextArea } = Input;
 
 const SignupScreen = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [education, setEducation] = useState("");
+  const [location, setLocation] = useState("");
+  const [goal, setGoal] = useState("");
   const history = useHistory();
 
   const loginUser = async () => {
-    let body = { email: username, password, name };
+    let body = {
+      email: username,
+      password,
+      name,
+      age,
+      gender,
+      occupation,
+      education,
+      location,
+      goal,
+    };
     let response = await axios.post(
       "https://thepallab.com/api/user/register",
       body
@@ -34,9 +53,18 @@ const SignupScreen = (props) => {
       }}
     >
       <h3 style={{ textAlign: "center" }}>Please Register To Continue</h3>
+      <div style={{ marginTop: "0.5%", width: "90%" }}>
+        <Button
+          onClick={() => {
+            history.push("/login");
+          }}
+        >
+          Back
+        </Button>
+      </div>
       <div style={{ marginTop: "5%" }}>
         <Input
-          placeholder="Name"
+          placeholder="Name *"
           style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={name}
           onChange={(e) => {
@@ -44,7 +72,7 @@ const SignupScreen = (props) => {
           }}
         />
         <Input
-          placeholder="Email"
+          placeholder="Email *"
           style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={username}
           onChange={(e) => {
@@ -52,11 +80,64 @@ const SignupScreen = (props) => {
           }}
         />
         <Input
-          placeholder="Password"
+          placeholder="Password *"
           style={{ borderRadius: "8px" }}
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Age (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={age}
+          onChange={(e) => {
+            setAge(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Gender (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={gender}
+          onChange={(e) => {
+            setGender(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Occupation (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={occupation}
+          onChange={(e) => {
+            setOccupation(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Education (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={education}
+          onChange={(e) => {
+            setEducation(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Location (Optional)"
+          style={{ borderRadius: "8px" }}
+          value={location}
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+        />
+        <p style={{ marginTop: "1%" }}>
+          What is your goal with this application?
+        </p>
+
+        <TextArea
+          placeholder="None of the above? Type your reason..."
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
+          rows={4}
+          value={goal}
+          onChange={(e) => {
+            setGoal(e.target.value);
           }}
         />
       </div>
@@ -64,7 +145,15 @@ const SignupScreen = (props) => {
       <Button
         style={{ background: "white", marginTop: "2%" }}
         onClick={() => {
-          loginUser();
+          if (validator.validate(username)) {
+            if (name.length > 0 && password.length > 0) {
+              loginUser();
+            } else {
+              message.error("Please fill all the required fields!");
+            }
+          } else {
+            message.error("Please enter a valid email address!");
+          }
         }}
       >
         Register
