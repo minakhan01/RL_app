@@ -8,6 +8,7 @@ import CalendarComponent from "../../components/Calendar";
 import AnalyticsScreen from "../AnalyticsScreen";
 import AWScreen from "../AWScreen";
 import HomeScreen from "../HomeScreen";
+import TakeWeeklyScreen from "../TakeWeeklyScreen";
 const { TabPane } = Tabs;
 
 const NewHomeScreen = (props) => {
@@ -28,6 +29,9 @@ const NewHomeScreen = (props) => {
           </TabPane>
           <TabPane tab="Activity Watch" key="4">
             <AWScreen />
+          </TabPane>
+          <TabPane tab="Weekly Form" key="5">
+            <TakeWeeklyScreen />
           </TabPane>
         </Tabs>
       </div>
