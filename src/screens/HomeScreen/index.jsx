@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "antd";
-import { OnboardingActions } from "../../redux/actions";
+import { OnboardingActions, BreakActions } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -15,7 +15,14 @@ const HomeScreen = (props) => {
   return (
     <div className="step-container">
       <div style={{ marginTop: "3%", width: "70%", margin: "5%" }}>
-        <div style={{ width: "100%" }}>
+        <Button
+          onClick={() => {
+            history.push("/sud");
+          }}
+        >
+          Take a Break!
+        </Button>
+        {/* <div style={{ width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <p style={{ fontSize: "20px", fontWeight: "bold" }}>
               Scheduled Breaks :{" "}
@@ -151,7 +158,7 @@ const HomeScreen = (props) => {
               }
             })}
           </div>
-        </div>
+        </div> */}
 
         <Button
           onClick={() => {
@@ -178,6 +185,7 @@ const mapDispatchToProps = (dispatch) =>
       addTempReg: OnboardingActions.addTempReg,
       addTempAct: OnboardingActions.addTempAct,
       loginUserAction: OnboardingActions.loginUser,
+      startPrebreakfeedback: BreakActions.startPrebreakfeedback,
     },
     dispatch
   );
