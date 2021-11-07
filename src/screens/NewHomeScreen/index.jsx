@@ -27,7 +27,7 @@ const NewHomeScreen = (props) => {
           <TabPane tab="Analytics" key="3">
             <AnalyticsScreen />
           </TabPane>
-          <TabPane tab="Activity Watch" key="4">
+          <TabPane tab="Computer Usage Analytics" key="4">
             <AWScreen />
           </TabPane>
           <TabPane tab="Weekly Form" key="5">

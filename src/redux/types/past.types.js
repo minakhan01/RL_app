@@ -8,4 +8,5 @@ export const PastTypes = {
   SET_AW_UP_NUM: "@past/SET_AW_UP_NUM",
   ADD_WEEKLY: "@past/ADD_WEEKLY",
   SET_WEEKLY_REM: "@past/SET_WEEKLY_REM",
+  SET_TAKEN_ID: "@past/SET_TAKEN_ID",
 };

@@ -70,14 +70,30 @@ const AWCheckerScreen = (props) => {
           after installing and turning on activity watch
         </h3>
         <h4>How to install activity watch:</h4>
+        <p>
+          1. Download the latest version of activity watch by clicking here.
+        </p>
         <p
           className="linktext"
           style={{ color: "blue" }}
           onClick={() => {
-            shell.openExternal("https://github.com/ActivityWatch/activitywatch/releases/download/v0.10.0/activitywatch-v0.10.0-macos-x86_64.dmg");
+            shell.openExternal(
+              "https://github.com/ActivityWatch/activitywatch/releases/download/v0.10.0/activitywatch-v0.10.0-macos-x86_64.dmg"
+            );
           }}
         >
-          1. Download the latest version of activity watch by clicking here.
+          1.1 : For Mac users
+        </p>
+        <p
+          className="linktext"
+          style={{ color: "blue" }}
+          onClick={() => {
+            shell.openExternal(
+              "https://activitywatch.net/downloads/"
+            );
+          }}
+        >
+          1.2 : For Windows users
         </p>
         <p
           className="linktext"
