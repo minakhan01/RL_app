@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { OnboardingActions } from "../../redux/actions";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -14,6 +14,7 @@ const LoginScreen = (props) => {
 
   const loginUser = async () => {
     let body = { email: username, password };
+    message.info("Logging in, please wait...");
     let response = await axios.post(
       "https://thepallab.com/api/user/loginid",
       body
@@ -28,6 +29,10 @@ const LoginScreen = (props) => {
         findata.complete = true;
         props.addOnbInfo(findata);
       }
+    } else {
+      message.error(
+        "There was an error while logging in. Please check your login credentials and try again!"
+      );
     }
   };
   return (
@@ -71,7 +76,7 @@ const LoginScreen = (props) => {
       <Button
         style={{ background: "white", marginTop: "5%" }}
         onClick={() => {
-          history.push("/signup")
+          history.push("/signup");
         }}
       >
         Don't have an account? Click here to register
@@ -80,9 +85,7 @@ const LoginScreen = (props) => {
       <Button
         style={{ background: "white", marginTop: "5%" }}
         onClick={() => {
-          shell.openExternal(
-            "https://thepallab.com/forgotpass"
-          );
+          shell.openExternal("https://thepallab.com/forgotpass");
         }}
       >
         Forgot Password

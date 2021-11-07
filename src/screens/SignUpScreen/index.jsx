@@ -62,7 +62,7 @@ const SignupScreen = (props) => {
           Back
         </Button>
       </div>
-      <div style={{ marginTop: "5%" }}>
+      <div style={{ marginTop: "2%", width: "50%" }}>
         <Input
           placeholder="Name *"
           style={{ marginBottom: "3%", borderRadius: "8px" }}
@@ -81,7 +81,7 @@ const SignupScreen = (props) => {
         />
         <Input
           placeholder="Password *"
-          style={{ borderRadius: "8px" }}
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
@@ -89,7 +89,7 @@ const SignupScreen = (props) => {
         />
         <Input
           placeholder="Age (Optional)"
-          style={{ borderRadius: "8px" }}
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={age}
           onChange={(e) => {
             setAge(e.target.value);
@@ -97,7 +97,7 @@ const SignupScreen = (props) => {
         />
         <Input
           placeholder="Gender (Optional)"
-          style={{ borderRadius: "8px" }}
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={gender}
           onChange={(e) => {
             setGender(e.target.value);
@@ -105,7 +105,7 @@ const SignupScreen = (props) => {
         />
         <Input
           placeholder="Occupation (Optional)"
-          style={{ borderRadius: "8px" }}
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={occupation}
           onChange={(e) => {
             setOccupation(e.target.value);
@@ -113,7 +113,7 @@ const SignupScreen = (props) => {
         />
         <Input
           placeholder="Education (Optional)"
-          style={{ borderRadius: "8px" }}
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={education}
           onChange={(e) => {
             setEducation(e.target.value);

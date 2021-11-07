@@ -115,10 +115,30 @@ class AWClientService {
         "window_events_active = query_bucket('" +
           this.bucketMap["aw-watcher-window"] +
           "');",
+        `not_afk = query_bucket("${this.bucketMap["aw-watcher-afk"]}");
+          not_afk = filter_keyvals(not_afk, "status", ["not-afk"]);`,
+        `audible_events = filter_keyvals(window_events, "audible", [true]);`,
+        "window_events_active = filter_period_intersect(window_events_active, not_afk);",
         "window_events_active = merge_events_by_keys(window_events_active, ['app','title']);",
         "window_events = filter_period_intersect(window_events, window_events_active);",
+        `window_events = concat(window_events, audible_events);`,
         "events = merge_events_by_keys(window_events, ['title','url']);",
         "events = sort_by_duration(events);",
+        "RETURN = events;",
+      ];
+      const queryWindowsUnmerged = [
+        "window_events = query_bucket('" + "aw-watcher-web-chrome" + "');",
+        "window_events_active = query_bucket('" +
+          this.bucketMap["aw-watcher-window"] +
+          "');",
+        `not_afk = query_bucket("${this.bucketMap["aw-watcher-afk"]}");
+          not_afk = filter_keyvals(not_afk, "status", ["not-afk"]);`,
+        `audible_events = filter_keyvals(window_events, "audible", [true]);`,
+        "window_events_active = filter_period_intersect(window_events_active, not_afk);",
+        "window_events_active = merge_events_by_keys(window_events_active, ['app','title']);",
+        "window_events = filter_period_intersect(window_events, window_events_active);",
+        `window_events = concat(window_events, audible_events);`,
+        "events = sort_by_timestamp(window_events);",
         "RETURN = events;",
       ];
       const appTotalWithoutAudio = await this.client.query(
@@ -129,9 +149,14 @@ class AWClientService {
         [this.todayDate + "/" + this.tmrwDate],
         queryWindows
       );
+      const websiteTotalsUnmerged = await this.client.query(
+        [this.todayDate + "/" + this.tmrwDate],
+        queryWindowsUnmerged
+      );
       return {
         appTotal: appTotalWithoutAudio[0],
         websiteTotals: websiteTotals[0],
+        websiteTotalsUnmerged: websiteTotalsUnmerged[0],
       };
     } catch (error) {
       console.log("error", error);
@@ -153,8 +178,8 @@ class AWClientService {
 
         // Filter out window events when the user was afk
         "events = filter_period_intersect(events, not_afk);",
-        "RETURN = events;"
-      ]
+        "RETURN = events;",
+      ];
       // var query = [
       //   "window_events = query_bucket('" +
       //     this.bucketMap["aw-watcher-window"] +

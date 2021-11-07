@@ -106,7 +106,7 @@ const CPTScreen = (props) => {
           tempObj["correct"] = tempObj["pressed"] === tempObj["expected"];
         } else if (i === 3) {
           tempObj["pressed"] = "none";
-          tempObj["correct"] = 0;
+          tempObj["correct"] = false;
         }
         await sleep(500);
         if (i === 3) {
@@ -119,7 +119,7 @@ const CPTScreen = (props) => {
       }
     }
     await sleep(1000);
-    props.onComplete(allTrials)
+    props.onComplete(allTrials);
   };
 
   useEffect(() => {
