@@ -44,3 +44,8 @@ export const setWeeklyRem = (data) => ({
   type: PastTypes.SET_WEEKLY_REM,
   payload: { data },
 });
+
+export const setTakenId = (data) => ({
+  type: PastTypes.SET_TAKEN_ID,
+  payload: { data },
+});
