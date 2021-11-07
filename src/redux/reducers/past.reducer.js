@@ -15,6 +15,7 @@ const initialState = {
   totalUploaded: 0,
   webUploaded: 0,
   todayaW: "",
+  takenId: 0,
 };
 
 const PastReducer = (state = initialState, action) => {
@@ -95,6 +96,7 @@ const PastReducer = (state = initialState, action) => {
         totalUploaded: 0,
         webUploaded: 0,
         todayaW: "",
+        takenId: 0,
       };
 
     case BreakTypes.ON_CANCEL_BREAK:
@@ -118,6 +120,8 @@ const PastReducer = (state = initialState, action) => {
       };
     case PastTypes.SET_TODAY:
       return { ...state, today: action.payload };
+    case PastTypes.SET_TAKEN_ID:
+      return { ...state, takenId: action.payload.data };
 
     default:
       return state;

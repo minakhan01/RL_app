@@ -35,6 +35,7 @@ export default function checkScheduledBreak() {
           !(store.getState().break.breakState === "break-stroop") &&
           !(store.getState().break.breakState === "break-fruit") &&
           !(store.getState().break.breakState === "cancel-break") &&
+          !(store.getState().break.breakState === "pre-break-feedback") &&
           !(lastEndTime > currentStart)
         ) {
           let timeNowNew = new Date();

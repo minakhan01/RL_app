@@ -113,58 +113,63 @@ const BreakFeedbackScreen = (props) => {
           rating: rate,
           notes: feedbackText,
         };
-        let expiryTime = new Date(props.onboarding.user.expiry);
-        let current = new Date();
-        let authToken = props.onboarding.user.token;
-        if (expiryTime < current) {
-          let res = await axios.post(`https://thepallab.com/api/user/refresh`, {
-            _id: props.onboarding.user._id,
-          });
-          props.loginUserAction(res.data.user);
-          authToken = res.data.user.token;
-        }
-        let calendarList = await axios.get(
-          "https://www.googleapis.com/calendar/v3/users/me/calendarList",
-
-          {
-            params: {
-              pageSize: 100,
-              pageToken: nexpage,
-            },
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + authToken,
-            },
-          }
-        );
-        let items = calendarList.data.items;
-        let callInfo = {};
-        for (let item of items) {
-          if (item.primary) {
-            callInfo = item;
-          }
-        }
-        if (callInfo.id) {
-          let today = new Date(breakState.breakStartTime);
-          let tomorrow = new Date();
-          try {
-            let insertCal = await axios.post(
-              `https://www.googleapis.com/calendar/v3/calendars/${callInfo.id}/events`,
+        if (props.onboarding.user.token.length > 0) {
+          let expiryTime = new Date(props.onboarding.user.expiry);
+          let current = new Date();
+          let authToken = props.onboarding.user.token;
+          if (expiryTime < current) {
+            let res = await axios.post(
+              `https://thepallab.com/api/user/refresh`,
               {
-                end: { dateTime: tomorrow, timeZone: callInfo.timeZone },
-                start: { dateTime: today, timeZone: callInfo.timeZone },
-                summary: `${breakState.breakType} break taken on PAL`,
-                description: `You took a ${breakState.breakType} break on PAL`,
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: "Bearer " + authToken,
-                },
+                _id: props.onboarding.user._id,
               }
             );
-          } catch (error) {
-            console.log("err", error);
+            props.loginUserAction(res.data.user);
+            authToken = res.data.user.token;
+          }
+          let calendarList = await axios.get(
+            "https://www.googleapis.com/calendar/v3/users/me/calendarList",
+
+            {
+              params: {
+                pageSize: 100,
+                pageToken: nexpage,
+              },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + authToken,
+              },
+            }
+          );
+          let items = calendarList.data.items;
+          let callInfo = {};
+          for (let item of items) {
+            if (item.primary) {
+              callInfo = item;
+            }
+          }
+          if (callInfo.id) {
+            let today = new Date(breakState.breakStartTime);
+            let tomorrow = new Date();
+            try {
+              let insertCal = await axios.post(
+                `https://www.googleapis.com/calendar/v3/calendars/${callInfo.id}/events`,
+                {
+                  end: { dateTime: tomorrow, timeZone: callInfo.timeZone },
+                  start: { dateTime: today, timeZone: callInfo.timeZone },
+                  summary: `${breakState.breakType} break taken on PAL`,
+                  description: `You took a ${breakState.breakType} break on PAL`,
+                },
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + authToken,
+                  },
+                }
+              );
+            } catch (error) {
+              console.log("err", error);
+            }
           }
         }
         delete dat.breakState;
