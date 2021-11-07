@@ -118,7 +118,6 @@ export default function checkActivityRuleBreak() {
               }
             }
           } else {
-            console.log("look", websiteTotalsUnmerged);
             let lastVal =
               websiteTotalsUnmerged[websiteTotalsUnmerged.length - 1];
             if (lastVal.data.url.includes(siteName)) {
@@ -139,7 +138,6 @@ export default function checkActivityRuleBreak() {
                   break;
                 }
               }
-              console.log("tot", totalUsage);
               if (lastVal.id !== store.getState().past.takenId) {
                 if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
                   initScheduled[indBreak.url] += 1;

@@ -115,13 +115,8 @@ class AWClientService {
         "window_events_active = query_bucket('" +
           this.bucketMap["aw-watcher-window"] +
           "');",
-        `not_afk = query_bucket("${this.bucketMap["aw-watcher-afk"]}");
-          not_afk = filter_keyvals(not_afk, "status", ["not-afk"]);`,
-        `audible_events = filter_keyvals(window_events, "audible", [true]);`,
-        "window_events_active = filter_period_intersect(window_events_active, not_afk);",
         "window_events_active = merge_events_by_keys(window_events_active, ['app','title']);",
         "window_events = filter_period_intersect(window_events, window_events_active);",
-        `window_events = concat(window_events, audible_events);`,
         "events = merge_events_by_keys(window_events, ['title','url']);",
         "events = sort_by_duration(events);",
         "RETURN = events;",
