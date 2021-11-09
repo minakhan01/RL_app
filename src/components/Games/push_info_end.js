@@ -16,7 +16,7 @@ export default function PushInfoEnd(props) {
   let dispatch = useDispatch();
   useEffect(() => {
     let scores = props.stage.scores;
-    let fruit = scores.splice(0, 3);
+    let fruit = scores.splice(0, 1);
     let stroop = scores;
     dispatch(BreakActions.postbreakScores(stroop, fruit));
   }, []);
