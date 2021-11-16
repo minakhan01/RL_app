@@ -125,10 +125,4 @@ if (!gotTheLock) {
 
   // Create myWindow, load the rest of the app, etc...
   app.on("ready", createWindow);
-
-  app.on('before-quit', (e) => {
-    if (process.platform === 'darwin') {
-      app.quit();
-    }  
-  });
 }
