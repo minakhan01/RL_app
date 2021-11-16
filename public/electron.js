@@ -59,6 +59,11 @@ function createWindow() {
     mainWindow.show();
     mainWindow.setSkipTaskbar(false);
   });
+  mainWindow.on('before-quit', (e) => {
+    if (process.platform === 'darwin') {
+      app.quit();
+    }  
+  });
 }
 app.setAsDefaultProtocolClient("rlapp");
 
