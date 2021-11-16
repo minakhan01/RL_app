@@ -79,3 +79,8 @@ export const addTempAct = (site, all) => ({
   type: OnboardingTypes.ADD_TEMP_ACT,
   payload: { site, all },
 });
+
+export const addCbt = (data) => ({
+  type: OnboardingTypes.ADD_CBT,
+  payload: { data },
+});

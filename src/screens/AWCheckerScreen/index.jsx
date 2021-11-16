@@ -32,12 +32,11 @@ const AWCheckerScreen = (props) => {
           BreakManager(history);
           history.push("/home");
         } else {
-          history.push("/");
+          history.push("/cbt");
         }
       }
     } catch (error) {
       setLoading(false);
-      console.log("look", error);
     }
   };
   if (loading) {
