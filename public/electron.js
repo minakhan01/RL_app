@@ -1,10 +1,24 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, nativeImage } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  Tray,
+  Menu,
+  ipcMain,
+  nativeImage,
+} = require("electron");
 app.commandLine.appendSwitch("disable-web-security");
 const isDev = require("electron-is-dev");
 const path = require("path");
 const log = require("electron-log");
 let tray = null;
 let mainWindow;
+
+//handle setupevents as quickly as possible
+const setupEvents = require("../installers/setupEvents");
+if (setupEvents.handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  return;
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -59,27 +73,38 @@ function createWindow() {
     mainWindow.show();
     mainWindow.setSkipTaskbar(false);
   });
+  mainWindow.on("before-quit", (e) => {
+    if (process.platform === "darwin") {
+      app.quit();
+    }
+  });
 }
 app.setAsDefaultProtocolClient("rlapp");
 
 app
   .whenReady()
   .then(() => {
-    const image = nativeImage.createFromPath(path.join(__dirname, "./icon.png"))
+    const image = nativeImage.createFromPath(
+      path.join(__dirname, "./icon.png")
+    );
     tray = new Tray(image.resize({ width: 16, height: 16 }));
     var contextMenu = Menu.buildFromTemplate([
       {
         label: "Dashboard",
         click: function () {
           mainWindow.show();
-          mainWindow.webContents.send('asynchronous-message-two', {'SAVED': 'File Saved'});
+          mainWindow.webContents.send("asynchronous-message-two", {
+            SAVED: "File Saved",
+          });
         },
       },
       {
         label: "Take a break",
         click: function () {
           mainWindow.show();
-          mainWindow.webContents.send('asynchronous-message', {'SAVED': 'File Saved'});
+          mainWindow.webContents.send("asynchronous-message", {
+            SAVED: "File Saved",
+          });
         },
       },
       {
@@ -121,9 +146,9 @@ if (!gotTheLock) {
   // Create myWindow, load the rest of the app, etc...
   app.on("ready", createWindow);
 
-  app.on('before-quit', (e) => {
-    if (process.platform === 'darwin') {
+  app.on("before-quit", (e) => {
+    if (process.platform === "darwin") {
       app.quit();
-    }  
+    }
   });
 }
