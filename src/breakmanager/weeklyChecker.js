@@ -3,7 +3,7 @@ import { store } from "../redux";
 import axios from "axios";
 export default function weeklyChecker() {
   let currWeekly = store.getState().onboarding.weekly;
-  let lenVal = currWeekly.length + 1;
+  let lenVal = currWeekly.length;
   let timeNow = new Date();
   let pastTime = new Date(store.getState().onboarding.timestamp);
   const diffTime = Math.abs(timeNow - pastTime);
