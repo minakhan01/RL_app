@@ -1,6 +1,7 @@
 {
   "name": "pal",
   "productName": "PAL",
+  "description": "Application to help you take breaks while you work on your computer!",
   "homepage": "./",
   "main": "./public/electron.js",
   "version": "0.1.0",
@@ -48,7 +49,9 @@
     "electron-build": "electron-builder",
     "dev": "concurrently \"npm start\" \"wait-on http://localhost:8888 && electron .\"",
     "ebuild": "yarn build && yarn electron-build",
-    "electron-pack": "build --em.main=build/electron.js"
+    "electron-pack": "build --em.main=build/electron.js",
+    "package-win": "electron-packager . --overwrite --asar=true --icon=./icon.ico --out=release-builds",
+    "create-installer-win": "node installers/windows/createinstaller.js"
   },
   "eslintConfig": {
     "extends": [
@@ -71,7 +74,8 @@
   "devDependencies": {
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
-    "electron-packager": "^15.2.0"
+    "electron-packager": "^15.2.0",
+    "electron-winstaller": "^5.0.0"
   },
   "build": {
     "appId": "com.example.electron-cra",
