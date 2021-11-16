@@ -24,6 +24,7 @@ const initialState = {
   timestamp: "",
   weekly: [],
   weeklyRem: false,
+  cbt: [],
 };
 
 const OnboardingReducer = (state = initialState, action) => {
@@ -52,6 +53,8 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, awChecked: true };
     case OnboardingTypes.ADD_ONB_INFO:
       return { ...state, ...action.payload };
+    case OnboardingTypes.ADD_CBT:
+      return { ...state, cbt: action.payload.data };
     case OnboardingTypes.ADD_TEMP_SCHED:
       return { ...state, tempScheduledBreaks: action.payload.value };
     case OnboardingTypes.ADD_TEMP_REG:

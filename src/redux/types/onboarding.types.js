@@ -13,5 +13,6 @@ export const ADD_ONB_INFO = "ADD_ONB_INFO";
 export const ADD_TEMP_SCHED = "ADD_TEMP_SCHED";
 export const ADD_TEMP_REG = "ADD_TEMP_REG";
 export const ADD_TEMP_ACT = "ADD_TEMP_ACT";
+export const ADD_CBT = "ADD_CBT";
 
 export const RESET = "RESET";
