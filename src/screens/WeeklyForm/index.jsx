@@ -145,17 +145,22 @@ const WeeklyForm = (props) => {
           } else {
             let tempWeekly = props.onboarding.weekly;
             tempWeekly.push(password);
-            let body = {
-              weekly: tempWeekly,
-              user: props.onboarding.user._id,
-            };
-            let response = await axios.post(
-              "https://thepallab.com/api/user/update-onb",
-              body
-            );
-            if (response.data.message === "Successful Update") {
+            if (tempWeekly.length === 1) {
               props.AddWeekly(tempWeekly);
-              history.push("/home");
+              history.push("/");
+            } else {
+              let body = {
+                weekly: tempWeekly,
+                user: props.onboarding.user._id,
+              };
+              let response = await axios.post(
+                "https://thepallab.com/api/user/update-onb",
+                body
+              );
+              if (response.data.message === "Successful Update") {
+                props.AddWeekly(tempWeekly);
+                history.push("/home");
+              }
             }
           }
         }}

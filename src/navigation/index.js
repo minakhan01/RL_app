@@ -41,6 +41,7 @@ const PreBreakFeedbackScreen = lazy(() =>
 const CPTScreen = lazy(() => import("../screens/CPTScreen"));
 const WeeklyForm = lazy(() => import("../screens/WeeklyForm"));
 const WeeklyPopUp = lazy(() => import("../screens/WeeklyPopUp"));
+const CBTestScreen = lazy(() => import("../screens/CBTestScreen"));
 
 const Main = () => {
   let history = useHistory();
@@ -90,6 +91,7 @@ const Main = () => {
         <Route path="/cpt" component={CPTScreen} />
         <Route path="/week" component={WeeklyForm} />
         <Route path="/weekpop" component={WeeklyPopUp} />
+        <Route path="/cbt" component={CBTestScreen} />
       </Switch>
     </Suspense>
   );
