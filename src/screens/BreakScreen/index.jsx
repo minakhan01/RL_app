@@ -66,7 +66,7 @@ const BreakScreen = (props) => {
     );
     curWindow.setPosition(
       0,
-      (6 / 8) * electron.remote.screen.getPrimaryDisplay().size.height
+      Math.ceil((6 / 8) * electron.remote.screen.getPrimaryDisplay().size.height)
     );
 
     return (
