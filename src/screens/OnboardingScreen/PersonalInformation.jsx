@@ -68,8 +68,8 @@ const PersonalInformationScreen = (props) => {
       />
       <div style={{ marginTop: "3%" }}>
         <p style={{ fontSize: "18px", marginBottom: "0" }}>
-          Would you like any message to show up during the break? (e.g. drink
-          water, be kind, etc.)
+          What would you do during the break? Add a reminder for yourself.
+          (e.g., drink water, smile, stretch, breathe, etc.)
         </p>
         {/* <p style={{ fontSize: "15px", color: "#696969", width: "60%" }}>
           You can set up to 10 messages, the messages will appear interchangebly

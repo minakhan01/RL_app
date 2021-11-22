@@ -33,6 +33,8 @@ const OnboardingReducer = (state = initialState, action) => {
       return { ...state, name: action.payload };
     case OnboardingTypes.LOGIN_USER:
       return { ...state, user: action.payload, name: action.payload.name };
+    case OnboardingTypes.UPDATE_USER:
+      return { ...state, user: action.payload };
     case OnboardingTypes.SET_BREAK_MESSAGE:
       return { ...state, breakMessage: action.payload };
     case OnboardingTypes.SET_SCHEDULED_BREAKS:

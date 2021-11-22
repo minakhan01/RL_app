@@ -18,106 +18,115 @@ const FinishingUpScreen = (props) => {
           <br />
           <br />
         </p>
-        <div style={{ width: "100%" }}>
-          <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-            Scheduled Breaks :{" "}
-          </p>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "50%",
-            }}
-          >
-            <p style={{ flex: 1 }}>Day</p>
-            <p style={{ flex: 1 }}>Start Time</p>
-            <p style={{ flex: 1 }}>End Time</p>
+        {(props.onboarding.user.type === "0" ||
+          props.onboarding.user.type === "1") && (
+          <div style={{ width: "100%" }}>
+            <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+              Scheduled Breaks :{" "}
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "50%",
+              }}
+            >
+              <p style={{ flex: 1 }}>Day</p>
+              <p style={{ flex: 1 }}>Start Time</p>
+              <p style={{ flex: 1 }}>End Time</p>
+            </div>
+            <div>
+              {props.onboarding.scheduledBreaks.map((item, index) => {
+                if (item.start.length > 0) {
+                  return (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        width: "50%",
+                        marginTop: index !== 0 ? "1%" : "0%",
+                      }}
+                    >
+                      <p style={{ flex: 1 }}>{item.day}</p>
+                      <p style={{ flex: 1 }}>
+                        {new Date(item.start).getHours() +
+                          ":" +
+                          (new Date(item.start).getMinutes() < 10 ? "0" : "") +
+                          new Date(item.start).getMinutes()}
+                      </p>
+                      <p style={{ flex: 1 }}>
+                        {new Date(item.end).getHours() +
+                          ":" +
+                          (new Date(item.end).getMinutes() < 10 ? "0" : "") +
+                          new Date(item.end).getMinutes()}
+                      </p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
-          <div>
-            {props.onboarding.scheduledBreaks.map((item, index) => {
-              if (item.start.length > 0) {
-                return (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      width: "50%",
-                      marginTop: index !== 0 ? "1%" : "0%",
-                    }}
-                  >
-                    <p style={{ flex: 1 }}>{item.day}</p>
-                    <p style={{ flex: 1 }}>
-                      {new Date(item.start).getHours() +
-                        ":" +
-                        (new Date(item.start).getMinutes() < 10 ? "0" : "") +
-                        new Date(item.start).getMinutes()}
-                    </p>
-                    <p style={{ flex: 1 }}>
-                      {new Date(item.end).getHours() +
-                        ":" +
-                        (new Date(item.end).getMinutes() < 10 ? "0" : "") +
-                        new Date(item.end).getMinutes()}
-                    </p>
-                  </div>
-                );
-              }
-            })}
+        )}
+        {(props.onboarding.user.type === "0" ||
+          props.onboarding.user.type === "2") && (
+          <div style={{ width: "100%" }}>
+            <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+              Regular Breaks :{" "}
+            </p>
+            <p>
+              How often you want to take regular breaks :{" "}
+              {props.onboarding.regularBreakInterval} hour(s)
+            </p>
+            <p>
+              How long you want these breaks to be :{" "}
+              {props.onboarding.regularBreakLength} minute(s)
+            </p>
           </div>
-        </div>
-        <div style={{ width: "100%" }}>
-          <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-            Regular Breaks :{" "}
-          </p>
-          <p>
-            How often you want to take regular breaks :{" "}
-            {props.onboarding.regularBreakInterval} hour(s)
-          </p>
-          <p>
-            How long you want these breaks to be :{" "}
-            {props.onboarding.regularBreakLength} minute(s)
-          </p>
-        </div>
-        <div style={{ width: "100%" }}>
-          <p style={{ fontSize: "20px", fontWeight: "bold" }}>
-            Activity Based Breaks :{" "}
-          </p>
+        )}
+        {(props.onboarding.user.type === "0" ||
+          props.onboarding.user.type === "3") && (
+          <div style={{ width: "100%" }}>
+            <p style={{ fontSize: "20px", fontWeight: "bold" }}>
+              Activity Based Breaks :{" "}
+            </p>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "50%",
-            }}
-          >
-            <p style={{ flex: 1 }}>Site</p>
-            <p style={{ flex: 1 }}>Break Interval (minutes)</p>
-            <p style={{ flex: 1 }}>Break Length (minutes)</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "50%",
+              }}
+            >
+              <p style={{ flex: 1 }}>Site</p>
+              <p style={{ flex: 1 }}>Break Interval (minutes)</p>
+              <p style={{ flex: 1 }}>Break Length (minutes)</p>
+            </div>
+            <div>
+              {props.onboarding.allOverRides.map((item, index) => {
+                if (item.name.length > 0) {
+                  return (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        width: "50%",
+                        marginTop: index !== 0 ? "1%" : "0%",
+                      }}
+                    >
+                      <p style={{ flex: 1 }}>{item.name}</p>
+                      <p style={{ flex: 1 }}>{item.interval}</p>
+                      <p style={{ flex: 1 }}>{item.breakLength}</p>
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
-          <div>
-            {props.onboarding.allOverRides.map((item, index) => {
-              if (item.name.length > 0) {
-                return (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      width: "50%",
-                      marginTop: index !== 0 ? "1%" : "0%",
-                    }}
-                  >
-                    <p style={{ flex: 1 }}>{item.name}</p>
-                    <p style={{ flex: 1 }}>{item.interval}</p>
-                    <p style={{ flex: 1 }}>{item.breakLength}</p>
-                  </div>
-                );
-              }
-            })}
-          </div>
-        </div>
+        )}
         <p style={{ fontSize: "18px", marginBottom: "5%" }}>
           If you want to make any changes, click on the back button and change
           your settings. You can always come back and make edits to your

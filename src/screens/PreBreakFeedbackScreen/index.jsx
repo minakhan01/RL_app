@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BreakActions } from "../../redux/actions";
-import { Button, Input, message } from "antd";
+import { Button, Input, Modal, Checkbox } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -12,8 +12,10 @@ const PreBreakFeedbackScreen = (props) => {
   const [username, setUsername] = useState("");
   const [rate, setRate] = useState(0);
   const [selected, setSelected] = useState([]);
+  const [modalVisible, setModalVisible] = useState(null);
+  const [currentlySelected, setCurrentlySelected] = useState(null);
   const history = useHistory();
-  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   let mounted = true;
 
   const panas_emotions = [
@@ -90,6 +92,151 @@ const PreBreakFeedbackScreen = (props) => {
         padding: "5%",
       }}
     >
+      <Modal
+        width={"700px"}
+        visible={modalVisible}
+        onOk={() => {
+          setModalVisible(false);
+        }}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <h2 style={{ textAlign: "center" }}>{currentlySelected}</h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+            }}
+          >
+            <p style={{ flex: 1 }}>Very Slightly or Not at all</p>
+            <p style={{ flex: 1 }}>A Little</p>
+            <p style={{ flex: 1 }}>Moderately</p>
+            <p style={{ flex: 1 }}>Quite a Bit</p>
+            <p style={{ flex: 1 }}>Extremely</p>
+          </div>
+          <div>
+            <div
+              style={{ display: "flex", flexDirection: "row", width: "100%" }}
+            >
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 1
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 1;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 1
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 2
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 2;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 2
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 3
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 3;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 3
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 4
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 4;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 4
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 5
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 5;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 5
+                    ? true
+                    : false
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </Modal>
       <p>How was your working session?</p>
       <div
         style={{
@@ -122,21 +269,19 @@ const PreBreakFeedbackScreen = (props) => {
           return (
             <Button
               onClick={() => {
-                let tempSelected = [...selected];
-                if (tempSelected.includes(item.toString())) {
-                  let tempIndex = tempSelected.indexOf(item.toString());
-                  tempSelected.splice(tempIndex, 1);
-                } else {
-                  tempSelected.push(item.toString());
-                }
-                setSelected(tempSelected);
+                setCurrentlySelected(item.toString());
+                setModalVisible(true);
               }}
               style={{
                 margin: "2px",
-                backgroundColor: selected.includes(item.toString())
-                  ? "green"
-                  : "white",
-                color: selected.includes(item.toString()) ? "white" : "black",
+                backgroundColor:
+                  selected[item.toString()] && selected[item.toString()] !== 0
+                    ? "green"
+                    : "white",
+                color:
+                  selected[item.toString()] && selected[item.toString()] !== 0
+                    ? "white"
+                    : "black",
                 border: 0,
                 outline: "none",
               }}

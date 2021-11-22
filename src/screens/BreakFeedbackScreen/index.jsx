@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input } from "antd";
+import { Button, Modal, Checkbox } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect, useDispatch } from "react-redux";
@@ -20,9 +20,10 @@ const BreakFeedbackScreen = (props) => {
   const [rate, setRate] = useState(0);
   const [feedbackText, setFeedbackText] = useState("");
   const [nexpage, setNext] = useState("");
-  const [selected, setSelected] = useState([]);
-  const [shuffled, setShuffled] = useState([]);
-  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [selected, setSelected] = useState({});
+  const [currentlySelected, setCurrentlySelected] = useState(null);
+  const [modalVisible, setModalVisible] = useState(null);
+  const number_array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const panas_emotions = [
     "Interested",
     "Distressed",
@@ -192,62 +193,153 @@ const BreakFeedbackScreen = (props) => {
 
     return array;
   }
-
-  // if (loading) {
-  //   return (
-  //     <div className="break-div" style={{ backgroundColor: "black" }}>
-  //       <p style={{ textAlign: "center", fontSize: "20px", color: "white" }}>
-  //         Choose the images that best represent your emotional state right now
-  //       </p>
-  //       <div
-  //         style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
-  //       >
-  //         {panas_emotions.map((item, index) => {
-  //           return (
-  //             <div
-  //               style={{
-  //                 padding: "1%",
-  //                 backgroundColor: selected.includes(item.toString())
-  //                   ? "green"
-  //                   : "black",
-  //               }}
-  //               onClick={() => {
-  //                 let tempSelected = [...selected];
-  //                 if (tempSelected.includes(item.toString())) {
-  //                   let tempIndex = tempSelected.indexOf(item.toString());
-  //                   tempSelected.splice(tempIndex, 1);
-  //                 } else {
-  //                   tempSelected.push(item.toString());
-  //                 }
-  //                 setSelected(tempSelected);
-  //               }}
-  //             >
-  //               <img src={emotions[item]} width="130px" height="130px" />
-  //             </div>
-  //           );
-  //         })}
-  //       </div>
-  //       <Button
-  //         onClick={() => {
-  //           setLoading(false);
-  //         }}
-  //       >
-  //         Next
-  //       </Button>
-  //     </div>
-  //   );
-  // } else {
   return (
     <div className="break-div">
-      {/* <button
-          className="close-break"
-          onClick={() => {
-            addBreakInfo();
+      <Modal
+        width={"700px"}
+        visible={modalVisible}
+        onOk={() => {
+          setModalVisible(false);
+        }}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "100%",
           }}
         >
-          <div>&#10006;</div>
-          <div className="save-button-text">Save feedback and close</div>
-        </button> */}
+          <h2 style={{ textAlign: "center" }}>{currentlySelected}</h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+            }}
+          >
+            <p style={{ flex: 1 }}>Very Slightly or Not at all</p>
+            <p style={{ flex: 1 }}>A Little</p>
+            <p style={{ flex: 1 }}>Moderately</p>
+            <p style={{ flex: 1 }}>Quite a Bit</p>
+            <p style={{ flex: 1 }}>Extremely</p>
+          </div>
+          <div>
+            <div
+              style={{ display: "flex", flexDirection: "row", width: "100%" }}
+            >
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 1
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 1;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 1
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 2
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 2;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 2
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 3
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 3;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 3
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 4
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 4;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 4
+                    ? true
+                    : false
+                }
+              />
+              <Checkbox
+                style={{ flex: 1 }}
+                onChange={(e) => {
+                  let tempSelected = { ...selected };
+                  if (
+                    tempSelected[currentlySelected] &&
+                    tempSelected[currentlySelected] === 5
+                  ) {
+                    tempSelected[currentlySelected] = 0;
+                  } else {
+                    tempSelected[currentlySelected] = 5;
+                  }
+                  setSelected(tempSelected);
+                }}
+                checked={
+                  selected[currentlySelected] &&
+                  selected[currentlySelected] === 5
+                    ? true
+                    : false
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </Modal>
       <div className="break-completed-text">Break completed successfully!</div>
 
       <div className="feedback-request-text">How was helpful this break?</div>
@@ -256,11 +348,6 @@ const BreakFeedbackScreen = (props) => {
         {number_array.map((item, index) => {
           return getImageButton(item + 1, rate, setRate, mounted);
         })}
-
-        {/* {getImageButton(2, rate, setRate, mounted)}
-          {getImageButton(3, rate, setRate, mounted)}
-          {getImageButton(4, rate, setRate, mounted)}
-          {getImageButton(5, rate, setRate, mounted)} */}
       </div>
 
       <div className="feedback-request-text" style={{ marginTop: "1%" }}>
@@ -281,21 +368,19 @@ const BreakFeedbackScreen = (props) => {
           return (
             <Button
               onClick={() => {
-                let tempSelected = [...selected];
-                if (tempSelected.includes(item.toString())) {
-                  let tempIndex = tempSelected.indexOf(item.toString());
-                  tempSelected.splice(tempIndex, 1);
-                } else {
-                  tempSelected.push(item.toString());
-                }
-                setSelected(tempSelected);
+                setCurrentlySelected(item.toString());
+                setModalVisible(true);
               }}
               style={{
                 margin: "2px",
-                backgroundColor: selected.includes(item.toString())
-                  ? "green"
-                  : "white",
-                color: selected.includes(item.toString()) ? "white" : "black",
+                backgroundColor:
+                  selected[item.toString()] && selected[item.toString()] !== 0
+                    ? "green"
+                    : "white",
+                color:
+                  selected[item.toString()] && selected[item.toString()] !== 0
+                    ? "white"
+                    : "black",
                 border: 0,
                 outline: "none",
               }}
@@ -305,17 +390,6 @@ const BreakFeedbackScreen = (props) => {
           );
         })}
       </div>
-
-      {/* <div style={{ display: "flex" }}>
-        <div style={{ width: "7vw", textAlign: "left", paddingLeft: "0vw" }}>
-          Not Helpful
-        </div>
-        <div style={{ width: "28vw" }} />
-        <div style={{ width: "4vw", textAlign: "right", paddingRight: "1vw" }}>
-          Helpful
-        </div>
-      </div> */}
-
       <div className="feedback-text-box">
         <div className="floating-label">
           Why was this break helpful/unhelpful?

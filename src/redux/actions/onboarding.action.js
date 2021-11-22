@@ -60,6 +60,11 @@ export const loginUser = (data) => ({
   payload: data,
 });
 
+export const updateUser = (data) => ({
+  type: OnboardingTypes.UPDATE_USER,
+  payload: data,
+});
+
 export const addOnbInfo = (data) => ({
   type: OnboardingTypes.ADD_ONB_INFO,
   payload: data,
