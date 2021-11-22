@@ -51,7 +51,9 @@
     "ebuild": "yarn build && yarn electron-build",
     "electron-pack": "build --em.main=build/electron.js",
     "package-win": "electron-packager . --overwrite --asar=true --icon=./icon.ico --out=release-builds",
-    "create-installer-win": "node installers/windows/createinstaller.js"
+    "create-installer-win": "node installers/windows/createinstaller.js",
+    "package-mac": "electron-packager . --overwrite --asar=true --icon=./icon.icns --out=release-builds",
+    "create-installer-mac": "electron-installer-dmg ./release-builds/PAL-darwin-x64/ PAL.app PAL --out=release-builds --overwrite --icon=./icon.icns"
   },
   "eslintConfig": {
     "extends": [
