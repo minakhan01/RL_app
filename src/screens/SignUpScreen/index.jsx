@@ -79,7 +79,7 @@ const SignupScreen = (props) => {
             setUsername(e.target.value);
           }}
         />
-        <Input
+        <Input.Password
           placeholder="Password *"
           style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={password}
