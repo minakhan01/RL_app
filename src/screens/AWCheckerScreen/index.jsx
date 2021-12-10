@@ -32,7 +32,12 @@ const AWCheckerScreen = (props) => {
           BreakManager(history);
           history.push("/home");
         } else {
-          history.push("/cbt");
+          if (props.onboarding.isLoginFlow) {
+            BreakManager(history);
+            history.push("/home");
+          } else {
+            history.push("/cbt");
+          }
         }
       }
     } catch (error) {
@@ -87,9 +92,7 @@ const AWCheckerScreen = (props) => {
           className="linktext"
           style={{ color: "blue" }}
           onClick={() => {
-            shell.openExternal(
-              "https://activitywatch.net/downloads/"
-            );
+            shell.openExternal("https://activitywatch.net/downloads/");
           }}
         >
           1.2 : For Windows users

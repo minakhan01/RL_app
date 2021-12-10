@@ -89,3 +89,8 @@ export const addCbt = (data) => ({
   type: OnboardingTypes.ADD_CBT,
   payload: { data },
 });
+
+export const setIsLoginFlow = () => ({
+  type: OnboardingTypes.SET_ISLOGINFLOW,
+  payload: {},
+});

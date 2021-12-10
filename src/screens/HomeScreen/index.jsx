@@ -7,11 +7,32 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import "./styles.css";
+var shell = window.require("electron").shell;
 
 const HomeScreen = (props) => {
   const [breakArray, setBreakArray] = useState(["https://www.youtube.com"]);
   const [tempMessage, setTempMessage] = useState(props.onboarding.breakMessage);
   const history = useHistory();
+
+  useEffect(() => {
+    checkUpdateApp();
+  }, []);
+
+  let checkUpdateApp = async () => {
+    let body = {
+      user: props.onboarding.user._id,
+    };
+    let response = await axios.post(
+      "https://thepallab.com/api/user/updateinfo",
+      body
+    );
+    if (response.data.shouldUpdate) {
+      let onbData = response.data.onbInfo;
+      let findata = onbData[0];
+      delete findata.user;
+      props.addOnbInfo(findata);
+    }
+  };
 
   return (
     <div className="step-container">
@@ -162,15 +183,13 @@ const HomeScreen = (props) => {
             </div>
           </div>
         )}
-        {props.onboarding.user === "4" && (
-          <Button
-            onClick={() => {
-              history.push("/sud");
-            }}
-          >
-            Take a Break!
-          </Button>
-        )}
+        <Button
+          onClick={() => {
+            history.push("/sud");
+          }}
+        >
+          Take a Break!
+        </Button>
 
         <div style={{ marginTop: "3%" }}>
           <p style={{ fontSize: "18px", marginBottom: "0" }}>Break Message</p>
@@ -219,7 +238,13 @@ const HomeScreen = (props) => {
             </Button>
           </div>
         </div>
-
+        <Button
+          onClick={() => {
+            shell.openExternal("https://thepallab.com/feedback");
+          }}
+        >
+          Feedback Form
+        </Button>
         <Button
           onClick={() => {
             props.resetInfo();
@@ -247,6 +272,7 @@ const mapDispatchToProps = (dispatch) =>
       addTempAct: OnboardingActions.addTempAct,
       loginUserAction: OnboardingActions.loginUser,
       setBreakMessage: OnboardingActions.setBreakMessage,
+      addOnbInfo: OnboardingActions.addOnbInfo,
     },
     dispatch
   );

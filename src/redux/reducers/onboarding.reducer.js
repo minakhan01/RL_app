@@ -25,12 +25,15 @@ const initialState = {
   weekly: [],
   weeklyRem: false,
   cbt: [],
+  isLoginFlow: false,
 };
 
 const OnboardingReducer = (state = initialState, action) => {
   switch (action.type) {
     case OnboardingTypes.SET_NAME:
       return { ...state, name: action.payload };
+    case OnboardingTypes.SET_ISLOGINFLOW:
+      return { ...state, isLoginFlow: true };
     case OnboardingTypes.LOGIN_USER:
       return { ...state, user: action.payload, name: action.payload.name };
     case OnboardingTypes.UPDATE_USER:

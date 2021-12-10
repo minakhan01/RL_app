@@ -21,6 +21,7 @@ const LoginScreen = (props) => {
     );
     if (response.data.message === "Successful Login") {
       props.loginUserAction(response.data.userInfo);
+      props.setIsLoginFlow();
       history.push("/aw");
       let onbData = response.data.onbInfo;
       if (onbData.length > 0) {
@@ -103,6 +104,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       loginUserAction: OnboardingActions.loginUser,
       addOnbInfo: OnboardingActions.addOnbInfo,
+      setIsLoginFlow: OnboardingActions.setIsLoginFlow,
     },
     dispatch
   );
