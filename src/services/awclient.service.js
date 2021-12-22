@@ -131,7 +131,6 @@ class AWClientService {
         `window_events = concat(window_events, audible_events);`,
         "events = merge_events_by_keys(window_events, ['title','url']);",
         "events = sort_by_timestamp(events);",
-        "events = split_url_events(events);",
         "RETURN = events;",
       ];
       const queryWindowsUnmerged = [
@@ -147,7 +146,6 @@ class AWClientService {
         "window_events = filter_period_intersect(window_events, window_events_active);",
         `window_events = concat(window_events, audible_events);`,
         "events = sort_by_timestamp(window_events);",
-        "events = split_url_events(events);",
         "RETURN = events;",
       ];
       const appTotalWithoutAudio = await this.client.query(

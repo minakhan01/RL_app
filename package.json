@@ -4,7 +4,7 @@
   "description": "Application to help you take breaks while you work on your computer!",
   "homepage": "./",
   "main": "./public/electron.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@babel/helper-builder-react-jsx": "^7.15.4",
