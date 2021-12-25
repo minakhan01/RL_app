@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { TimePicker, Select } from "antd";
+import { TimePicker, Select, Button } from "antd";
 import moment from "moment";
 
 import { OnboardingActions } from "../../redux/actions";
@@ -107,6 +107,16 @@ const ScheduledBreakScreen = (props) => {
                   props.setScheduledBreaks(tempArray);
                 }}
               />
+              <Button
+                style={{ marginLeft: "2%" }}
+                onClick={() => {
+                  let tempArray = props.onboarding.scheduledBreaks;
+                  tempArray.splice(index, 1);
+                  props.setScheduledBreaks(tempArray);
+                }}
+              >
+                Delete
+              </Button>
             </div>
           );
         })}

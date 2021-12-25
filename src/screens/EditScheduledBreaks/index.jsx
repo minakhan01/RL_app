@@ -110,6 +110,16 @@ const EditScheduledBreakScreen = (props) => {
                   props.addTempSched(tempArray);
                 }}
               />
+              <Button
+                style={{ marginLeft: "2%" }}
+                onClick={() => {
+                  let tempArray = props.onboarding.tempScheduledBreaks;
+                  tempArray.splice(index, 1);
+                  props.addTempSched(tempArray);
+                }}
+              >
+                Delete
+              </Button>
             </div>
           );
         })}

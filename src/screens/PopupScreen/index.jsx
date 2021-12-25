@@ -50,17 +50,13 @@ const PopupScreen = () => {
             dispatch(BreakActions.onCancelBreak(data));
             history.push("/cancel");
           }}
-          style={{ color: "#7DCAB6", borderWidth: 0 }}
         >
           CANCEL
         </Button>
         <Button
           onClick={() => {
-            // dispatch(BreakActions.startBreak())
             dispatch(BreakActions.startPrebreakfeedback());
-            // history.push("/stroop");
           }}
-          style={{ color: "#7DCAB6", borderWidth: 0 }}
         >
           CONTINUE
         </Button>

@@ -341,13 +341,13 @@ const EditAdHocBreakScreen = (props) => {
                       checked={item.cumulative}
                       onChange={(e) => {
                         let tempArray = props.onboarding.tempAllOverRides;
-                          let tempObj = tempArray[index];
-                          tempObj.cumulative = e.target.checked;
-                          tempArray[index] = tempObj;
-                          props.addTempAct(
-                            props.onboarding.tempOverRideSites,
-                            tempArray
-                          );
+                        let tempObj = tempArray[index];
+                        tempObj.cumulative = e.target.checked;
+                        tempArray[index] = tempObj;
+                        props.addTempAct(
+                          props.onboarding.tempOverRideSites,
+                          tempArray
+                        );
                       }}
                     />
                     <div
@@ -370,6 +370,28 @@ const EditAdHocBreakScreen = (props) => {
                         Cumulative
                       </p>
                     </div>
+                  </div>
+                  <div
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      style={{ marginLeft: "2%" }}
+                      onClick={() => {
+                        let tempArray = props.onboarding.tempAllOverRides;
+                        tempArray.splice(index, 1);
+                        props.addTempAct(
+                          props.onboarding.tempOverRideSites,
+                          tempArray
+                        );
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </div>
               </div>

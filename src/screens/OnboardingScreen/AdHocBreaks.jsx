@@ -354,6 +354,25 @@ const AdHocBreakScreen = (props) => {
                       </p>
                     </div>
                   </div>
+                  <div
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Button
+                      style={{ marginLeft: "2%" }}
+                      onClick={() => {
+                        let tempArray = props.onboarding.allOverRides;
+                        tempArray.splice(index, 1);
+                        props.setAllOverrides(tempArray);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               </div>
             );
