@@ -48,9 +48,9 @@ function createWindow() {
     mainWindow.show();
   });
 
-  mainWindow.on("closed", () => {
-    mainWindow = null;
-  });
+  // mainWindow.on("closed", () => {
+  //   mainWindow = null;
+  // });
 
   // mainWindow.on("minimize", function (event) {
   //   try {
@@ -64,7 +64,8 @@ function createWindow() {
   mainWindow.on("close", function (event) {
     if (!app.isQuiting) {
       event.preventDefault();
-      mainWindow.hide();
+      mainWindow.minimize();
+      mainWindow.webContents.send("app-closing", {});
     }
     return false;
   });
@@ -73,11 +74,11 @@ function createWindow() {
     mainWindow.show();
     mainWindow.setSkipTaskbar(false);
   });
-  mainWindow.on("before-quit", (e) => {
-    if (process.platform === "darwin") {
-      app.quit();
-    }
-  });
+  // mainWindow.on("before-quit", (e) => {
+  //   if (process.platform === "darwin") {
+  //     app.quit();
+  //   }
+  // });
 }
 app.setAsDefaultProtocolClient("rlapp");
 
@@ -137,7 +138,6 @@ if (!gotTheLock) {
   });
 
   app.on("open-url", function (event, data) {
-    log.info("Hello, log");
     mainWindow.webContents.on("did-finish-load", function () {
       mainWindow.webContents.send("calendar-success", { data });
     });
@@ -146,9 +146,9 @@ if (!gotTheLock) {
   // Create myWindow, load the rest of the app, etc...
   app.on("ready", createWindow);
 
-  app.on("before-quit", (e) => {
-    if (process.platform === "darwin") {
-      app.quit();
-    }
-  });
+  // app.on("before-quit", (e) => {
+  //   if (process.platform === "darwin") {
+  //     app.quit();
+  //   }
+  // });
 }

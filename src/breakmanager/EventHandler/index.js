@@ -18,6 +18,7 @@ export default function eventHandler(history) {
     curWindow.minimize();
     history.push("/");
     store.dispatch(BreakActions.setWindowChanged());
+    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     curWindow.setAlwaysOnTop(false);
     curWindow.reload();
   }
@@ -27,6 +28,7 @@ export default function eventHandler(history) {
     store.getState().break.breakState === "break-popup" &&
     !store.getState().break.windowChanged
   ) {
+    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     curWindow.setAlwaysOnTop(true, "pop-up-menu");
     curWindow.restore();
     history.push("/popup");
@@ -52,8 +54,13 @@ export default function eventHandler(history) {
     history.push("/fruit");
   } else if (store.getState().break.breakState === "break-feedback") {
     curWindow.maximize();
+    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     curWindow.setAlwaysOnTop(false);
     history.push("/feedback");
+  }
+  else if (store.getState().break.breakState === "cancel-break") {
+    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
+    curWindow.setAlwaysOnTop(false);
   }
 
   //sets window to full screen if break, and also ends the break after break time is over

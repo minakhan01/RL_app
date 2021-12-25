@@ -48,6 +48,12 @@ const Main = () => {
   //script to manage break triggers is called here
   let dispatch = useDispatch();
   useEffect(() => {
+    window.ipcRenderer.on("app-closing", (event, data) => {
+      dispatch(BreakActions.resetBreak());
+      history.push("/home");
+    });
+  }, []);
+  useEffect(() => {
     if (store.getState().onboarding.complete) {
       BreakManager(history);
       if (store.getState().break.breakState !== "break") {
@@ -62,7 +68,7 @@ const Main = () => {
       history.push("/sud");
     });
     ipcRenderer.on("asynchronous-message-two", function (evt, message) {
-      BreakActions.resetBreak();
+      dispatch(BreakActions.resetBreak());
       history.push("/home");
     });
   }, []);
