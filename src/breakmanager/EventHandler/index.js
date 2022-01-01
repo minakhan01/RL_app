@@ -59,6 +59,8 @@ export default function eventHandler(history) {
     history.push("/feedback");
   }
   else if (store.getState().break.breakState === "cancel-break") {
+    curWindow.setOpacity(1);
+    curWindow.setSize(1400, 800);
     curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     curWindow.setAlwaysOnTop(false);
   }
