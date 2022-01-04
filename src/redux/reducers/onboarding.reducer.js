@@ -5,10 +5,19 @@ const initialState = {
   screenTime: { start: "", end: "" },
   scheduledBreaks: [{ start: "", end: "", day: "" }],
   regularBreakLength: 1,
-  regularBreakInterval: 1,
-  overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
+  regularBreakInterval: 60,
+  overRideSites: [
+    { name: "Youtube", url: "www.youtube.com", key: "1", isWebsite: true },
+  ],
   allOverRides: [
-    { name: "", url: "", interval: 60, breakLength: 1, cumulative: true },
+    {
+      name: "",
+      url: "",
+      interval: 60,
+      breakLength: 1,
+      cumulative: true,
+      isWebsite: true,
+    },
   ],
   loading: false,
   err: null,
@@ -19,10 +28,15 @@ const initialState = {
   tempScheduledBreaks: [{ start: "", end: "", day: "" }],
   tempRegularBreakLength: 1,
   tempRegularBreakInterval: 1,
-  tempOverRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
-  tempAllOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+  tempOverRideSites: [
+    { name: "Youtube", url: "www.youtube.com", key: "1", isWebsite: true },
+  ],
+  tempAllOverRides: [
+    { name: "", url: "", interval: 60, breakLength: 1, isWebsite: true },
+  ],
   timestamp: "",
   weekly: [],
+  weeklyExtra: [],
   weeklyRem: false,
   cbt: [],
   isLoginFlow: false,
@@ -81,10 +95,24 @@ const OnboardingReducer = (state = initialState, action) => {
         screenTime: { start: "", end: "" },
         scheduledBreaks: [{ start: "", end: "", day: "" }],
         regularBreakLength: 1,
-        regularBreakInterval: 1,
-        overRideSites: [{ name: "Youtube", url: "www.youtube.com", key: "1" }],
+        regularBreakInterval: 60,
+        overRideSites: [
+          {
+            name: "Youtube",
+            url: "www.youtube.com",
+            key: "1",
+            isWebsite: true,
+          },
+        ],
         allOverRides: [
-          { name: "", url: "", interval: 60, breakLength: 1, cumulative: true },
+          {
+            name: "",
+            url: "",
+            interval: 60,
+            breakLength: 1,
+            cumulative: true,
+            isWebsite: true,
+          },
         ],
         loading: false,
         err: null,
@@ -97,13 +125,25 @@ const OnboardingReducer = (state = initialState, action) => {
         tempOverRideSites: [
           { name: "Youtube", url: "www.youtube.com", key: "1" },
         ],
-        tempAllOverRides: [{ name: "", url: "", interval: 60, breakLength: 1 }],
+        tempAllOverRides: [
+          {
+            name: "",
+            url: "",
+            interval: 60,
+            breakLength: 1,
+            isWebsite: true,
+            isWebsite: true,
+          },
+        ],
         timestamp: "",
         weekly: [],
+        weeklyExtra: [],
         weeklyRem: false,
       };
     case PastTypes.ADD_WEEKLY:
       return { ...state, weekly: action.payload.data };
+    case PastTypes.ADD_WEEKLY_EXTRA:
+      return { ...state, weeklyExtra: action.payload.data };
     case PastTypes.SET_WEEKLY_REM:
       return { ...state, weeklyRem: action.payload.data };
     default:

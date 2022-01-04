@@ -9,6 +9,7 @@ const {
 app.commandLine.appendSwitch("disable-web-security");
 const isDev = require("electron-is-dev");
 const path = require("path");
+const AutoLaunch = require("auto-launch");
 const log = require("electron-log");
 let tray = null;
 let mainWindow;
@@ -64,6 +65,9 @@ function createWindow() {
   mainWindow.on("close", function (event) {
     if (!app.isQuiting) {
       event.preventDefault();
+      mainWindow.webContents.send("asynchronous-message-two", {
+        SAVED: "File Saved",
+      });
       mainWindow.minimize();
       mainWindow.webContents.send("app-closing", {});
     }
@@ -120,6 +124,14 @@ app
     tray.setContextMenu(contextMenu);
   })
   .catch(console.log);
+
+let autoLaunch = new AutoLaunch({
+  name: "PAL",
+  path: app.getPath("exe"),
+});
+autoLaunch.isEnabled().then((isEnabled) => {
+  if (!isEnabled) autoLaunch.enable();
+});
 
 const gotTheLock = app.requestSingleInstanceLock();
 

@@ -13,7 +13,7 @@ const TakeWeeklyScreen = (props) => {
 
   useEffect(() => {
     let currWeekly = store.getState().onboarding.weekly;
-    let lenVal = currWeekly.length + 1;
+    let lenVal = currWeekly.length;
     let timeNow = new Date();
     let pastTime = new Date(store.getState().onboarding.timestamp);
     const diffTime = Math.abs(timeNow - pastTime);
@@ -26,10 +26,9 @@ const TakeWeeklyScreen = (props) => {
       if (diffDays >= j * 7) {
         finalArray.push("unlock");
       } else {
-        finalArray.push("noun");
+        finalArray.push("unlock");
       }
     }
-    console.log("final", finalArray);
     setUsername(finalArray);
     setInterval(() => {
       let currWeekly = store.getState().onboarding.weekly;
@@ -85,7 +84,7 @@ const TakeWeeklyScreen = (props) => {
           <Button
             style={{ width: "120px" }}
             onClick={() => {
-              history.push("/week");
+              history.push("/weekq");
             }}
           >
             Take Now
@@ -115,7 +114,7 @@ const TakeWeeklyScreen = (props) => {
         {username[1] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/week");
+              history.push("/weekq");
             }}
             style={{ width: "120px" }}
           >
@@ -146,7 +145,7 @@ const TakeWeeklyScreen = (props) => {
         {username[2] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/week");
+              history.push("/weekq");
             }}
             style={{ width: "120px" }}
           >
@@ -177,7 +176,7 @@ const TakeWeeklyScreen = (props) => {
         {username[3] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/week");
+              history.push("/weekq");
             }}
             style={{ width: "120px" }}
           >
@@ -208,7 +207,7 @@ const TakeWeeklyScreen = (props) => {
         {username[4] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/week");
+              history.push("/weekq");
             }}
             style={{ width: "120px" }}
           >

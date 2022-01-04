@@ -89,3 +89,8 @@ export const setMaxMinTrack = (data) => ({
   type: BreakTypes.SET_MAX_MIN_TRACK,
   payload: { data },
 });
+
+export const hardReset = () => ({
+  type: BreakTypes.HARD_RESET,
+  payload: {},
+});

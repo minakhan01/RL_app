@@ -182,6 +182,33 @@ const BreakReducer = (state = initialState, action) => {
         prepanas: [],
       };
 
+    case BreakTypes.HARD_RESET:
+      return {
+        breakState: "no-break",
+        windowChanged: true,
+        breakType: "",
+        breakDescription: "",
+        breakStartTime: "",
+        breakDuration: 0,
+        popupStartTime: "",
+        breaksTriggered: {},
+        breakEndTime: "",
+        prebreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        postbreakScores: {
+          stroop: [],
+          fruit: [],
+        },
+        suddenReason: "",
+        skipped: [],
+        prebreakScore: "",
+        prebreakText: "",
+        maxMinTrack: [],
+        prepanas: [],
+      };
+
     case OnboardingTypes.RESET:
       return {
         breakState: "no-break",

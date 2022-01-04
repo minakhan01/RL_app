@@ -11,6 +11,7 @@ import "./styles.css";
 const AdHocBreakScreen = (props) => {
   const [siteName, setSiteName] = useState("");
   const [siteUrl, setSiteUrl] = useState("");
+  const [isWeb, setIsWeb] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [sites, setSites] = useState([
     { name: "Youtube", url: "https://www.youtube.com", key: "1" },
@@ -28,6 +29,7 @@ const AdHocBreakScreen = (props) => {
     setIsModalVisible(false);
     setSiteName("");
     setSiteUrl("");
+    setIsWeb(true);
   };
 
   const menu = (mainIndex) => (
@@ -42,6 +44,9 @@ const AdHocBreakScreen = (props) => {
           let siteObject = props.onboarding.overRideSites[keyInt - 1];
           tempObj.name = siteObject.name;
           tempObj.url = siteObject.url;
+          tempObj.isWebsite = siteObject.isWebsite
+            ? siteObject.isWebsite
+            : true;
           tempArray[mainIndex] = tempObj;
           props.setAllOverrides(tempArray);
         }
@@ -72,7 +77,7 @@ const AdHocBreakScreen = (props) => {
         width={700}
       >
         <div style={{ margin: "7%" }}>
-          <h2>Add a Site</h2>
+          <h2>Add a Activity</h2>
           <div
             style={{
               display: "flex",
@@ -88,7 +93,7 @@ const AdHocBreakScreen = (props) => {
                 verticalAlign: "center",
                 marginRight: "2.5%",
               }}
-              placeholder="Site Name"
+              placeholder="Activity Name"
               value={siteName}
               onChange={(e) => {
                 setSiteName(e.target.value);
@@ -102,13 +107,39 @@ const AdHocBreakScreen = (props) => {
                 verticalAlign: "center",
                 marginLeft: "2.5%",
               }}
-              placeholder="Site URL"
+              placeholder="Activity URL/File Name"
               value={siteUrl}
               onChange={(e) => {
                 setSiteUrl(e.target.value);
               }}
             />
           </div>
+
+          <div
+            style={{ display: "flex", flexDirection: "row", marginTop: "5%" }}
+          >
+            <p style={{ marginRight: "1%" }}>Website</p>
+            <Checkbox
+              style={{ flex: 1 }}
+              onChange={(e) => {
+                setIsWeb(true);
+              }}
+              checked={isWeb}
+            />
+          </div>
+          <div
+            style={{ display: "flex", flexDirection: "row", marginTop: "0.2%" }}
+          >
+            <p style={{ marginRight: "1%" }}>Desktop Application</p>
+            <Checkbox
+              style={{ flex: 1 }}
+              onChange={(e) => {
+                setIsWeb(false);
+              }}
+              checked={!isWeb}
+            />
+          </div>
+
           <div
             style={{
               display: "flex",
@@ -134,12 +165,17 @@ const AdHocBreakScreen = (props) => {
                 ).toString();
                 let tempArray = props.onboarding.overRideSites;
                 let finalSiteName = Capitalize(siteName);
-                tempArray.push({ url: siteUrl, name: finalSiteName, key });
+                tempArray.push({
+                  url: siteUrl,
+                  name: finalSiteName,
+                  key,
+                  isWebsite: isWeb,
+                });
                 props.setOverrideSites(tempArray);
                 setIsModalVisible(false);
               }}
             >
-              ADD SITE
+              ADD ACTIVITY
             </Button>
           </div>
         </div>
@@ -164,7 +200,7 @@ const AdHocBreakScreen = (props) => {
               width: "100%",
             }}
           >
-            <p style={{ flex: 2, fontSize: "18px" }}>Site Name</p>
+            <p style={{ flex: 2, fontSize: "18px" }}>Activity Name</p>
             <p style={{ flex: 1, fontSize: "18px" }}>After Every</p>
             <p style={{ flex: 1, fontSize: "18px" }}>take a Break For</p>
             <p style={{ flex: 1, fontSize: "18px" }}></p>
@@ -210,7 +246,7 @@ const AdHocBreakScreen = (props) => {
                               alignItems: "center",
                             }}
                           >
-                            Select Site
+                            Select Activity
                             <DownOutlined style={{ fontSize: "13px" }} />
                           </div>
                         )}
@@ -392,6 +428,7 @@ const AdHocBreakScreen = (props) => {
                 url: "",
                 interval: 60,
                 breakLength: 1,
+                isWebsite: true,
               });
               props.setAllOverrides(tempArray);
             }}

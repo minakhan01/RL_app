@@ -20,8 +20,16 @@ export default function updateDatabase() {
   client.getAppTotals().then(async (dat) => {
     let all = dat.appTotal;
     let web = dat.websiteTotals;
+    for await (let webInd of web) {
+      delete webInd.data["url"];
+      delete webInd.data["$path"];
+      delete webInd.data["$identifier"];
+      delete webInd.data["$options"];
+      delete webInd.data["$params"];
+      delete webInd.data["$protocol"];
+    }
     let complete = false;
-    
+
     let i = 0;
     while (!complete) {
       let finAll = [];
@@ -29,10 +37,10 @@ export default function updateDatabase() {
       let start = false;
       if (all[i]) {
         finAll = all.slice(i, i + 50);
-      } 
+      }
       if (web[i]) {
         finWeb = web.slice(i, i + 50);
-      } 
+      }
       if (i === 0) {
         start = true;
       }

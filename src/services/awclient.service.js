@@ -100,11 +100,11 @@ class AWClientService {
   async getAppTotals() {
     const chrome = [
       // Chrome
-      'Google Chrome',
-      'Google-chrome',
-      'chrome.exe',
-      'google-chrome-stable',
-    ]
+      "Google Chrome",
+      "Google-chrome",
+      "chrome.exe",
+      "google-chrome-stable",
+    ];
     try {
       this.updateDate();
       if (typeof this.bucketMap === "undefined") await this.createBucketMap();
@@ -115,6 +115,13 @@ class AWClientService {
           "');",
         "events = merge_events_by_keys(window_events, ['app']);",
         "events = sort_by_duration(events);",
+        "RETURN = events;",
+      ];
+      var queryUnmerged = [
+        "window_events = query_bucket('" +
+          this.bucketMap["aw-watcher-window"] +
+          "');",
+        "events = sort_by_timestamp(window_events);",
         "RETURN = events;",
       ];
       const queryWindows = [
@@ -131,6 +138,7 @@ class AWClientService {
         `window_events = concat(window_events, audible_events);`,
         "events = merge_events_by_keys(window_events, ['title','url']);",
         "events = sort_by_timestamp(events);",
+        "events = split_url_events(events);",
         "RETURN = events;",
       ];
       const queryWindowsUnmerged = [
@@ -152,6 +160,10 @@ class AWClientService {
         [this.todayDate + "/" + this.tmrwDate],
         query
       );
+      const appTotalWithoutAudioUnmerged = await this.client.query(
+        [this.todayDate + "/" + this.tmrwDate],
+        queryUnmerged
+      );
       const websiteTotals = await this.client.query(
         [this.todayDate + "/" + this.tmrwDate],
         queryWindows
@@ -164,6 +176,7 @@ class AWClientService {
         appTotal: appTotalWithoutAudio[0],
         websiteTotals: websiteTotals[0],
         websiteTotalsUnmerged: websiteTotalsUnmerged[0],
+        appTotalWithoutAudioUnmerged: appTotalWithoutAudioUnmerged[0],
       };
     } catch (error) {
       console.log("error", error);
@@ -298,4 +311,3 @@ class AWClientService {
 }
 
 export default AWClientService;
-

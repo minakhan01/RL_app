@@ -2667,6 +2667,11 @@
     "path-exists" "^4.0.0"
     "repeat-string" "^1.5.4"
 
+"applescript@^1.0.0":
+  "integrity" "sha1-u4evVoytA0pOSMS9r2Bno6JwExc="
+  "resolved" "https://registry.npmjs.org/applescript/-/applescript-1.0.0.tgz"
+  "version" "1.0.0"
+
 "aproba@^1.1.1":
   "integrity" "sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw=="
   "resolved" "https://registry.npmjs.org/aproba/-/aproba-1.2.0.tgz"
@@ -2912,6 +2917,17 @@
   "integrity" "sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA="
   "resolved" "https://registry.npmjs.org/author-regex/-/author-regex-1.0.0.tgz"
   "version" "1.0.0"
+
+"auto-launch@^5.0.5":
+  "integrity" "sha512-ppdF4mihhYzMYLuCcx9H/c5TUOCev8uM7en53zWVQhyYAJrurd2bFZx3qQVeJKF2jrc7rsPRNN5cD+i23l6PdA=="
+  "resolved" "https://registry.npmjs.org/auto-launch/-/auto-launch-5.0.5.tgz"
+  "version" "5.0.5"
+  dependencies:
+    "applescript" "^1.0.0"
+    "mkdirp" "^0.5.1"
+    "path-is-absolute" "^1.0.0"
+    "untildify" "^3.0.2"
+    "winreg" "1.2.4"
 
 "autoprefixer@^9.6.1":
   "integrity" "sha512-XrvP4VVHdRBCdX1S3WXVD8+RyG9qeb1D5Sn1DeLiG2xfSpzellk5k54xbUERJ3M5DggQxes39UGOTP8CFrEGbg=="
@@ -13690,6 +13706,11 @@
     "has-value" "^0.3.1"
     "isobject" "^3.0.0"
 
+"untildify@^3.0.2":
+  "integrity" "sha512-iSk/J8efr8uPT/Z4eSUywnqyrQU7DSdMfdqK4iWEaUVVmcP5JcnpRqmVMwcwcnmI1ATFNgC5V90u09tBynNFKA=="
+  "resolved" "https://registry.npmjs.org/untildify/-/untildify-3.0.3.tgz"
+  "version" "3.0.3"
+
 "upath@^1.1.1", "upath@^1.1.2", "upath@^1.2.0":
   "integrity" "sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg=="
   "resolved" "https://registry.npmjs.org/upath/-/upath-1.2.0.tgz"
@@ -14147,6 +14168,11 @@
   "version" "3.1.0"
   dependencies:
     "string-width" "^4.0.0"
+
+"winreg@1.2.4":
+  "integrity" "sha1-ugZWKbepJRMOFXeRCM9UCZDpjRs="
+  "resolved" "https://registry.npmjs.org/winreg/-/winreg-1.2.4.tgz"
+  "version" "1.2.4"
 
 "word-wrap@^1.2.3", "word-wrap@~1.2.3":
   "integrity" "sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ=="

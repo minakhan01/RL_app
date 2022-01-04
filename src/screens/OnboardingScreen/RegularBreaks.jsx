@@ -8,6 +8,8 @@ import { OnboardingActions } from "../../redux/actions";
 import "./styles.css";
 
 const RegularBreakScreen = (props) => {
+  const [hours, setHours] = useState(1);
+  const [mins, setmins] = useState(0);
   return (
     <div className="step-container">
       <h1>Regular Breaks</h1>
@@ -28,13 +30,35 @@ const RegularBreakScreen = (props) => {
             style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
             placeholder="Interval"
             type="number"
-            value={props.onboarding.regularBreakInterval.toString()}
+            value={hours.toString()}
             onChange={(e) => {
-              props.setRegularBreakInterval(parseInt(e.target.value));
+              setHours(parseInt(e.target.value));
+              props.setRegularBreakInterval(parseInt(e.target.value) + mins);
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
             Hour(s)
+          </p>
+          <Input
+            size="large"
+            style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
+            placeholder="Interval"
+            type="number"
+            value={mins.toString()}
+            onChange={(e) => {
+              if (
+                parseInt(e.target.value) < 61 &&
+                parseInt(e.target.value) > -1
+              ) {
+                setmins(parseInt(e.target.value));
+              }
+              props.setRegularBreakInterval(
+                parseInt(e.target.value) + hours * 60
+              );
+            }}
+          />
+          <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
+            Minute(s)
           </p>
         </div>
       </div>

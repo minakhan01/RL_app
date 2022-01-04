@@ -40,12 +40,22 @@ export const AddWeekly = (data) => ({
   payload: { data },
 });
 
+export const AddWeeklyExtra = (data) => ({
+  type: PastTypes.ADD_WEEKLY_EXTRA,
+  payload: { data },
+});
+
 export const setWeeklyRem = (data) => ({
   type: PastTypes.SET_WEEKLY_REM,
   payload: { data },
 });
 
 export const setTakenId = (data) => ({
+  type: PastTypes.SET_TAKEN_ID,
+  payload: { data },
+});
+
+export const setTakenIdApp = (data) => ({
   type: PastTypes.SET_TAKEN_ID,
   payload: { data },
 });

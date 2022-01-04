@@ -16,6 +16,7 @@ const initialState = {
   webUploaded: 0,
   todayaW: "",
   takenId: 0,
+  takenIdApp: 0,
 };
 
 const PastReducer = (state = initialState, action) => {
@@ -97,6 +98,27 @@ const PastReducer = (state = initialState, action) => {
         webUploaded: 0,
         todayaW: "",
         takenId: 0,
+        takenIdApp: 0,
+      };
+
+    case BreakTypes.HARD_RESET:
+      return {
+        pastBreakData: [],
+        activityWatchData: {},
+        intervalBreakData: {
+          date: "",
+          minsAppRunningAfterLastIntervalBreak: 0,
+          breakCount: 0,
+        },
+        awData: {},
+        lastScheduledBreak: "",
+        initScheduled: {},
+        today: "",
+        totalUploaded: 0,
+        webUploaded: 0,
+        todayaW: "",
+        takenId: 0,
+        takenIdApp: 0,
       };
 
     case BreakTypes.ON_CANCEL_BREAK:
@@ -122,6 +144,8 @@ const PastReducer = (state = initialState, action) => {
       return { ...state, today: action.payload };
     case PastTypes.SET_TAKEN_ID:
       return { ...state, takenId: action.payload.data };
+    case PastTypes.SET_TAKEN_ID_APP:
+      return { ...state, takenIdApp: action.payload.data };
 
     default:
       return state;

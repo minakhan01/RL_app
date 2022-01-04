@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button, Input } from "antd";
-import { OnboardingActions } from "../../redux/actions";
+import { BreakActions, OnboardingActions } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import "./styles.css";
 var shell = window.require("electron").shell;
+var electron = window.require("electron");
+var curWindow = electron.remote.getCurrentWindow();
 
 const HomeScreen = (props) => {
   const [breakArray, setBreakArray] = useState(["https://www.youtube.com"]);
@@ -15,7 +17,7 @@ const HomeScreen = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    checkUpdateApp();
+    // checkUpdateApp();
   }, []);
 
   let checkUpdateApp = async () => {
@@ -120,7 +122,9 @@ const HomeScreen = (props) => {
             </div>
             <p>
               How often you want to take regular breaks :{" "}
-              {props.onboarding.regularBreakInterval} hour(s)
+              {Math.floor(parseInt(props.onboarding.regularBreakInterval) / 60)}{" "}
+              hour(s) {parseInt(props.onboarding.regularBreakInterval) % 60}{" "}
+              minute(s)
             </p>
             <p>
               How long you want these breaks to be :{" "}
@@ -242,15 +246,25 @@ const HomeScreen = (props) => {
           onClick={() => {
             shell.openExternal("https://thepallab.com/feedback");
           }}
+          style={{ margin: "2%" }}
         >
           Feedback Form
+        </Button>
+        <Button
+          onClick={() => {
+            props.hardReset();
+            curWindow.webContents.reloadIgnoringCache();
+          }}
+          style={{ margin: "2%" }}
+        >
+          Force Refresh
         </Button>
         <Button
           onClick={() => {
             props.resetInfo();
             history.push("/");
           }}
-          style={{ marginTop: "2%" }}
+          style={{ margin: "2%" }}
         >
           Sign Out
         </Button>
@@ -273,6 +287,7 @@ const mapDispatchToProps = (dispatch) =>
       loginUserAction: OnboardingActions.loginUser,
       setBreakMessage: OnboardingActions.setBreakMessage,
       addOnbInfo: OnboardingActions.addOnbInfo,
+      hardReset: BreakActions.hardReset,
     },
     dispatch
   );

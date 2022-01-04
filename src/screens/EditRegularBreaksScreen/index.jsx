@@ -11,6 +11,12 @@ import "./styles.css";
 
 const EditRegularBreakScreen = (props) => {
   const history = useHistory();
+  const [hours, setHours] = useState(
+    Math.floor(props.onboarding.tempRegularBreakInterval / 60)
+  );
+  const [mins, setmins] = useState(
+    props.onboarding.tempRegularBreakInterval % 60
+  );
   return (
     <div className="step-container" style={{ padding: "5%" }}>
       <h1>Regular Breaks</h1>
@@ -31,16 +37,36 @@ const EditRegularBreakScreen = (props) => {
             style={{ width: "10%", borderRadius: 5, verticalAlign: "center" }}
             placeholder="Interval"
             type="number"
-            value={props.onboarding.tempRegularBreakInterval.toString()}
+            value={hours.toString()}
             onChange={(e) => {
-              props.addTempReg(
-                props.onboarding.tempRegularBreakLength,
-                parseInt(e.target.value)
-              );
+              setHours(parseInt(e.target.value));
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
             hour(s)
+          </p>
+          <Input
+            size="large"
+            style={{
+              width: "10%",
+              borderRadius: 5,
+              verticalAlign: "center",
+              marginLeft: "2%",
+            }}
+            placeholder="Interval"
+            type="number"
+            value={mins.toString()}
+            onChange={(e) => {
+              if (
+                parseInt(e.target.value) < 61 &&
+                parseInt(e.target.value) > -1
+              ) {
+                setmins(parseInt(e.target.value));
+              }
+            }}
+          />
+          <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
+            minutes(s)
           </p>
         </div>
       </div>
@@ -64,10 +90,7 @@ const EditRegularBreakScreen = (props) => {
             value={props.onboarding.tempRegularBreakLength.toString()}
             onChange={(e) => {
               if (e.target.value > 0)
-                props.addTempReg(
-                  parseInt(e.target.value),
-                  props.onboarding.tempRegularBreakInterval
-                );
+                props.addTempReg(parseInt(e.target.value), 60 * hours + mins);
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -77,9 +100,9 @@ const EditRegularBreakScreen = (props) => {
       </div>
       <div>
         <p>
-          You will get a break every{" "}
-          {props.onboarding.tempRegularBreakInterval.toString()} hour(s) for a
-          duration of {props.onboarding.tempRegularBreakLength.toString()} minutes.
+          You will get a break every {hours.toString()} hour(s) and{" "}
+          {mins.toString()} minute(s) for a duration of{" "}
+          {props.onboarding.tempRegularBreakLength.toString()} minute(s).
         </p>
       </div>
 
@@ -92,9 +115,13 @@ const EditRegularBreakScreen = (props) => {
       </Button>
       <Button
         onClick={async () => {
+          props.addTempReg(
+            props.onboarding.tempRegularBreakLength,
+            60 * hours + mins
+          );
           let body = {
             regularBreakLength: props.onboarding.tempRegularBreakLength,
-            regularBreakInterval: props.onboarding.tempRegularBreakInterval,
+            regularBreakInterval: 60 * hours + mins,
             user: props.onboarding.user._id,
           };
           let response = await axios.post(
@@ -102,9 +129,7 @@ const EditRegularBreakScreen = (props) => {
             body
           );
           if (response.data.message === "Successful Update") {
-            props.setRegularBreakInterval(
-              props.onboarding.tempRegularBreakInterval
-            );
+            props.setRegularBreakInterval(60 * hours + mins);
             props.setRegularBreakLength(
               props.onboarding.tempRegularBreakLength
             );

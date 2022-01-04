@@ -42,21 +42,17 @@ const CPTScreen = lazy(() => import("../screens/CPTScreen"));
 const WeeklyForm = lazy(() => import("../screens/WeeklyForm"));
 const WeeklyPopUp = lazy(() => import("../screens/WeeklyPopUp"));
 const CBTestScreen = lazy(() => import("../screens/CBTestScreen"));
+const WeeklyQInputScreen = lazy(() => import("../screens/WeeklyQInputScreen"));
 
 const Main = () => {
   let history = useHistory();
   //script to manage break triggers is called here
   let dispatch = useDispatch();
   useEffect(() => {
-    window.ipcRenderer.on("app-closing", (event, data) => {
-      dispatch(BreakActions.resetBreak());
-      history.push("/home");
-    });
-  }, []);
-  useEffect(() => {
     if (store.getState().onboarding.complete) {
       BreakManager(history);
       if (store.getState().break.breakState !== "break") {
+        history.push("/home");
         dispatch(BreakActions.resetBreak());
       }
     }
@@ -68,8 +64,8 @@ const Main = () => {
       history.push("/sud");
     });
     ipcRenderer.on("asynchronous-message-two", function (evt, message) {
-      dispatch(BreakActions.resetBreak());
       history.push("/home");
+      BreakActions.resetBreak();
     });
   }, []);
   return (
@@ -96,6 +92,7 @@ const Main = () => {
         <Route path="/prefeedback" component={PreBreakFeedbackScreen} />
         <Route path="/cpt" component={CPTScreen} />
         <Route path="/week" component={WeeklyForm} />
+        <Route path="/weekq" component={WeeklyQInputScreen} />
         <Route path="/weekpop" component={WeeklyPopUp} />
         <Route path="/cbt" component={CBTestScreen} />
       </Switch>

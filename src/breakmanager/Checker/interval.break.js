@@ -7,7 +7,7 @@ export default function checkIntervalBreak(history) {
   let pastProps = store.getState().past;
   if (
     pastProps.intervalBreakData.minsAppRunningAfterLastIntervalBreak >=
-    parseInt(onboardingProps.regularBreakInterval) * 60
+    parseInt(onboardingProps.regularBreakInterval)
   ) {
     store.dispatch(PastActions.addIntervalBreak());
     if (

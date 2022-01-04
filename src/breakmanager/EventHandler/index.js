@@ -18,7 +18,7 @@ export default function eventHandler(history) {
     curWindow.minimize();
     history.push("/");
     store.dispatch(BreakActions.setWindowChanged());
-    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
+    curWindow.setVisibleOnAllWorkspaces(false);
     curWindow.setAlwaysOnTop(false);
     curWindow.reload();
   }
@@ -28,6 +28,7 @@ export default function eventHandler(history) {
     store.getState().break.breakState === "break-popup" &&
     !store.getState().break.windowChanged
   ) {
+    curWindow.minimize();
     curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
     curWindow.setAlwaysOnTop(true, "pop-up-menu");
     curWindow.restore();
@@ -54,14 +55,14 @@ export default function eventHandler(history) {
     history.push("/fruit");
   } else if (store.getState().break.breakState === "break-feedback") {
     curWindow.maximize();
-    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
+    curWindow.setVisibleOnAllWorkspaces(false);
     curWindow.setAlwaysOnTop(false);
     history.push("/feedback");
   }
   else if (store.getState().break.breakState === "cancel-break") {
     curWindow.setOpacity(1);
     curWindow.setSize(1400, 800);
-    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
+    curWindow.setVisibleOnAllWorkspaces(false);
     curWindow.setAlwaysOnTop(false);
   }
 
@@ -73,6 +74,7 @@ export default function eventHandler(history) {
     curWindow.setOpacity(0.8);
     curWindow.maximize();
     curWindow.setAlwaysOnTop(true);
+    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
 
     history.push("/break");
     store.dispatch(BreakActions.setWindowChanged());
