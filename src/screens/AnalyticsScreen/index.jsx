@@ -65,7 +65,6 @@ const AnalyticsScreen = (props) => {
           newDate.getMinutes();
       }
       setfruit(fruitDataTemp);
-      console.log("loo", fruitDataTemp);
     }
     if (response.data.finalScore) {
       let scoreDataTemp = response.data.finalScore;

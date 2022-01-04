@@ -71,7 +71,6 @@ export default function checkActivityRuleBreak() {
               });
             } else {
               appTotals.map((ob, index) => {
-                console.log("ob", ob)
                 if (
                   indBreak.url.length > 0 &&
                   ob.data.app.toLowerCase().includes(indBreak.url) &&
