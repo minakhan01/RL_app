@@ -277,14 +277,27 @@ const EditAdHocBreakScreen = (props) => {
                         verticalAlign: "center",
                         width: "45%",
                       }}
-                      placeholder="First Name"
+                      placeholder="Interval"
                       type="number"
                       value={item.interval}
                       onChange={(e) => {
-                        if (e.target.value > 0 && e.target.value < 61) {
+                        if (
+                          e.target.value.length > 0 &&
+                          parseInt(e.target.value) < 61 &&
+                          parseInt(e.target.value) > -1
+                        ) {
                           let tempArray = props.onboarding.tempAllOverRides;
                           let tempObj = tempArray[index];
                           tempObj.interval = e.target.value;
+                          tempArray[index] = tempObj;
+                          props.addTempAct(
+                            props.onboarding.tempOverRideSites,
+                            tempArray
+                          );
+                        } else {
+                          let tempArray = props.onboarding.tempAllOverRides;
+                          let tempObj = tempArray[index];
+                          tempObj.interval = "";
                           tempArray[index] = tempObj;
                           props.addTempAct(
                             props.onboarding.tempOverRideSites,
@@ -329,14 +342,27 @@ const EditAdHocBreakScreen = (props) => {
                         verticalAlign: "center",
                         width: "45%",
                       }}
-                      placeholder="First Name"
+                      placeholder="Length"
                       type="number"
                       value={item.breakLength}
                       onChange={(e) => {
-                        if (e.target.value > 0) {
+                        if (
+                          e.target.value.length > 0 &&
+                          parseInt(e.target.value) < 61 &&
+                          parseInt(e.target.value) > -1
+                        ) {
                           let tempArray = props.onboarding.tempAllOverRides;
                           let tempObj = tempArray[index];
                           tempObj.breakLength = e.target.value;
+                          tempArray[index] = tempObj;
+                          props.addTempAct(
+                            props.onboarding.tempOverRideSites,
+                            tempArray
+                          );
+                        } else {
+                          let tempArray = props.onboarding.tempAllOverRides;
+                          let tempObj = tempArray[index];
+                          tempObj.breakLength = "";
                           tempArray[index] = tempObj;
                           props.addTempAct(
                             props.onboarding.tempOverRideSites,

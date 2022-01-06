@@ -39,7 +39,15 @@ const EditRegularBreakScreen = (props) => {
             type="number"
             value={hours.toString()}
             onChange={(e) => {
-              setHours(parseInt(e.target.value));
+              if (
+                e.target.value.length > 0 &&
+                parseInt(e.target.value) < 61 &&
+                parseInt(e.target.value) > -1
+              ) {
+                setHours(parseInt(e.target.value));
+              } else {
+                setHours(parseInt(""));
+              }
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -58,9 +66,12 @@ const EditRegularBreakScreen = (props) => {
             value={mins.toString()}
             onChange={(e) => {
               if (
+                e.target.value.length > 0 &&
                 parseInt(e.target.value) < 61 &&
                 parseInt(e.target.value) > -1
               ) {
+                setmins(parseInt(e.target.value));
+              } else {
                 setmins(parseInt(e.target.value));
               }
             }}
@@ -89,8 +100,15 @@ const EditRegularBreakScreen = (props) => {
             type="number"
             value={props.onboarding.tempRegularBreakLength.toString()}
             onChange={(e) => {
-              if (e.target.value > 0)
+              if (
+                e.target.value.length > 0 &&
+                parseInt(e.target.value) < 61 &&
+                parseInt(e.target.value) > -1
+              ) {
                 props.addTempReg(parseInt(e.target.value), 60 * hours + mins);
+              } else {
+                props.addTempReg(parseInt(""), 60 * hours + mins);
+              }
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>

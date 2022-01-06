@@ -15,7 +15,15 @@ const SuddenScreen = (props) => {
 
   return (
     <div>
-      <Button style={{ margin: "2%" }}>Back</Button>
+      <Button
+        style={{ margin: "2%" }}
+        onClick={() => {
+          props.resetBreak();
+          history.push("/home");
+        }}
+      >
+        Back
+      </Button>
       <div
         style={{
           display: "flex",
@@ -100,6 +108,7 @@ const mapDispatchToProps = (dispatch) =>
       addBreakData: BreakActions.addBreakData,
       startStroop: BreakActions.startStroop,
       startPrebreakfeedback: BreakActions.startPrebreakfeedback,
+      resetBreak: BreakActions.resetBreak,
     },
     dispatch
   );

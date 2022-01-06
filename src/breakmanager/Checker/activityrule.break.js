@@ -191,7 +191,7 @@ export default function checkActivityRuleBreak() {
               }
             } else {
               let lastVal = appTotalsUnmerged[websiteTotalsUnmerged.length - 1];
-              if (lastVal.data.app.includes(indBreak.url)) {
+              if (lastVal.data.app.toLowerCase().includes(indBreak.url)) {
                 for (let i = appTotalsUnmerged.length - 1; i > 0; i--) {
                   if (
                     indBreak.url.length > 0 &&

@@ -39,6 +39,7 @@ const SignupScreen = (props) => {
       body
     );
     if (response.data.message === "User Added!") {
+      message.success("New user registered");
       props.loginUserAction(response.data.newUser);
       history.push("/aw");
     }
@@ -147,6 +148,7 @@ const SignupScreen = (props) => {
         onClick={() => {
           if (validator.validate(username)) {
             if (name.length > 0 && password.length > 0) {
+              message.info("Registering New User");
               loginUser();
             } else {
               message.error("Please fill all the required fields!");

@@ -65,7 +65,7 @@ const Main = () => {
     });
     ipcRenderer.on("asynchronous-message-two", function (evt, message) {
       history.push("/home");
-      BreakActions.resetBreak();
+      dispatch(BreakActions.resetBreak());
     });
   }, []);
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Checkbox } from "antd";
+import { Button, Modal, Checkbox, message } from "antd";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import { connect, useDispatch } from "react-redux";
@@ -408,7 +408,11 @@ const BreakFeedbackScreen = (props) => {
       <Button
         style={{ marginTop: "3%" }}
         onClick={() => {
-          addBreakInfo();
+          if (feedbackText.length > 0 && Object.keys(selected).length > 0) {
+            addBreakInfo();
+          } else {
+            message.error("Please fill in all the fields");
+          }
         }}
       >
         Save feedback and close

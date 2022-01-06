@@ -32,8 +32,17 @@ const RegularBreakScreen = (props) => {
             type="number"
             value={hours.toString()}
             onChange={(e) => {
-              setHours(parseInt(e.target.value));
-              props.setRegularBreakInterval(parseInt(e.target.value) + mins);
+              if (
+                e.target.value.length > 0 &&
+                parseInt(e.target.value) < 61 &&
+                parseInt(e.target.value) > -1
+              ) {
+                setHours(parseInt(e.target.value));
+                props.setRegularBreakInterval(parseInt(e.target.value) + mins);
+              } else {
+                setHours(parseInt(""));
+                props.setRegularBreakInterval(mins);
+              }
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -47,14 +56,16 @@ const RegularBreakScreen = (props) => {
             value={mins.toString()}
             onChange={(e) => {
               if (
+                e.target.value.length > 0 &&
                 parseInt(e.target.value) < 61 &&
                 parseInt(e.target.value) > -1
               ) {
                 setmins(parseInt(e.target.value));
+                props.setRegularBreakInterval(hours * 60);
+              } else {
+                setmins(parseInt(""));
+                props.setRegularBreakInterval(hours * 60);
               }
-              props.setRegularBreakInterval(
-                parseInt(e.target.value) + hours * 60
-              );
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
@@ -81,8 +92,15 @@ const RegularBreakScreen = (props) => {
             type="number"
             value={props.onboarding.regularBreakLength.toString()}
             onChange={(e) => {
-              if (e.target.value > 0)
+              if (
+                e.target.value.length > 0 &&
+                parseInt(e.target.value) < 61 &&
+                parseInt(e.target.value) > -1
+              ) {
                 props.setRegularBreakLength(parseInt(e.target.value));
+              } else {
+                props.setRegularBreakLength(parseInt(""));
+              }
             }}
           />
           <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>
