@@ -408,10 +408,10 @@ const BreakFeedbackScreen = (props) => {
       <Button
         style={{ marginTop: "3%" }}
         onClick={() => {
-          if (feedbackText.length > 0 && Object.keys(selected).length > 0) {
+          if (rate !== 0) {
             addBreakInfo();
           } else {
-            message.error("Please fill in all the fields");
+            message.error("Please rate your break!");
           }
         }}
       >

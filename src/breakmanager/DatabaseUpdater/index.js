@@ -20,6 +20,7 @@ export default function updateDatabase() {
   client.getAppTotals().then(async (dat) => {
     let all = dat.appTotal;
     let web = dat.websiteTotals;
+
     for await (let webInd of web) {
       delete webInd.data["url"];
       delete webInd.data["$path"];
@@ -27,6 +28,8 @@ export default function updateDatabase() {
       delete webInd.data["$options"];
       delete webInd.data["$params"];
       delete webInd.data["$protocol"];
+      webInd.data["domain"] = webInd.data["$domain"];
+      delete webInd.data["$domain"];
     }
     let complete = false;
 

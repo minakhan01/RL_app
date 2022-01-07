@@ -83,7 +83,7 @@ function Games(props) {
           <Button
             onClick={() => {
               let skipVal = store.getState().break.skipped;
-              skipVal.push(false);
+              skipVal.push({ cpt: false });
               dispatch(BreakActions.setSkipped(skipVal));
               setStage({ ...stage, stage: 1 });
             }}
@@ -94,13 +94,24 @@ function Games(props) {
             style={{ marginTop: "2%" }}
             onClick={() => {
               let skipVal = store.getState().break.skipped;
-              skipVal.push(true);
+              skipVal.push({ cpt: true });
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 2 });
+            }}
+          >
+            Skip CPT Test
+          </Button>
+          <Button
+            style={{ marginTop: "2%" }}
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal.push({ cpt: true });
               dispatch(BreakActions.setSkipped(skipVal));
               let timeNow = new Date().toISOString();
               dispatch(BreakActions.endBreak(timeNow));
             }}
           >
-            Skip
+            Skip both tests
           </Button>
         </div>
       );
@@ -142,7 +153,7 @@ function Games(props) {
           <Button
             onClick={() => {
               let skipVal = [];
-              skipVal.push(false);
+              skipVal.push({ cpt: false });
               dispatch(BreakActions.setSkipped(skipVal));
               setStage({ ...stage, stage: 1 });
             }}
@@ -153,13 +164,24 @@ function Games(props) {
             style={{ marginTop: "2%" }}
             onClick={() => {
               let skipVal = [];
-              skipVal.push(true);
+              skipVal.push({ cpt: true });
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 2 });
+            }}
+          >
+            Skip CPT Test
+          </Button>
+          <Button
+            style={{ marginTop: "2%" }}
+            onClick={() => {
+              let skipVal = [];
+              skipVal.push({ cpt: true });
               dispatch(BreakActions.setSkipped(skipVal));
               remote.getCurrentWindow().reload();
               dispatch(BreakActions.startBreak());
             }}
           >
-            Skip
+            Skip both tests
           </Button>
         </div>
       );
@@ -175,32 +197,145 @@ function Games(props) {
 
   if (stage.stage == 2) {
     if (props.order == 1) {
-      return (
-        <div style={{ ...s1, flexDirection: "column" }}>
-          <div>Score is {stage.scores[2]}</div>
-          <p style={{ textAlign: "center" }}>
-            The next game is stroop test. You will be given a list of words that
-            are printed in a different color than the meaning of the word. You
-            have to choose the name of the color, not the word itself
-          </p>
-          <Button onClick={() => setStage({ ...stage, stage: 3 })}>
-            Next game
-          </Button>
-        </div>
-      );
+      if (props.status === "end") {
+        return (
+          <div style={{ ...s1, flexDirection: "column" }}>
+            <div>Score is {stage.scores[2]}</div>
+            <p style={{ textAlign: "center" }}>
+              The next game is stroop test. You will be given a list of words
+              that are printed in a different color than the meaning of the
+              word. You have to choose the name of the color, not the word
+              itself
+            </p>
+            <Button
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[1]["stroop"] = false;
+                dispatch(BreakActions.setSkipped(skipVal));
+                setStage({ ...stage, stage: 3 });
+              }}
+            >
+              Next game
+            </Button>
+            <Button
+              style={{ marginTop: "2%" }}
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[1]["stroop"] = true;
+                dispatch(BreakActions.setSkipped(skipVal));
+                let timeNow = new Date().toISOString();
+                dispatch(BreakActions.endBreak(timeNow));
+              }}
+            >
+              Skip Stroop Test
+            </Button>
+          </div>
+        );
+      } else {
+        return (
+          <div style={{ ...s1, flexDirection: "column" }}>
+            <div>Score is {stage.scores[2]}</div>
+            <p style={{ textAlign: "center" }}>
+              The next game is stroop test. You will be given a list of words
+              that are printed in a different color than the meaning of the
+              word. You have to choose the name of the color, not the word
+              itself
+            </p>
+            <Button
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[0]["stroop"] = false;
+                dispatch(BreakActions.setSkipped(skipVal));
+                setStage({ ...stage, stage: 3 });
+              }}
+            >
+              Next game
+            </Button>
+            <Button
+              style={{ marginTop: "2%" }}
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[0]["stroop"] = true;
+                dispatch(BreakActions.setSkipped(skipVal));
+                remote.getCurrentWindow().reload();
+                dispatch(BreakActions.startBreak());
+              }}
+            >
+              Skip Stroop Test
+            </Button>
+          </div>
+        );
+      }
     } else {
-      return (
-        <div style={{ ...s1, flexDirection: "column" }}>
-          <p style={{ textAlign: "center" }}>
-            The next game is stroop test. You will be given a list of words that
-            are printed in a different color than the meaning of the word. You
-            have to choose the name of the color, not the word itself
-          </p>
-          <Button onClick={() => setStage({ ...stage, stage: 3 })}>
-            Next game
-          </Button>
-        </div>
-      );
+      if (props.status === "end") {
+        return (
+          <div style={{ ...s1, flexDirection: "column" }}>
+            <div>Score is {stage.scores[2]}</div>
+            <p style={{ textAlign: "center" }}>
+              The next game is stroop test. You will be given a list of words
+              that are printed in a different color than the meaning of the
+              word. You have to choose the name of the color, not the word
+              itself
+            </p>
+            <Button
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[1]["stroop"] = false;
+                dispatch(BreakActions.setSkipped(skipVal));
+                setStage({ ...stage, stage: 3 });
+              }}
+            >
+              Next game
+            </Button>
+            <Button
+              style={{ marginTop: "2%" }}
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[1]["stroop"] = true;
+                dispatch(BreakActions.setSkipped(skipVal));
+                let timeNow = new Date().toISOString();
+                dispatch(BreakActions.endBreak(timeNow));
+              }}
+            >
+              Skip Stroop Test
+            </Button>
+          </div>
+        );
+      } else {
+        return (
+          <div style={{ ...s1, flexDirection: "column" }}>
+            <div>Score is {stage.scores[2]}</div>
+            <p style={{ textAlign: "center" }}>
+              The next game is stroop test. You will be given a list of words
+              that are printed in a different color than the meaning of the
+              word. You have to choose the name of the color, not the word
+              itself
+            </p>
+            <Button
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[0]["stroop"] = false;
+                dispatch(BreakActions.setSkipped(skipVal));
+                setStage({ ...stage, stage: 3 });
+              }}
+            >
+              Next game
+            </Button>
+            <Button
+              style={{ marginTop: "2%" }}
+              onClick={() => {
+                let skipVal = store.getState().break.skipped;
+                skipVal[0]["stroop"] = true;
+                dispatch(BreakActions.setSkipped(skipVal));
+                remote.getCurrentWindow().reload();
+                dispatch(BreakActions.startBreak());
+              }}
+            >
+              Skip Stroop Test
+            </Button>
+          </div>
+        );
+      }
     }
   }
 

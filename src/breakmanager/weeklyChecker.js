@@ -34,7 +34,7 @@ export default function weeklyChecker() {
   const diffTime = Math.abs(timeNow - pastTime);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   //change before deploying
-  if (diffDays >= lenVal * 1) {
+  if (diffDays >= lenVal * 7) {
     // store.dispatch(PastActions.setWeeklyRem(true));
     customNotification.show();
   }

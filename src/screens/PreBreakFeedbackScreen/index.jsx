@@ -304,11 +304,11 @@ const PreBreakFeedbackScreen = (props) => {
       <Button
         style={{ background: "white", marginTop: "2%" }}
         onClick={() => {
-          if (username.length > 0 && Object.keys(selected).length > 0) {
+          if (rate != 0) {
             props.setPreBreakFeedback(rate, username, selected);
             props.startStroop();
           } else {
-            message.error("Please fill all the fields!");
+            message.error("Please rate your working session!");
           }
         }}
       >

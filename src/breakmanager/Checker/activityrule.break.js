@@ -73,7 +73,7 @@ export default function checkActivityRuleBreak() {
               appTotals.map((ob, index) => {
                 if (
                   indBreak.url.length > 0 &&
-                  ob.data.app.toLowerCase().includes(indBreak.url) &&
+                  ob.data.app.toLowerCase().includes(indBreak.urltoLowerCase()) &&
                   !(store.getState().break.breakState === "break") &&
                   !(store.getState().break.breakState === "break-feedback") &&
                   !(store.getState().break.breakState === "break-popup") &&
@@ -191,11 +191,11 @@ export default function checkActivityRuleBreak() {
               }
             } else {
               let lastVal = appTotalsUnmerged[websiteTotalsUnmerged.length - 1];
-              if (lastVal.data.app.toLowerCase().includes(indBreak.url)) {
+              if (lastVal.data.app.toLowerCase().includes(indBreak.url.toLowerCase())) {
                 for (let i = appTotalsUnmerged.length - 1; i > 0; i--) {
                   if (
                     indBreak.url.length > 0 &&
-                    appTotalsUnmerged[i].data.app.toLowerCase().includes(indBreak.url) &&
+                    appTotalsUnmerged[i].data.app.toLowerCase().includes(indBreak.url.toLowerCase()) &&
                     !(store.getState().break.breakState === "break") &&
                     !(store.getState().break.breakState === "break-feedback") &&
                     !(store.getState().break.breakState === "break-popup") &&

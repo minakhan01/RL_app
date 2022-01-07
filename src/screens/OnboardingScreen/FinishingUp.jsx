@@ -13,8 +13,7 @@ const FinishingUpScreen = (props) => {
       <h1>You're Almost Done!</h1>
       <div style={{ marginTop: "3%", width: "70%" }}>
         <p style={{ fontSize: "18px", marginBottom: "0" }}>
-          Thanks for your input! Based on your preferences, we have created a
-          schedule as shown below
+          Thanks for your input!
           <br />
           <br />
         </p>
@@ -77,7 +76,9 @@ const FinishingUpScreen = (props) => {
             </p>
             <p>
               How often you want to take regular breaks :{" "}
-              {props.onboarding.regularBreakInterval} hour(s)
+              {Math.floor(parseInt(props.onboarding.regularBreakInterval) / 60)}{" "}
+              hour(s) {parseInt(props.onboarding.regularBreakInterval) % 60}{" "}
+              minute(s)
             </p>
             <p>
               How long you want these breaks to be :{" "}
