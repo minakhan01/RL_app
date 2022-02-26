@@ -46,7 +46,7 @@ const EditRegularBreakScreen = (props) => {
               ) {
                 setHours(parseInt(e.target.value));
               } else {
-                setHours(parseInt(""));
+                setHours("0");
               }
             }}
           />
@@ -72,7 +72,7 @@ const EditRegularBreakScreen = (props) => {
               ) {
                 setmins(parseInt(e.target.value));
               } else {
-                setmins(parseInt(e.target.value));
+                setmins("0");
               }
             }}
           />

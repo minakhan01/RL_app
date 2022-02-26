@@ -23,7 +23,12 @@ export default function Toolbar(props) {
   if (props.type === "minimize")
     return (
       <div className="toolbar">
-        <div className="minutes-remaining">{str}</div>
+        <div
+          className="minutes-remaining"
+          style={{ fontSize: "18px", marginTop: "2%" }}
+        >
+          {str}
+        </div>
         <button
           className="minimize-break2"
           onClick={() => {
@@ -54,7 +59,9 @@ export default function Toolbar(props) {
   else
     return (
       <div className="toolbar2">
-        <div className="minutes-remaining2">{str}</div>
+        <div className="minutes-remaining2" style={{ fontSize: "18px" }}>
+          {str}
+        </div>
         <div className="break-text-min">{props.message}</div>
         <div>
           <button

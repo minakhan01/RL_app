@@ -9,7 +9,8 @@ import { useHistory } from "react-router-dom";
 const { TextArea } = Input;
 
 const WeeklyForm = (props) => {
-  const [username, setUsername] = useState([]);
+  const [username, setUsername] = useState("");
+  const [passwordOne, setPasswordOne] = useState("");
   const [password, setPassword] = useState({});
   const history = useHistory();
 
@@ -137,13 +138,47 @@ const WeeklyForm = (props) => {
           </div>
         );
       })}
+      <div style={{ width: "80%", marginTop: "1%" }}>
+        <p style={{ fontWeight: "bold", fontSize: "17px" }}>
+          Was there anything different or special this weekend?( e.g., exam
+          week, vacation. )
+        </p>
+
+        <TextArea
+          placeholder="Type your response"
+          style={{ marginBottom: "3%", borderRadius: "8px" }}
+          rows={4}
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+        <p style={{ fontWeight: "bold", fontSize: "17px" }}>
+          Did you have a particular goal this week?
+        </p>
+        <TextArea
+          placeholder="Type your response"
+          style={{ borderRadius: "8px" }}
+          value={passwordOne}
+          rows={4}
+          onChange={(e) => {
+            setPasswordOne(e.target.value);
+          }}
+        />
+      </div>
       <Button
         style={{ marginTop: "2%" }}
         onClick={async () => {
-          if (Object.keys(password).length != 12) {
+          if (Object.keys(password).length !== 12) {
             message.error("Please fill all the answers");
           } else {
             let tempWeekly = props.onboarding.weekly;
+            let tempWeeklyExtra = props.onboarding.weeklyExtra;
+            if (tempWeeklyExtra) {
+              tempWeeklyExtra.push([username, passwordOne]);
+            } else {
+              tempWeeklyExtra = [[username, passwordOne]];
+            }
             tempWeekly.push(password);
             if (tempWeekly.length === 1) {
               props.AddWeekly(tempWeekly);
@@ -152,6 +187,7 @@ const WeeklyForm = (props) => {
               let body = {
                 weekly: tempWeekly,
                 user: props.onboarding.user._id,
+                weeklyExtra: tempWeeklyExtra,
               };
               let response = await axios.post(
                 "https://thepallab.com/api/user/update-onb",
@@ -159,6 +195,7 @@ const WeeklyForm = (props) => {
               );
               if (response.data.message === "Successful Update") {
                 props.AddWeekly(tempWeekly);
+                props.AddWeeklyExtra(tempWeeklyExtra);
                 history.push("/home");
               }
             }
@@ -176,6 +213,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ AddWeekly: PastActions.AddWeekly }, dispatch);
+  bindActionCreators(
+    {
+      AddWeekly: PastActions.AddWeekly,
+      AddWeeklyExtra: PastActions.AddWeeklyExtra,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeeklyForm);

@@ -73,7 +73,9 @@ export default function checkActivityRuleBreak() {
               appTotals.map((ob, index) => {
                 if (
                   indBreak.url.length > 0 &&
-                  ob.data.app.toLowerCase().includes(indBreak.urltoLowerCase()) &&
+                  ob.data.app
+                    .toLowerCase()
+                    .includes(indBreak.url.toLowerCase()) &&
                   !(store.getState().break.breakState === "break") &&
                   !(store.getState().break.breakState === "break-feedback") &&
                   !(store.getState().break.breakState === "break-popup") &&
@@ -89,7 +91,7 @@ export default function checkActivityRuleBreak() {
 
             if (preGame === 0) {
               if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
-                initScheduled[indBreak.url] += 1;
+                initScheduled[indBreak.url] += 2;
 
                 store.dispatch(PastActions.saveInitBreakData(initScheduled));
                 let timeNow = new Date().toISOString();
@@ -139,103 +141,128 @@ export default function checkActivityRuleBreak() {
             }
           } else {
             if (indBreak.isWebsite) {
-              let lastVal =
-                websiteTotalsUnmerged[websiteTotalsUnmerged.length - 1];
-              if (lastVal.data.url.includes(siteName)) {
-                for (let i = websiteTotalsUnmerged.length - 1; i > 0; i--) {
-                  if (
-                    siteName.length > 0 &&
-                    websiteTotalsUnmerged[i].data.url.includes(siteName) &&
-                    !(store.getState().break.breakState === "break") &&
-                    !(store.getState().break.breakState === "break-feedback") &&
-                    !(store.getState().break.breakState === "break-popup") &&
-                    !(store.getState().break.breakState === "break-stroop") &&
-                    !(store.getState().break.breakState === "break-fruit") &&
-                    !(store.getState().break.breakState === "cancel-break") &&
-                    !(
-                      store.getState().break.breakState === "pre-break-feedback"
-                    )
-                  ) {
-                    totalUsage = totalUsage + websiteTotalsUnmerged[i].duration;
-                  } else {
-                    break;
+              if (websiteTotalsUnmerged.length > 0) {
+                let lastVal =
+                  websiteTotalsUnmerged[websiteTotalsUnmerged.length - 1];
+                if (lastVal.data.url.includes(siteName)) {
+                  for (let i = websiteTotalsUnmerged.length - 1; i > 0; i--) {
+                    if (
+                      siteName.length > 0 &&
+                      websiteTotalsUnmerged[i].data.url.includes(siteName) &&
+                      websiteTotalsUnmerged[i].id >
+                        store.getState().past.takenId &&
+                      !(store.getState().break.breakState === "break") &&
+                      !(
+                        store.getState().break.breakState === "break-feedback"
+                      ) &&
+                      !(store.getState().break.breakState === "break-popup") &&
+                      !(store.getState().break.breakState === "break-stroop") &&
+                      !(store.getState().break.breakState === "break-fruit") &&
+                      !(store.getState().break.breakState === "cancel-break") &&
+                      !(
+                        store.getState().break.breakState ===
+                        "pre-break-feedback"
+                      )
+                    ) {
+                      totalUsage =
+                        totalUsage + websiteTotalsUnmerged[i].duration;
+                    } else {
+                      break;
+                    }
                   }
-                }
-                if (lastVal.id !== store.getState().past.takenId) {
-                  if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
-                    initScheduled[indBreak.url] += 1;
+                  if (lastVal.id !== store.getState().past.takenId) {
+                    if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
+                      initScheduled[indBreak.url] += 1;
 
-                    store.dispatch(
-                      PastActions.saveInitBreakData(initScheduled)
-                    );
-                    let timeNow = new Date().toISOString();
+                      store.dispatch(
+                        PastActions.saveInitBreakData(initScheduled)
+                      );
+                      let timeNow = new Date().toISOString();
 
-                    let breakData = {
-                      breakType: "activity-rule (non-cumulative)",
-                      breakDescription: indBreak.name,
-                      breakDuration: indBreak.breakLength * 60,
-                      breakStartTime: timeNow,
-                    };
-                    store.dispatch(BreakActions.startPopup(timeNow, breakData));
-                    store.dispatch(PastActions.setTakenId(lastVal.id));
-                    setTimeout(() => {
-                      if (
-                        store.getState().break.breakState === "break-popup" &&
-                        store.getState().break.popupStartTime === timeNow
-                      ) {
-                        store.dispatch(BreakActions.startPrebreakfeedback());
-                      }
-                    }, 10000);
+                      let breakData = {
+                        breakType: "activity-rule (non-cumulative)",
+                        breakDescription: indBreak.name,
+                        breakDuration: indBreak.breakLength * 60,
+                        breakStartTime: timeNow,
+                      };
+                      store.dispatch(
+                        BreakActions.startPopup(timeNow, breakData)
+                      );
+                      store.dispatch(PastActions.setTakenId(lastVal.id));
+                      setTimeout(() => {
+                        if (
+                          store.getState().break.breakState === "break-popup" &&
+                          store.getState().break.popupStartTime === timeNow
+                        ) {
+                          store.dispatch(BreakActions.startPrebreakfeedback());
+                        }
+                      }, 10000);
+                    }
                   }
                 }
               }
             } else {
-              let lastVal = appTotalsUnmerged[websiteTotalsUnmerged.length - 1];
-              if (lastVal.data.app.toLowerCase().includes(indBreak.url.toLowerCase())) {
-                for (let i = appTotalsUnmerged.length - 1; i > 0; i--) {
-                  if (
-                    indBreak.url.length > 0 &&
-                    appTotalsUnmerged[i].data.app.toLowerCase().includes(indBreak.url.toLowerCase()) &&
-                    !(store.getState().break.breakState === "break") &&
-                    !(store.getState().break.breakState === "break-feedback") &&
-                    !(store.getState().break.breakState === "break-popup") &&
-                    !(store.getState().break.breakState === "break-stroop") &&
-                    !(store.getState().break.breakState === "break-fruit") &&
-                    !(store.getState().break.breakState === "cancel-break") &&
-                    !(
-                      store.getState().break.breakState === "pre-break-feedback"
-                    )
-                  ) {
-                    totalUsage = totalUsage + appTotalsUnmerged[i].duration;
-                  } else {
-                    break;
+              if (appTotalsUnmerged.length > 0) {
+                let lastVal = appTotalsUnmerged[appTotalsUnmerged.length - 1];
+                if (
+                  lastVal.data.app
+                    .toLowerCase()
+                    .includes(indBreak.url.toLowerCase())
+                ) {
+                  for (let i = appTotalsUnmerged.length - 1; i > 0; i--) {
+                    if (
+                      indBreak.url.length > 0 &&
+                      appTotalsUnmerged[i].data.app
+                        .toLowerCase()
+                        .includes(indBreak.url.toLowerCase()) &&
+                      appTotalsUnmerged[i].id >
+                        store.getState().past.takenIdApp &&
+                      !(store.getState().break.breakState === "break") &&
+                      !(
+                        store.getState().break.breakState === "break-feedback"
+                      ) &&
+                      !(store.getState().break.breakState === "break-popup") &&
+                      !(store.getState().break.breakState === "break-stroop") &&
+                      !(store.getState().break.breakState === "break-fruit") &&
+                      !(store.getState().break.breakState === "cancel-break") &&
+                      !(
+                        store.getState().break.breakState ===
+                        "pre-break-feedback"
+                      )
+                    ) {
+                      totalUsage = totalUsage + appTotalsUnmerged[i].duration;
+                    } else {
+                      break;
+                    }
                   }
-                }
-                if (lastVal.id !== store.getState().past.takenIdApp) {
-                  if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
-                    initScheduled[indBreak.url] += 1;
+                  if (lastVal.id !== store.getState().past.takenIdApp) {
+                    if (totalUsage / 60 > indBreak.interval && totalUsage > 0) {
+                      initScheduled[indBreak.url] += 1;
 
-                    store.dispatch(
-                      PastActions.saveInitBreakData(initScheduled)
-                    );
-                    let timeNow = new Date().toISOString();
+                      store.dispatch(
+                        PastActions.saveInitBreakData(initScheduled)
+                      );
+                      let timeNow = new Date().toISOString();
 
-                    let breakData = {
-                      breakType: "activity-rule (non-cumulative)",
-                      breakDescription: indBreak.name,
-                      breakDuration: indBreak.breakLength * 60,
-                      breakStartTime: timeNow,
-                    };
-                    store.dispatch(BreakActions.startPopup(timeNow, breakData));
-                    store.dispatch(PastActions.setTakenIdApp(lastVal.id));
-                    setTimeout(() => {
-                      if (
-                        store.getState().break.breakState === "break-popup" &&
-                        store.getState().break.popupStartTime === timeNow
-                      ) {
-                        store.dispatch(BreakActions.startPrebreakfeedback());
-                      }
-                    }, 10000);
+                      let breakData = {
+                        breakType: "activity-rule (non-cumulative)",
+                        breakDescription: indBreak.name,
+                        breakDuration: indBreak.breakLength * 60,
+                        breakStartTime: timeNow,
+                      };
+                      store.dispatch(
+                        BreakActions.startPopup(timeNow, breakData)
+                      );
+                      store.dispatch(PastActions.setTakenIdApp(lastVal.id));
+                      setTimeout(() => {
+                        if (
+                          store.getState().break.breakState === "break-popup" &&
+                          store.getState().break.popupStartTime === timeNow
+                        ) {
+                          store.dispatch(BreakActions.startPrebreakfeedback());
+                        }
+                      }, 10000);
+                    }
                   }
                 }
               }

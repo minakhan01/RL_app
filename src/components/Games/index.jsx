@@ -15,7 +15,10 @@ const { ipcRenderer, remote } = window.require("electron");
 function Games(props) {
   var [stage, setStage] = useState({
     stage: 0,
-    scores: [],
+    scores: {
+      stroop: [],
+      fruit: [],
+    },
     fruit: 1,
     stroop: 1,
   });
@@ -25,7 +28,15 @@ function Games(props) {
   const stageRef = useRef(stage);
   stageRef.current = stage;
   useEffect(() => {
-    var lastStage = { stage: 0, scores: [], fruit: 1, stroop: 1 };
+    var lastStage = {
+      stage: 0,
+      scores: {
+        stroop: [],
+        fruit: [],
+      },
+      fruit: 1,
+      stroop: 1,
+    };
     var lastTime = new Date();
     var intvl;
     var cbf = () => {
@@ -105,10 +116,9 @@ function Games(props) {
             style={{ marginTop: "2%" }}
             onClick={() => {
               let skipVal = store.getState().break.skipped;
-              skipVal.push({ cpt: true });
+              skipVal.push({ cpt: true, stroop: true });
               dispatch(BreakActions.setSkipped(skipVal));
-              let timeNow = new Date().toISOString();
-              dispatch(BreakActions.endBreak(timeNow));
+              setStage({ ...stage, stage: 4 });
             }}
           >
             Skip both tests
@@ -124,6 +134,7 @@ function Games(props) {
               textAlign: "center",
               paddingLeft: "5%",
               paddingRight: "5%",
+              fontSize: "18px",
             }}
           >
             Your first test is a Continuous Performance Task (CPT). You will see
@@ -132,25 +143,13 @@ function Games(props) {
             but a B, or the second letter is not an X but a Y, you should press
             the 'm' on your keyboard.
             <br />
-            For example:
-            <br />
-            1. First letter shown is 'A' followed by an 'X' you need to click on
-            'z' on your keyboard
-            <br />
-            2. First letter shown is 'B' followed by an 'X' you need to click on
-            'm' on your keyboard
-            <br />
-            3. First letter shown is 'B' followed by an 'Y' you need to click on
-            'm' on your keyboard
-            <br />
-            4. First letter shown is 'A' followed by an 'Y' you need to click on
-            'm' on your keyboard
-            <br />
             Please note there will be '+' symbols between each letter flashed.
             You are to press the buttons on your keyboard only when either 'X'
             or 'Y' are displayed.
           </p>
+          <img src={require("../../assets/cpt.jpg").default} height={"375px"} />
           <Button
+            style={{ marginTop: "1%" }}
             onClick={() => {
               let skipVal = [];
               skipVal.push({ cpt: false });
@@ -175,10 +174,9 @@ function Games(props) {
             style={{ marginTop: "2%" }}
             onClick={() => {
               let skipVal = [];
-              skipVal.push({ cpt: true });
+              skipVal.push({ cpt: true, stroop: true });
               dispatch(BreakActions.setSkipped(skipVal));
-              remote.getCurrentWindow().reload();
-              dispatch(BreakActions.startBreak());
+              setStage({ ...stage, stage: 4 });
             }}
           >
             Skip both tests
@@ -196,146 +194,112 @@ function Games(props) {
   }
 
   if (stage.stage == 2) {
-    if (props.order == 1) {
-      if (props.status === "end") {
-        return (
-          <div style={{ ...s1, flexDirection: "column" }}>
-            <div>Score is {stage.scores[2]}</div>
-            <p style={{ textAlign: "center" }}>
-              The next game is stroop test. You will be given a list of words
-              that are printed in a different color than the meaning of the
-              word. You have to choose the name of the color, not the word
-              itself
-            </p>
-            <Button
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[1]["stroop"] = false;
-                dispatch(BreakActions.setSkipped(skipVal));
-                setStage({ ...stage, stage: 3 });
-              }}
-            >
-              Next game
-            </Button>
-            <Button
-              style={{ marginTop: "2%" }}
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[1]["stroop"] = true;
-                dispatch(BreakActions.setSkipped(skipVal));
-                let timeNow = new Date().toISOString();
-                dispatch(BreakActions.endBreak(timeNow));
-              }}
-            >
-              Skip Stroop Test
-            </Button>
-          </div>
-        );
-      } else {
-        return (
-          <div style={{ ...s1, flexDirection: "column" }}>
-            <div>Score is {stage.scores[2]}</div>
-            <p style={{ textAlign: "center" }}>
-              The next game is stroop test. You will be given a list of words
-              that are printed in a different color than the meaning of the
-              word. You have to choose the name of the color, not the word
-              itself
-            </p>
-            <Button
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[0]["stroop"] = false;
-                dispatch(BreakActions.setSkipped(skipVal));
-                setStage({ ...stage, stage: 3 });
-              }}
-            >
-              Next game
-            </Button>
-            <Button
-              style={{ marginTop: "2%" }}
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[0]["stroop"] = true;
-                dispatch(BreakActions.setSkipped(skipVal));
-                remote.getCurrentWindow().reload();
-                dispatch(BreakActions.startBreak());
-              }}
-            >
-              Skip Stroop Test
-            </Button>
-          </div>
-        );
+    if (props.status === "end") {
+      let correct = [];
+      if (stage.scores.fruit.length > 0) {
+        correct = stage.scores.fruit.filter(function (itm) {
+          return itm.correct === true;
+        });
       }
+      return (
+        <div style={{ ...s1, flexDirection: "column" }}>
+          {stage.scores.fruit.length > 0 && (
+            <div style={{ fontSize: "22px", fontWeight: "bold" }}>
+              Score is {correct.length}
+            </div>
+          )}
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "18px",
+              marginLeft: "10%",
+              marginRight: "10%",
+            }}
+          >
+            The next game is stroop test. You will be given a list of words that
+            are printed in a different color than the meaning of the word. You
+            have to choose the name of the color, not the word itself
+          </p>
+          <img
+            src={require("../../assets/cpt-2.jpg").default}
+            height={"375px"}
+          />
+          <Button
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal[1]["stroop"] = false;
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 3 });
+            }}
+          >
+            Next game
+          </Button>
+          <Button
+            style={{ marginTop: "2%" }}
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal[1]["stroop"] = true;
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 4 });
+            }}
+          >
+            Skip Stroop Test
+          </Button>
+        </div>
+      );
     } else {
-      if (props.status === "end") {
-        return (
-          <div style={{ ...s1, flexDirection: "column" }}>
-            <div>Score is {stage.scores[2]}</div>
-            <p style={{ textAlign: "center" }}>
-              The next game is stroop test. You will be given a list of words
-              that are printed in a different color than the meaning of the
-              word. You have to choose the name of the color, not the word
-              itself
-            </p>
-            <Button
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[1]["stroop"] = false;
-                dispatch(BreakActions.setSkipped(skipVal));
-                setStage({ ...stage, stage: 3 });
-              }}
-            >
-              Next game
-            </Button>
-            <Button
-              style={{ marginTop: "2%" }}
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[1]["stroop"] = true;
-                dispatch(BreakActions.setSkipped(skipVal));
-                let timeNow = new Date().toISOString();
-                dispatch(BreakActions.endBreak(timeNow));
-              }}
-            >
-              Skip Stroop Test
-            </Button>
-          </div>
-        );
-      } else {
-        return (
-          <div style={{ ...s1, flexDirection: "column" }}>
-            <div>Score is {stage.scores[2]}</div>
-            <p style={{ textAlign: "center" }}>
-              The next game is stroop test. You will be given a list of words
-              that are printed in a different color than the meaning of the
-              word. You have to choose the name of the color, not the word
-              itself
-            </p>
-            <Button
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[0]["stroop"] = false;
-                dispatch(BreakActions.setSkipped(skipVal));
-                setStage({ ...stage, stage: 3 });
-              }}
-            >
-              Next game
-            </Button>
-            <Button
-              style={{ marginTop: "2%" }}
-              onClick={() => {
-                let skipVal = store.getState().break.skipped;
-                skipVal[0]["stroop"] = true;
-                dispatch(BreakActions.setSkipped(skipVal));
-                remote.getCurrentWindow().reload();
-                dispatch(BreakActions.startBreak());
-              }}
-            >
-              Skip Stroop Test
-            </Button>
-          </div>
-        );
+      let correct = [];
+      if (stage.scores.fruit.length > 0) {
+        correct = stage.scores.fruit.filter(function (itm) {
+          return itm.correct === true;
+        });
       }
+      return (
+        <div style={{ ...s1, flexDirection: "column" }}>
+          {stage.scores.fruit.length > 0 && (
+            <div style={{ fontSize: "22px", fontWeight: "bold" }}>
+              Score is {correct.length}
+            </div>
+          )}
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "18px",
+              marginLeft: "10%",
+              marginRight: "10%",
+            }}
+          >
+            The next game is stroop test. You will be given a list of words that
+            are printed in a different color than the meaning of the word. You
+            have to choose the name of the color, not the word itself
+          </p>
+          <img
+            src={require("../../assets/cpt-2.jpg").default}
+            height={"375px"}
+          />
+          <Button
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal[0]["stroop"] = false;
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 3 });
+            }}
+          >
+            Next game
+          </Button>
+          <Button
+            style={{ marginTop: "2%" }}
+            onClick={() => {
+              let skipVal = store.getState().break.skipped;
+              skipVal[0]["stroop"] = true;
+              dispatch(BreakActions.setSkipped(skipVal));
+              setStage({ ...stage, stage: 4 });
+            }}
+          >
+            Skip Stroop Test
+          </Button>
+        </div>
+      );
     }
   }
 

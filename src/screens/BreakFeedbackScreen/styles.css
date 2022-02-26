@@ -87,8 +87,8 @@
 
 .feedback-text-box {
   display: flex;
-  width: 50%;
-  height: 15%;
+  width: 70%;
+  height: 20%;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -96,11 +96,7 @@
 
 .floating-label {
   background-color: black;
-  z-index: 1;
-  padding-right: 2%;
-  padding-left: 0.7%;
-  margin: 0 47% -1.25% 0;
-  font-size: small;
+  font-size: "18px";
 }
 
 .save-button-text {

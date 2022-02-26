@@ -18,7 +18,7 @@ export default function eventHandler(history) {
     curWindow.minimize();
     history.push("/");
     store.dispatch(BreakActions.setWindowChanged());
-    curWindow.setVisibleOnAllWorkspaces(false);
+    curWindow.setVisibleOnAllWorkspaces(false, {visibleOnFullScreen: false});
     curWindow.setAlwaysOnTop(false);
     curWindow.reload();
   }
@@ -35,7 +35,7 @@ export default function eventHandler(history) {
     history.push("/popup");
     //curWindow.maximize()
     curWindow.unmaximize();
-    curWindow.setSize(1000, 800);
+    curWindow.setSize(1400, 800);
     curWindow.center();
 
     store.dispatch(BreakActions.setWindowChanged());
@@ -47,7 +47,7 @@ export default function eventHandler(history) {
     curWindow.center();
   } else if (store.getState().break.breakState === "break-fruit") {
     curWindow.unmaximize();
-    curWindow.setSize(1000, 800);
+    curWindow.setSize(1400, 800);
     curWindow.setOpacity(1);
     curWindow.center();
 
@@ -55,14 +55,14 @@ export default function eventHandler(history) {
     history.push("/fruit");
   } else if (store.getState().break.breakState === "break-feedback") {
     curWindow.maximize();
-    curWindow.setVisibleOnAllWorkspaces(false);
+    curWindow.setVisibleOnAllWorkspaces(false, {visibleOnFullScreen: false});
     curWindow.setAlwaysOnTop(false);
     history.push("/feedback");
   }
   else if (store.getState().break.breakState === "cancel-break") {
     curWindow.setOpacity(1);
     curWindow.setSize(1400, 800);
-    curWindow.setVisibleOnAllWorkspaces(false);
+    curWindow.setVisibleOnAllWorkspaces(false, {visibleOnFullScreen: false});
     curWindow.setAlwaysOnTop(false);
   }
 
@@ -74,7 +74,6 @@ export default function eventHandler(history) {
     curWindow.setOpacity(0.8);
     curWindow.maximize();
     curWindow.setAlwaysOnTop(true);
-    curWindow.setVisibleOnAllWorkspaces(true, {visibleOnFullScreen: true});
 
     history.push("/break");
     store.dispatch(BreakActions.setWindowChanged());
@@ -89,10 +88,10 @@ export default function eventHandler(history) {
     }, store.getState().break.breakDuration * 1000);
   } else if (store.getState().onboarding.weeklyRem) {
     curWindow.restore();
-    history.push("/weekpop");
+    // history.push("/weekpop");
     //curWindow.maximize()
     curWindow.unmaximize();
-    curWindow.setSize(1000, 800);
+    curWindow.setSize(1400, 800);
     curWindow.center();
     setTimeout(() => {
       store.dispatch(PastActions.setWeeklyRem(false));

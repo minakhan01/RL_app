@@ -93,7 +93,7 @@ const PreBreakFeedbackScreen = (props) => {
       }}
     >
       <Modal
-        width={"700px"}
+        width={"1000px"}
         visible={modalVisible}
         onOk={() => {
           setModalVisible(false);
@@ -237,7 +237,7 @@ const PreBreakFeedbackScreen = (props) => {
           </div>
         </div>
       </Modal>
-      <p>How was your working session?</p>
+      <p style={{ fontSize: "18px" }}>Rate working session</p>
       <div
         style={{
           display: "flex",
@@ -251,7 +251,7 @@ const PreBreakFeedbackScreen = (props) => {
           return getImageButton(item + 1, rate, setRate, mounted);
         })}
       </div>
-      <div className="feedback-request-text" style={{ marginTop: "1%" }}>
+      <div className="feedback-request-text" style={{ marginTop: "1%" , fontSize:"18px"}}>
         How do you feel now (before the break)?
       </div>
       <div
@@ -282,8 +282,6 @@ const PreBreakFeedbackScreen = (props) => {
                   selected[item.toString()] && selected[item.toString()] !== 0
                     ? "white"
                     : "black",
-                border: 0,
-                outline: "none",
               }}
             >
               {item}
@@ -291,6 +289,7 @@ const PreBreakFeedbackScreen = (props) => {
           );
         })}
       </div>
+      <p style={{ fontSize: "18px" }}>How was your working session?</p>
       <TextArea
         placeholder="How was your working session"
         style={{ marginBottom: "3%", borderRadius: "8px" }}

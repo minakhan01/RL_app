@@ -14,7 +14,7 @@ import "./styles.css";
 var shell = window.require("electron").shell;
 let client = new AWClientService();
 
-const AWCheckerScreen = (props) => {
+const AWCheckerInScreen = (props) => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   useEffect(() => {
@@ -30,18 +30,7 @@ const AWCheckerScreen = (props) => {
         setLoading(false);
       } else {
         if (Object.keys(resp).length > 0) {
-          props.awChecked();
-          if (props.onboarding.complete) {
-            BreakManager(history);
-            history.push("/home");
-          } else {
-            if (props.onboarding.isLoginFlow) {
-              BreakManager(history);
-              history.push("/home");
-            } else {
-              history.push("/cbt");
-            }
-          }
+          history.push("/home");
         }
       }
     } catch (error) {
@@ -175,4 +164,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ awChecked: OnboardingActions.awChecked }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AWCheckerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AWCheckerInScreen);

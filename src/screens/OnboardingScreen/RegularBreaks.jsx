@@ -38,9 +38,11 @@ const RegularBreakScreen = (props) => {
                 parseInt(e.target.value) > -1
               ) {
                 setHours(parseInt(e.target.value));
-                props.setRegularBreakInterval(parseInt(e.target.value) + mins);
+                props.setRegularBreakInterval(
+                  parseInt(e.target.value) * 60 + mins
+                );
               } else {
-                setHours(parseInt(""));
+                setHours("0");
                 props.setRegularBreakInterval(mins);
               }
             }}
@@ -61,9 +63,9 @@ const RegularBreakScreen = (props) => {
                 parseInt(e.target.value) > -1
               ) {
                 setmins(parseInt(e.target.value));
-                props.setRegularBreakInterval(hours * 60);
+                props.setRegularBreakInterval(hours * 60 + parseInt(e.target.value));
               } else {
-                setmins(parseInt(""));
+                setmins("0");
                 props.setRegularBreakInterval(hours * 60);
               }
             }}
@@ -111,7 +113,7 @@ const RegularBreakScreen = (props) => {
       <div>
         <p>
           You will get a break every{" "}
-          {props.onboarding.regularBreakInterval.toString()} hour(s) for a
+          {hours.toString()} hour(s) and {" "} {mins.toString()} minute(s) for a
           duration of {props.onboarding.regularBreakLength.toString()} minutes.
         </p>
       </div>

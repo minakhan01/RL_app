@@ -18,7 +18,7 @@ export default function fruitNinjaManager(stage, setStage) {
         setStage({
           ...stage,
           stage: stage.stage + 1,
-          scores: [...stage.scores, score],
+          scores: { ...stage.scores, fruit: score },
         });
       }}
     />

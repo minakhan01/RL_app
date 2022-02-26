@@ -196,7 +196,7 @@ const BreakFeedbackScreen = (props) => {
   return (
     <div className="break-div">
       <Modal
-        width={"700px"}
+        width={"1000px"}
         visible={modalVisible}
         onOk={() => {
           setModalVisible(false);
@@ -391,7 +391,7 @@ const BreakFeedbackScreen = (props) => {
         })}
       </div>
       <div className="feedback-text-box">
-        <div className="floating-label">
+        <div style={{ fontSize: "22px" }}>
           Why was this break helpful/unhelpful?
         </div>
         <textarea

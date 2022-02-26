@@ -73,7 +73,7 @@ const SignupScreen = (props) => {
           }}
         />
         <Input
-          placeholder="Email *"
+          placeholder="Email * (Please use your gmail account. You can sync your Google Calendar in the next step!)"
           style={{ marginBottom: "3%", borderRadius: "8px" }}
           value={username}
           onChange={(e) => {

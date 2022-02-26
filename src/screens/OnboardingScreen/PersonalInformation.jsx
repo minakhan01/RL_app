@@ -94,7 +94,7 @@ const PersonalInformationScreen = (props) => {
       <div style={{ marginTop: "3%" }}>
         <p style={{ fontSize: "18px", marginBottom: "0" }}>
           Add a calendar to help us keep track of any meetings/breaks we should
-          work around
+          work around (Please use the same email you registered with!)
         </p>
         {added ? (
           <Button

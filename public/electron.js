@@ -127,7 +127,7 @@ app
 
 let autoLaunch = new AutoLaunch({
   name: "PAL",
-  path: app.getPath("exe"),
+  path: "/Applications/PAL-darwin-x64/PAL.app",
 });
 autoLaunch.isEnabled().then((isEnabled) => {
   if (!isEnabled) autoLaunch.enable();

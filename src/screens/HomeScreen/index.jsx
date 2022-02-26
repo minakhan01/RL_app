@@ -20,6 +20,19 @@ const HomeScreen = (props) => {
     // checkUpdateApp();
   }, []);
 
+  const loginUser = async (id) => {
+    let body = { _id: id };
+    let response = await axios.post(
+      "https://thepallab.com/api/user/login",
+      body
+    );
+    if (response.data.user) {
+      props.loginUserAction(response.data.user);
+      props.hardReset();
+      curWindow.webContents.reloadIgnoringCache();
+    }
+  };
+
   let checkUpdateApp = async () => {
     let body = {
       user: props.onboarding.user._id,
@@ -252,8 +265,7 @@ const HomeScreen = (props) => {
         </Button>
         <Button
           onClick={() => {
-            props.hardReset();
-            curWindow.webContents.reloadIgnoringCache();
+            loginUser(props.onboarding.user._id);
           }}
           style={{ margin: "2%" }}
         >

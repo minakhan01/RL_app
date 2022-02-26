@@ -22,12 +22,17 @@ const TakeWeeklyScreen = (props) => {
     for (let i = 0; i < lenVal; i++) {
       finalArray.push("done");
     }
-    for (let j = lenVal; j < 5; j++) {
+    for (let j = lenVal; j < 6; j++) {
       if (diffDays >= j * 7) {
         finalArray.push("unlock");
       } else {
-        finalArray.push("unlock");
+        finalArray.push("noun");
       }
+    }
+    if (diffDays >= 14 * 7){
+      finalArray.push("unlock");
+    } else {
+      finalArray.push("noun");
     }
     setUsername(finalArray);
     setInterval(() => {
@@ -41,12 +46,17 @@ const TakeWeeklyScreen = (props) => {
       for (let i = 0; i < lenVal; i++) {
         finalArray.push("done");
       }
-      for (let j = lenVal; j < 5; j++) {
+      for (let j = lenVal; j < 6; j++) {
         if (diffDays >= j * 7) {
           finalArray.push("unlock");
         } else {
           finalArray.push("noun");
         }
+      }
+      if (diffDays >= 14 * 7){
+        finalArray.push("unlock");
+      } else {
+        finalArray.push("noun");
       }
       setUsername(finalArray);
     }, 600000);
@@ -84,7 +94,7 @@ const TakeWeeklyScreen = (props) => {
           <Button
             style={{ width: "120px" }}
             onClick={() => {
-              history.push("/weekq");
+              history.push("/week");
             }}
           >
             Take Now
@@ -114,7 +124,7 @@ const TakeWeeklyScreen = (props) => {
         {username[1] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/weekq");
+              history.push("/week");
             }}
             style={{ width: "120px" }}
           >
@@ -145,7 +155,11 @@ const TakeWeeklyScreen = (props) => {
         {username[2] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/weekq");
+              if(username[1] === "unlock"){
+                message.info("Please complete survey for week 1 before doing week 2")
+              } else {
+              history.push("/week");
+            }
             }}
             style={{ width: "120px" }}
           >
@@ -176,7 +190,11 @@ const TakeWeeklyScreen = (props) => {
         {username[3] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/weekq");
+              if(username[2] === "unlock"){
+                message.info("Please complete survey for week 2 before doing week 3")
+              } else {
+              history.push("/week");
+            }
             }}
             style={{ width: "120px" }}
           >
@@ -207,7 +225,11 @@ const TakeWeeklyScreen = (props) => {
         {username[4] === "unlock" && (
           <Button
             onClick={() => {
-              history.push("/weekq");
+              if(username[3] === "unlock"){
+                message.info("Please complete survey for week 3 before doing week 4")
+              } else {
+              history.push("/week");
+            }
             }}
             style={{ width: "120px" }}
           >
@@ -215,6 +237,77 @@ const TakeWeeklyScreen = (props) => {
           </Button>
         )}
         {username[4] === "noun" && (
+          <Button style={{ width: "120px" }} disabled>
+            Locked
+          </Button>
+        )}
+      </div>
+      <p>Post Study Forms</p>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "30%",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <p style={{ margin: "0%" }}>Week 5</p>
+        {username[5] === "done" && (
+          <Button style={{ width: "120px" }} disabled>
+            Already Taken
+          </Button>
+        )}
+        {username[5] === "unlock" && (
+          <Button
+            onClick={() => {
+              if(username[4] === "unlock"){
+                message.info("Please complete survey for week 4 before doing week 5")
+              } else {
+              history.push("/week");
+            }
+            }}
+            style={{ width: "120px" }}
+          >
+            Take Now
+          </Button>
+        )}
+        {username[5] === "noun" && (
+          <Button style={{ width: "120px" }} disabled>
+            Locked
+          </Button>
+        )}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "30%",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <p style={{ margin: "0%" }}>Week 14</p>
+        {username[6] === "done" && (
+          <Button style={{ width: "120px" }} disabled>
+            Already Taken
+          </Button>
+        )}
+        {username[6] === "unlock" && (
+          <Button
+            onClick={() => {
+              if(username[5] === "unlock"){
+                message.info("Please complete survey for week 5 before doing week 14")
+              } else {
+              history.push("/week");
+            }
+            }}
+            style={{ width: "120px" }}
+          >
+            Take Now
+          </Button>
+        )}
+        {username[6] === "noun" && (
           <Button style={{ width: "120px" }} disabled>
             Locked
           </Button>

@@ -33,7 +33,9 @@ const SuddenScreen = (props) => {
           padding: "5%",
         }}
       >
-        <p>Why did you want to take this break?</p>
+        <p style={{ fontSize: "18px" }}>
+          Why did you want to take this break?
+        </p>
 
         <TextArea
           placeholder="Type your reason..."
@@ -63,7 +65,8 @@ const SuddenScreen = (props) => {
               type="number"
               value={password}
               onChange={(e) => {
-                if (e.target.value > 0) setPassword(e.target.value);
+                if ( e.target.value.length > 0 &&
+                  parseInt(e.target.value) > -1) {setPassword(parseInt(e.target.value))}else{setPassword("")};
               }}
             />
             <p style={{ marginTop: "1%", marginLeft: "1%", fontSize: "15px" }}>

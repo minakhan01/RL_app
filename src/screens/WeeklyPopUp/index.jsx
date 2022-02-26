@@ -31,7 +31,7 @@ const WeeklyPopUp = (props) => {
         style={{ marginTop: "2%" }}
         onClick={() => {
           props.setWeeklyRem(false);
-          history.push("/weekq");
+          history.push("/week");
         }}
       >
         Now

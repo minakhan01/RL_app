@@ -8,6 +8,13 @@ const initialState = {
   regularBreakInterval: 60,
   overRideSites: [
     { name: "Youtube", url: "www.youtube.com", key: "1", isWebsite: true },
+    { name: "Google Chrome", url: "chrome", key: "2", isWebsite: false },
+    { name: "Safari", url: "safari", key: "3", isWebsite: false },
+    { name: "Mail", url: "mail", key: "5", isWebsite: false },
+    { name: "Spotify", url: "spotify", key: "6", isWebsite: false },
+    { name: "Terminal", url: "terminal", key: "7", isWebsite: false },
+    { name: "Slack", url: "slack", key: "9", isWebsite: false },
+    { name: "Zoom", url: "zoom", key: "10", isWebsite: false },
   ],
   allOverRides: [
     {
@@ -30,6 +37,13 @@ const initialState = {
   tempRegularBreakInterval: 1,
   tempOverRideSites: [
     { name: "Youtube", url: "www.youtube.com", key: "1", isWebsite: true },
+    { name: "Google Chrome", url: "chrome", key: "2", isWebsite: false },
+    { name: "Safari", url: "safari", key: "3", isWebsite: false },
+    { name: "Mail", url: "mail", key: "5", isWebsite: false },
+    { name: "Spotify", url: "spotify", key: "6", isWebsite: false },
+    { name: "Terminal", url: "terminal", key: "7", isWebsite: false },
+    { name: "Slack", url: "slack", key: "9", isWebsite: false },
+    { name: "Zoom", url: "zoom", key: "10", isWebsite: false },
   ],
   tempAllOverRides: [
     { name: "", url: "", interval: 60, breakLength: 1, isWebsite: true },
@@ -103,6 +117,13 @@ const OnboardingReducer = (state = initialState, action) => {
             key: "1",
             isWebsite: true,
           },
+          { name: "Google Chrome", url: "chrome", key: "2", isWebsite: false },
+          { name: "Safari", url: "safari", key: "3", isWebsite: false },
+          { name: "Mail", url: "mail", key: "5", isWebsite: false },
+          { name: "Spotify", url: "spotify", key: "6", isWebsite: false },
+          { name: "Terminal", url: "terminal", key: "7", isWebsite: false },
+          { name: "Slack", url: "slack", key: "9", isWebsite: false },
+          { name: "Zoom", url: "zoom", key: "10", isWebsite: false },
         ],
         allOverRides: [
           {
@@ -123,7 +144,19 @@ const OnboardingReducer = (state = initialState, action) => {
         tempRegularBreakLength: 1,
         tempRegularBreakInterval: 1,
         tempOverRideSites: [
-          { name: "Youtube", url: "www.youtube.com", key: "1" },
+          {
+            name: "Youtube",
+            url: "www.youtube.com",
+            key: "1",
+            isWebsite: true,
+          },
+          { name: "Google Chrome", url: "chrome", key: "2", isWebsite: false },
+          { name: "Safari", url: "safari", key: "3", isWebsite: false },
+          { name: "Mail", url: "mail", key: "5", isWebsite: false },
+          { name: "Spotify", url: "spotify", key: "6", isWebsite: false },
+          { name: "Terminal", url: "terminal", key: "7", isWebsite: false },
+          { name: "Slack", url: "slack", key: "9", isWebsite: false },
+          { name: "Zoom", url: "zoom", key: "10", isWebsite: false },
         ],
         tempAllOverRides: [
           {

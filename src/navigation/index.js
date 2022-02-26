@@ -6,6 +6,7 @@ import { store } from "../redux";
 import { BreakActions } from "../redux/actions";
 import { Provider, useDispatch } from "react-redux";
 const { ipcRenderer, remote } = window.require("electron");
+var curWindow = remote.getCurrentWindow();
 const BreakScreen = lazy(() => import("../screens/BreakScreen"));
 const HomeScreen = lazy(() => import("../screens/HomeScreen"));
 const OnboardingScreen = lazy(() => import("../screens/OnboardingScreen"));
@@ -43,6 +44,7 @@ const WeeklyForm = lazy(() => import("../screens/WeeklyForm"));
 const WeeklyPopUp = lazy(() => import("../screens/WeeklyPopUp"));
 const CBTestScreen = lazy(() => import("../screens/CBTestScreen"));
 const WeeklyQInputScreen = lazy(() => import("../screens/WeeklyQInputScreen"));
+const AWCheckerInScreen = lazy(() => import("../screens/AWCheckerInScreen"));
 
 const Main = () => {
   let history = useHistory();
@@ -64,8 +66,29 @@ const Main = () => {
       history.push("/sud");
     });
     ipcRenderer.on("asynchronous-message-two", function (evt, message) {
-      history.push("/home");
-      dispatch(BreakActions.resetBreak());
+      if (store.getState().break.breakState === "no-break") {
+        history.push("/home");
+        dispatch(BreakActions.resetBreak());
+      } else {
+        let breakInfo = store.getState().break;
+        let pastInfo = store.getState().past;
+        let endtime = breakInfo.breakEndTime;
+        if (breakInfo.breakEndTime.length === 0) {
+          endtime = new Date().toISOString();
+        }
+        let data = {
+          endtime: endtime,
+          intervalBreakData: pastInfo.intervalBreakData,
+          initScheduled: pastInfo.initScheduled,
+          breaksTriggered: breakInfo.breaksTriggered,
+        };
+        dispatch(BreakActions.onCancelBreak(data));
+        dispatch(BreakActions.cancelBreak());
+        curWindow.setOpacity(1);
+        curWindow.setVisibleOnAllWorkspaces(false, {visibleOnFullScreen: false});
+        curWindow.setAlwaysOnTop(false);
+        history.push("/home");
+      }
     });
   }, []);
   return (
@@ -80,6 +103,7 @@ const Main = () => {
         <Route path="/stroop" component={StroopScreen} />
         <Route path="/fruit" component={FruitNinjaScreen} />
         <Route path="/aw" component={AWCheckerScreen} />
+        <Route path="/aww" component={AWCheckerScreen} />
         <Route path="/ana" component={AnalyticsScreen} />
         <Route path="/feedback" component={BreakFeedbackScreen} />
         <Route path="/cancel" component={CancelScreen} />

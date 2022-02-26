@@ -147,7 +147,7 @@ function StroopTest(props) {
         words={words}
         incorrectMessage="Incorrect!"
         completionMessage="Out of time!"
-        timeLimit={30000}
+        timeLimit={0}
       />
       <div>{count.lastResult}</div>
       <div>{count.score.score}</div>
